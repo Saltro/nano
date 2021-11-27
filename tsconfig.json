@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "es5", // 指定编译到的 es 版本 es5
+        "module": "es6", // 指定编译到的模块系统 es6
+        "strict": true, // 使用严格类型检查
+        "allowJs": true, // 允许使用 js 语法
+        "jsx": "react", // 指定 jsx 语法 react
+        "allowSyntheticDefaultImports": true, // 允许使用类似 import React from 'react' 的语法
+        "moduleResolution": "node" // 指定模块解析器 node 允许直接 import node_modules 中的模块
+    }
+}
