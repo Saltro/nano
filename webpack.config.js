@@ -11,6 +11,37 @@ module.exports = {
         use: 'ts-loader',
         exclude: /node_modules/, // 排除 node_modules 目录
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
+            },
+          },
+          {
+            loader: 'less-loader',
+          },
+        ],
+      },
     ],
   },
   resolve: {
