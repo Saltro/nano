@@ -1,5 +1,6 @@
 const path = require('path'); // 导入path模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 导入html-webpack-plugin模块
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin'); // 导入stylelint-webpack-plugin模块
 
 module.exports = {
   // 入口文件
@@ -52,6 +53,14 @@ module.exports = {
       template: path.resolve(__dirname, './template/index.html'), // 模板位置
       filename: 'index.html', // 输出后的文件名，路径是 output.path
       title: 'Nano', // 传给模板的变量
+    }),
+    new StylelintWebpackPlugin({
+      configFile: path.resolve(__dirname, './.stylelintrc.js'),
+      files: ['src/**/*.{less,css}'],
+      customSyntax: 'postcss-less', // 适配 less 语法
+      fix: true, // 自动格式化
+      lintDirtyModulesOnly: true, // 仅检查变化的代码
+      threads: true, // 多线程
     }),
   ],
   // 出口文件
