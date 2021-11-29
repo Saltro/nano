@@ -7,11 +7,14 @@
     "dev": "webpack serve --mode=development",
     "build": "webpack --mode=production",
     "lint:js": "prettier --write . && eslint **/*",
-    "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix"
+    "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix",
+    "cz": "cz"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
@@ -21,6 +24,7 @@
     "eslint-config-alloy": "^4.4.0",
     "eslint-plugin-react": "^7.27.1",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "postcss-less": "^5.0.0",
