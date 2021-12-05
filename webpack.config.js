@@ -47,6 +47,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'], // 自动解析确定的扩展
+    alias: {
+      '@': path.resolve(__dirname, 'src'), // 设置@符号的路径
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -8,6 +8,10 @@
     "jsx": "react", // 指定 jsx 语法 react
     "allowSyntheticDefaultImports": true, // 允许使用类似 import React from 'react' 的语法
     "moduleResolution": "node", // 指定模块解析器 node 允许直接 import node_modules 中的模块，并且允许解析目录
-    "typeRoots": ["node_modules/@types", "src/typings"] // 指定类型文件的搜索目录
+    "typeRoots": ["node_modules/@types", "src/typings"], // 指定类型文件的搜索目录
+    "baseUrl": ".", // 指定编译的基础路径
+    "paths": {
+      "@/*": ["src/*"]
+    } // 指定编译时的模块路径
   }
 }
