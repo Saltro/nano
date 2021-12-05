@@ -1,8 +1,16 @@
 import React from 'react';
 import Header from './components/Header';
 import style from './App.less';
+import Request from './request';
 
 const App: React.FC = () => {
+  Request.login({
+    username: 'test123',
+    password: '123456789',
+  });
+
+  Request.getUserInfo();
+
   return (
     <div>
       <Header />
