@@ -1,20 +1,20 @@
 import { request } from './instance';
 import md5 from 'blueimp-md5';
 
-const login = (form: { username: string; password: string }) => {
-  request
-    .post<{ username: string; access: string; id: number; refresh: string }>('/user/login/', {
-      username: form.username,
-      password: md5(form.password),
-    })
-    .then((res) => {
-      localStorage.setItem('access', res.data.access);
-      localStorage.setItem('refresh', res.data.refresh);
-    });
+const login = async (form: ILoginRequest) => {
+  const res = await request.post<{ username: string; access: string; id: number; refresh: string }>('/user/login/', {
+    username: form.username,
+    password: md5(form.password),
+  });
+  localStorage.setItem('access', res.data.access);
+  localStorage.setItem('refresh', res.data.refresh);
 };
 
-const getUserInfo = () => {
-  request.get<{ username: string; id: number; avatar: string; mobile: string }>('/user/').then((res) => {});
+const getUserInfo = async () => {
+  const res = await request.get<UserInfo>('/user/').then((res) => {
+    return res.data;
+  });
+  return res;
 };
 
 const refresh = () => {
@@ -26,6 +26,7 @@ const refresh = () => {
       localStorage.setItem('access', res.data.access);
     })
     .catch((err) => {
+      console.log(err);
       // 如果刷新失败，则重新登录
     });
 };

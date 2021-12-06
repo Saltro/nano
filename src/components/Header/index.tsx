@@ -1,10 +1,13 @@
 import React from 'react';
-import style from './index.less';
+import { useNavigate } from 'react-router';
+// import style from './index.less';
 
 function Header() {
+  const navigate = useNavigate();
   return (
     <div>
-      <h2 className={style.subtitle}>This is my header</h2>
+      <button onClick={() => navigate('/login')}>登录</button>
+      <button onClick={() => navigate('/pro')}>显示更多</button>
     </div>
   );
 }

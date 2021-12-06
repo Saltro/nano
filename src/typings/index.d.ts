@@ -12,3 +12,15 @@ declare module 'blueimp-md5' {
   const md5: (str: string, key?: string, raw?: string) => string;
   export default md5;
 }
+
+declare interface UserInfo {
+  username: string;
+  id: number;
+  avatar: string;
+  mobile: string;
+}
+
+declare interface ILoginRequest {
+  username: string;
+  password: string;
+}
