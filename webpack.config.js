@@ -35,6 +35,7 @@ module.exports = {
             options: {
               modules: {
                 localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                exportLocalsConvention: 'camelCase', // 将 kebab-case 转换为 camelCase
               },
             },
           },
