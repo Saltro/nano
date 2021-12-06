@@ -13,8 +13,10 @@ module.exports = {
     // 你的全局变量（设置为 false 表示它不允许被重新赋值）
     //
     // myGlobal: false
+    JSX: true,
   },
   rules: {
     // 自定义你的规则
+    'no-undef': 'off', // 关闭 no-undef 规则，在 tsconfig 中开启，以适配 .d.ts
   },
 };

@@ -12,6 +12,8 @@
     "baseUrl": ".", // 指定编译的基础路径
     "paths": {
       "@/*": ["src/*"]
-    } // 指定编译时的模块路径
+    }, // 指定编译时的模块路径
+    "noUnusedLocals": true, // 禁止未使用的变量被赋值
+    "noUnusedParameters": true, // 禁止未使用的参数被赋值
   }
 }
