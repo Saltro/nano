@@ -6,8 +6,7 @@ const RecommendSidebar: React.FC<{}> = () => {
     <div id={style.container}>
       <h1>Recommend Sidebar</h1>
     </div>
-  )
-}
+  );
+};
 
 export default RecommendSidebar;
-
