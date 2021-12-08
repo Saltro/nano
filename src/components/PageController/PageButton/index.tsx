@@ -1,15 +1,11 @@
-import React from "react";
+import React from 'react';
 
 interface IPageButton {
-  content: string
+  content: string;
 }
 
 const PageButton: React.FC<IPageButton> = ({ content }) => {
-  return (
-    <span>
-      {content}
-    </span>
-  )
+  return <span>{content}</span>;
 };
 
 export default PageButton;

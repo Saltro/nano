@@ -1,6 +1,6 @@
-import React from "react";
-import style from "./index.less";
-import {Link} from "react-router-dom";
+import React from 'react';
+import style from './index.less';
+import { Link } from 'react-router-dom';
 
 export interface IWorkItem {
   workId: number;
