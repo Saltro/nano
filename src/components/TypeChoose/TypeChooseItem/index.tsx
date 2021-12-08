@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IProps {
   id: number;
@@ -6,11 +6,7 @@ interface IProps {
 }
 
 const TypeChooseItem: React.FC<IProps> = (props) => {
-  return (
-    <span>
-      {props.name}
-    </span>
-  );
+  return <span>{props.name}</span>;
 };
 
 export default TypeChooseItem;

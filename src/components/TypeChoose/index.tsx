@@ -1,6 +1,6 @@
-import React from "react";
-import style from "./index.less";
-import TypeChooseItem from "@/components/TypeChoose/TypeChooseItem";
+import React from 'react';
+import style from './index.less';
+import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
 
 interface IProps {
   itemList: {
@@ -17,12 +17,14 @@ const TypeChoose: React.FC<IProps> = (props) => {
   return (
     <div id={style.container}>
       {itemList.map((item) => {
-        return (<div className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem} key={item.id}>
-                  <TypeChooseItem {...item} />
-                </div>);
+        return (
+          <div className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem} key={item.id}>
+            <TypeChooseItem {...item} />
+          </div>
+        );
       })}
     </div>
-  )
+  );
 };
 
 export default TypeChoose;
