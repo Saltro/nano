@@ -7,7 +7,7 @@ interface IProps {
 
 const TypeChooseItem: React.FC<IProps> = (props) => {
   return (
-    <span className="type-choose-item">
+    <span>
       {props.name}
     </span>
   );
