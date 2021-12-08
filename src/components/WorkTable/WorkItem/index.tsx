@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./index.less";
 import {Link} from "react-router-dom";
 
 export interface IWorkItem {
@@ -10,12 +11,12 @@ export interface IWorkItem {
 const WorkItem: React.FC<IWorkItem> = (props) => {
   const { workId, cover, title_cn } = props;
   return (
-    <div className="work-item">
+    <div id={style.container}>
       <Link to={`/work/${workId}`}>
-        <div className="work-item-cover">
+        <div className={style.workCover}>
           <img src={cover} alt={title_cn} />
         </div>
-        <div className="work-item-title">{title_cn}</div>
+        <div className={style.workName}>{title_cn}</div>
       </Link>
     </div>
   );
