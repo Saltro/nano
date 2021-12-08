@@ -6,9 +6,9 @@ interface IPageButton {
 
 const PageButton: React.FC<IPageButton> = ({ content }) => {
   return (
-    <button className="page-button">
+    <span>
       {content}
-    </button>
+    </span>
   )
 };
 

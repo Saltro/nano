@@ -1,4 +1,5 @@
 import React from "react";
+import style from "./index.less";
 import PageButton from "@/components/PageController/PageButton";
 
 export interface IPageController {
@@ -13,8 +14,8 @@ const PageController: React.FC<IPageController> = (props) => {
     pages.push(i);
   }
   return (
-    <div className="page-controller">
-      <div className="page-controller-content">
+    <div id={style.container}>
+      <span className={style.pageControllerContent}>
         {pages.map((page) => (
           <span className={`page-controller__button ${
             page === currentPage ? "page-controller__button--active" : ""
@@ -22,11 +23,11 @@ const PageController: React.FC<IPageController> = (props) => {
           <PageButton content={page.toString()}/>
         </span>
         ))}
-      </div>
+      </span>
 
-      <div className="page-controller-num">
+      <span className={style.pageControllerNum}>
         共{totalPages}页
-      </div>
+      </span>
 
     </div>
   );
