@@ -1,5 +1,4 @@
 import React from "react";
-import style from "./index.less"
 import TypeChoose from "@/components/TypeChoose";
 import HomeLayout from "@/layouts/HomeLayout";
 import WorkTable from "@/components/WorkTable";
@@ -41,7 +40,7 @@ const Work: React.FC<{}> = () => {
 
   return (
     <HomeLayout>
-      <div id={style.container}>
+      <div>
         <TypeChoose itemList={TypeChooseItemList}/>
         <WorkTable workItemList={workTableList}/>
         <PageController currentPage={1} totalPages={2}/>
