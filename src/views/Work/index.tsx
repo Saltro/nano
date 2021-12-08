@@ -1,7 +1,9 @@
 import React from "react";
 import TypeChoose from "@/components/TypeChoose";
+import HomeLayout from "@/layouts/HomeLayout";
+import style from "@/views/Home/index.less";
 
-const Work: React.FC = () => {
+const Work: React.FC<{}> = () => {
 
   const itemList = [  // 分类筛选数据
     {id: 1, name: "全部作品",},
@@ -12,9 +14,11 @@ const Work: React.FC = () => {
   ]
 
   return (
-    <div>
-      <TypeChoose itemList={itemList} />
-    </div>
+    <HomeLayout>
+      <div id={style.container}>
+        <TypeChoose itemList={itemList}/>
+      </div>
+    </HomeLayout>
   );
 };
 

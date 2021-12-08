@@ -1,10 +1,15 @@
 import React from "react";
 
-const TypeChooseItem: React.FC<{name: string}> = (name) => {
+interface IProps {
+  id: number;
+  name: string;
+}
+
+const TypeChooseItem: React.FC<IProps> = (props) => {
   return (
-    <div className="type-choose-item">
-      {name}
-    </div>
+    <span className="type-choose-item">
+      {props.name}
+    </span>
   );
 };
 
