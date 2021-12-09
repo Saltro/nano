@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './index.less';
 import PageButton from '@/components/PageController/PageButton';
 
@@ -8,26 +8,43 @@ export interface IPageController {
 }
 
 const PageController: React.FC<IPageController> = (props) => {
-  const { currentPage, totalPages } = props;
+  const LEFTNUM = 3;
+  const RIGHTNUM = 3;
+
+  const totalPages = props.totalPages;
+  const [currentPage, setCurrentPage] = useState<number>(props.currentPage);
   const pages = [];
 
-  for (let i = Math.max(1, currentPage - 3); i <= Math.min(totalPages, currentPage + 3); i++) {
+  let displayFrontEllipsis = 1 >= currentPage - LEFTNUM ? 'none' : 'inline-flex'; // 显示前省略号
+  let displayEndEllipsis = totalPages <= currentPage + RIGHTNUM ? 'none' : 'inline-flex'; // 显示后省略号
+  let displayFrontArrow = currentPage === 1 ? 'none' : 'inline-flex'; // 显示前一页箭头
+  let displayEndArrow = currentPage === totalPages ? 'none' : 'inline-flex'; // 显示后一页箭头
+
+  for (let i = Math.max(1, currentPage - LEFTNUM); i <= Math.min(totalPages, currentPage + RIGHTNUM); i++) {
     // 计算展示页码
     pages.push(i);
   }
 
-  let displayFrontEllipsis = 1 >= currentPage - 3 ? 'none' : 'inline-flex'; // 显示前省略号
-  let displayEndEllipsis = totalPages <= currentPage + 3 ? 'none' : 'inline-flex'; // 显示后省略号
-  let displayFrontArrow = currentPage === 1 ? 'none' : 'inline-flex'; // 显示前一页箭头
-  let displayEndArrow = currentPage === totalPages ? 'none' : 'inline-flex'; // 显示后一页箭头
+  const handleCurrentPage = (page: number) => {
+    setCurrentPage(page);
+    document.documentElement.scrollTop = 0;
+  };
 
   return (
     <div id={style.container}>
       <div className={style.pageControllerContent}>
-        <div style={{ display: displayFrontArrow }} className={style.pageControllerContentButton}>
+        <div
+          style={{ display: displayFrontArrow }}
+          className={style.pageControllerContentButton}
+          onClick={() => handleCurrentPage(currentPage - 1)}
+        >
           <PageButton content="←" />
         </div>
 
+        <div style={{ display: displayFrontEllipsis }} className={style.pageControllerContentButton}
+             onClick={() => handleCurrentPage(1)}>
+          <PageButton content="1" />
+        </div>
         <div style={{ display: displayFrontEllipsis, cursor: 'auto' }} className={style.pageControllerContentButton}>
           <PageButton content="···" />
         </div>
@@ -38,6 +55,7 @@ const PageController: React.FC<IPageController> = (props) => {
               page === currentPage ? style.pageControllerContentButtonSelected : style.pageControllerContentButton
             }
             key={page}
+            onClick={() => handleCurrentPage(page)}
           >
             <PageButton content={page.toString()} />
           </div>
@@ -47,7 +65,11 @@ const PageController: React.FC<IPageController> = (props) => {
           <PageButton content="···" />
         </div>
 
-        <div style={{ display: displayEndArrow }} className={style.pageControllerContentButton}>
+        <div
+          style={{ display: displayEndArrow }}
+          className={style.pageControllerContentButton}
+          onClick={() => handleCurrentPage(currentPage + 1)}
+        >
           <PageButton content="→" />
         </div>
       </div>
