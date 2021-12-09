@@ -4,6 +4,7 @@ import TypeChoose from '@/components/TypeChoose';
 import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
+import WorkContainer from '@/context/WorkContainer';
 
 const workTableList = [
   {
@@ -121,9 +122,11 @@ const Work: React.FC<{}> = () => {
   return (
     <HomeLayout>
       <div id={style.container}>
-        <TypeChoose itemList={TypeChooseItemList} />
-        <WorkTable workItemList={workTableList} />
-        <PageController currentPage={1} totalPages={18} />
+        <WorkContainer>
+          <TypeChoose itemList={TypeChooseItemList} />
+          <WorkTable workItemList={workTableList} />
+          <PageController />
+        </WorkContainer>
       </div>
     </HomeLayout>
   );

@@ -8,6 +8,7 @@ interface IWorkTable {
 
 const WorkTable: React.FC<IWorkTable> = (props) => {
   const { workItemList } = props;
+
   return (
     <div id={style.container}>
       {workItemList.map((item) => {
@@ -18,3 +19,4 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
 };
 
 export default WorkTable;
+export { IWorkTable };

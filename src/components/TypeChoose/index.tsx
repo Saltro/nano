@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import style from './index.less';
 import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
+import { useWorkContext } from '@/context/WorkContainer';
 
 interface IProps {
   itemList: {
@@ -10,9 +11,15 @@ interface IProps {
 }
 
 const TypeChoose: React.FC<IProps> = (props) => {
+  const workContext = useWorkContext();
   const { itemList } = props;
 
-  const [chooseId, setChooseId] = useState(1);
+  const [chooseId, setChooseId] = useState(workContext?.typeId);
+
+  const handleChooseIdChange = (id: number) => {
+    setChooseId(id);
+    workContext?.setTypeId(id);
+  };
 
   return (
     <div id={style.container}>
@@ -21,7 +28,7 @@ const TypeChoose: React.FC<IProps> = (props) => {
           <div
             className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem}
             key={item.id}
-            onClick={() => setChooseId(item.id)}
+            onClick={() => handleChooseIdChange(item.id)}
           >
             <TypeChooseItem {...item} />
           </div>
