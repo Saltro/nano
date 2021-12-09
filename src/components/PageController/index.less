@@ -1,17 +1,37 @@
 #container {
   display: inline-flex;
+  margin: 10px;
+  color: #9da0b3;
+  justify-content: space-between;
 }
 
 .page-controller-content {
   display: inline-flex;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
 }
 
 .page-controller-content-button {
   display: inline-flex;
-  padding: 10px;
+  width: 46px;
+  height: 46px;
+  margin-right: 8px;
+  cursor: pointer;
+  background: #fff2f2;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-controller-content-button-selected:extend(.page-controller-content-button) {
+  color: #fff;
+  cursor: auto;
+  background: #f09199;
 }
 
 .page-controller-num {
   display: inline-flex;
-  justify-content: flex-end;
+  font-size: 14px;
+  align-self: center;
 }

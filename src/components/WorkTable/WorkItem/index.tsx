@@ -1,18 +1,13 @@
 import React from 'react';
 import style from './index.less';
 import { Link } from 'react-router-dom';
+import { IWorkInfo } from '@/context/WorkContainer';
 
-export interface IWorkItem {
-  workId: number;
-  cover: string;
-  title_cn: string;
-}
-
-const WorkItem: React.FC<IWorkItem> = (props) => {
-  const { workId, cover, title_cn } = props;
+const WorkItem: React.FC<IWorkInfo> = (props) => {
+  const { id, cover, title_cn } = props;
   return (
     <div id={style.container}>
-      <Link to={`/work/${workId}`}>
+      <Link to={`/work/${id}`}>
         <div className={style.workCover}>
           <img src={cover} alt={title_cn} />
         </div>
