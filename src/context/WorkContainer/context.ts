@@ -10,6 +10,13 @@ interface IWorkContext {
   workList: IWorkInfo[];
 }
 
-const WorkContext = createContext<IWorkContext | null>(null);
+const WorkContext = createContext<IWorkContext>({
+  currentPage: 1,
+  totalPages: 1,
+  setCurrentPage: () => {},
+  typeId: 0,
+  setTypeId: () => {},
+  workList: [],
+});
 
 export default WorkContext;

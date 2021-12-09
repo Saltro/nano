@@ -45,7 +45,7 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
       setTypeId: handleTypeIdChange,
       workList,
     };
-  }, [currentPage]);
+  }, [currentPage, totalPages, typeId]);
 
   return <WorkContext.Provider value={value}>{children}</WorkContext.Provider>;
 };

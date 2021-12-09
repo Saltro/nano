@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import style from './index.less';
 import PageButton from '@/components/PageController/PageButton';
+import { useWorkContext } from '@/context/WorkContainer';
 
-export interface IPageController {
-  currentPage: number;
-  totalPages: number;
-}
-
-const PageController: React.FC<IPageController> = (props) => {
+const PageController: React.FC<{}> = () => {
+  const workContext = useWorkContext();
   const LEFTNUM = 3;
   const RIGHTNUM = 3;
 
-  const totalPages = props.totalPages;
-  const [currentPage, setCurrentPage] = useState<number>(props.currentPage);
+  const [currentPage, setCurrentPage] = React.useState(workContext.currentPage);
+
+  const displayFrontEllipsis = 1 >= currentPage - LEFTNUM ? 'none' : 'inline-flex'; // 显示前省略号
+  const displayEndEllipsis = workContext.totalPages <= currentPage + RIGHTNUM ? 'none' : 'inline-flex'; // 显示后省略号
+  const displayFrontArrow = currentPage === 1 ? 'none' : 'inline-flex'; // 显示前一页箭头
+  const displayEndArrow = currentPage === workContext.totalPages ? 'none' : 'inline-flex'; // 显示后一页箭头
   const pages = [];
 
-  let displayFrontEllipsis = 1 >= currentPage - LEFTNUM ? 'none' : 'inline-flex'; // 显示前省略号
-  let displayEndEllipsis = totalPages <= currentPage + RIGHTNUM ? 'none' : 'inline-flex'; // 显示后省略号
-  let displayFrontArrow = currentPage === 1 ? 'none' : 'inline-flex'; // 显示前一页箭头
-  let displayEndArrow = currentPage === totalPages ? 'none' : 'inline-flex'; // 显示后一页箭头
-
-  for (let i = Math.max(1, currentPage - LEFTNUM); i <= Math.min(totalPages, currentPage + RIGHTNUM); i++) {
+  for (let i = Math.max(1, currentPage - LEFTNUM); i <= Math.min(workContext.totalPages, currentPage + RIGHTNUM); i++) {
     // 计算展示页码
     pages.push(i);
   }
 
+  useEffect(() => {
+    setCurrentPage(workContext.currentPage);
+  }, [workContext.totalPages, workContext.currentPage]);
+
   const handleCurrentPage = (page: number) => {
     setCurrentPage(page);
+    workContext?.setCurrentPage(page);
     document.documentElement.scrollTop = 0;
   };
 
@@ -76,7 +77,7 @@ const PageController: React.FC<IPageController> = (props) => {
           <PageButton content="→" />
         </div>
       </div>
-      <div className={style.pageControllerNum}>共 {totalPages} 页</div>
+      <div className={style.pageControllerNum}>共 {workContext.totalPages} 页</div>
     </div>
   );
 };
