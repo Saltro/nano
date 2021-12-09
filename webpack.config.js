@@ -14,6 +14,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        include: path.resolve(__dirname, 'src/assets'),
+      },
+      {
+        test: /\.css$/,
         use: [
           'style-loader',
           {
@@ -25,6 +30,7 @@ module.exports = {
             },
           },
         ],
+        exclude: path.resolve(__dirname, 'src/assets'),
       },
       {
         test: /\.less$/,
@@ -43,6 +49,7 @@ module.exports = {
             loader: 'less-loader',
           },
         ],
+        exclude: path.resolve(__dirname, 'src/assets'),
       },
     ],
   },
