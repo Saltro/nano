@@ -41,8 +41,11 @@ const PageController: React.FC<IPageController> = (props) => {
           <PageButton content="←" />
         </div>
 
-        <div style={{ display: displayFrontEllipsis }} className={style.pageControllerContentButton}
-             onClick={() => handleCurrentPage(1)}>
+        <div
+          style={{ display: displayFrontEllipsis }}
+          className={style.pageControllerContentButton}
+          onClick={() => handleCurrentPage(1)}
+        >
           <PageButton content="1" />
         </div>
         <div style={{ display: displayFrontEllipsis, cursor: 'auto' }} className={style.pageControllerContentButton}>

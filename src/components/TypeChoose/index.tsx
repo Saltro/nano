@@ -18,8 +18,11 @@ const TypeChoose: React.FC<IProps> = (props) => {
     <div id={style.container}>
       {itemList.map((item) => {
         return (
-          <div className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem} key={item.id}
-               onClick={() => setChooseId(item.id)}>
+          <div
+            className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem}
+            key={item.id}
+            onClick={() => setChooseId(item.id)}
+          >
             <TypeChooseItem {...item} />
           </div>
         );
