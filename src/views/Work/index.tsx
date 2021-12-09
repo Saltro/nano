@@ -106,11 +106,6 @@ const workTableList = [
     title_cn: '言叶之庭',
     cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
   },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
 ];
 
 const Work: React.FC<{}> = () => {

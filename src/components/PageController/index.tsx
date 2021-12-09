@@ -15,18 +15,20 @@ const PageController: React.FC<IPageController> = (props) => {
   }
   return (
     <div id={style.container}>
-      <span className={style.pageControllerContent}>
+      <div className={style.pageControllerContent}>
         {pages.map((page) => (
-          <span
-            className={`page-controller__button ${page === currentPage ? 'page-controller__button--active' : ''}`}
+          <div
+            className={
+              page === currentPage ? style.pageControllerContentButtonSelected : style.pageControllerContentButton
+            }
             key={page}
           >
             <PageButton content={page.toString()} />
-          </span>
+          </div>
         ))}
-      </span>
+      </div>
 
-      <span className={style.pageControllerNum}>共{totalPages}页</span>
+      <div className={style.pageControllerNum}>共{totalPages}页</div>
     </div>
   );
 };
