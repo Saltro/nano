@@ -8,21 +8,25 @@
 .page-controller-content {
   display: inline-flex;
   font-weight: bold;
+  justify-content: center;
+  align-items: center;
 }
 
 .page-controller-content-button {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 46px;
   height: 46px;
-  margin: 8px;
+  margin-right: 8px;
+  cursor: pointer;
   background: #fff2f2;
   border-radius: 50%;
+  align-items: center;
+  justify-content: center;
 }
 
 .page-controller-content-button-selected:extend(.page-controller-content-button) {
   color: #fff;
+  cursor: auto;
   background: #f09199;
 }
 
@@ -30,5 +34,4 @@
   display: inline-flex;
   font-size: 14px;
   align-self: center;
-  letter-spacing: 6px;
 }

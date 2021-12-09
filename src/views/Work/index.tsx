@@ -123,7 +123,7 @@ const Work: React.FC<{}> = () => {
       <div id={style.container}>
         <TypeChoose itemList={TypeChooseItemList} />
         <WorkTable workItemList={workTableList} />
-        <PageController currentPage={1} totalPages={2} />
+        <PageController currentPage={1} totalPages={18} />
       </div>
     </HomeLayout>
   );
