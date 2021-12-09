@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './index.less';
+import formStyle from '../assets/form.less';
 import { useAuth } from '@/context/AuthContainer';
 
 const LoginForm: React.FC = () => {
@@ -9,25 +10,25 @@ const LoginForm: React.FC = () => {
 
   return (
     <>
-      <div id={style.inputContainer}>
-        <div className={style.barContainer}>
+      <div className={formStyle.inputContainer}>
+        <div className={formStyle.barContainer}>
           <i className="iconfont icon-user" />
           <input type="text" placeholder="用户名" onChange={(e) => setUsername(e.target.value)} />
         </div>
-        <div className={style.barContainer}>
+        <div className={formStyle.barContainer}>
           <i className="iconfont icon-lock" />
           <input type="password" placeholder="密码" onChange={(e) => setPassword(e.target.value)} />
         </div>
       </div>
-      <div id={style.functionBar}>
+      <div className={formStyle.functionBar}>
         <div id={style.passwdMemo}>
-          <input type="checkbox" id="passwd-memo-checkbox" />
+          <input className={formStyle.checkbox} type="checkbox" id="passwd-memo-checkbox" />
           <label htmlFor="passwd-memo-checkbox">记住密码</label>
         </div>
         <span>忘记密码？</span>
       </div>
       <button
-        className={style.submitBtn}
+        className={formStyle.button}
         onClick={() => {
           auth?.login({ username, password });
         }}

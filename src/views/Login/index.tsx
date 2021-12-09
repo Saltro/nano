@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import style from './index.less';
 
 const Login: React.FC = () => {
@@ -33,7 +34,7 @@ const Login: React.FC = () => {
             注册
           </p>
         </div>
-        {selectedFunction === 'login' ? <LoginForm /> : <div />}
+        {selectedFunction === 'login' ? <LoginForm /> : <RegisterForm />}
       </div>
       <div id={style.circle1} />
       <div id={style.circle2} />
