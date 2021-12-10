@@ -13,6 +13,10 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
     });
   };
 
+  const register = async (form: IRegisterRequest) => {
+    await Request.register(form);
+  };
+
   const logout = () => {
     // 后端暂无手动清除 token 接口，因此登出时直接清空 token
     localStorage.removeItem('access');
@@ -38,6 +42,7 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
       userInfo,
       login,
       logout,
+      register,
     };
   }, [userInfo]);
 
