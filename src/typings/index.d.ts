@@ -13,6 +13,11 @@ declare module 'blueimp-md5' {
   export default md5;
 }
 
+declare module '*.svg' {
+  const content: { content: string; id: string; viewBox: string; node: SVGSymbolElement };
+  export default content;
+}
+
 declare interface UserInfo {
   username: string;
   id: number;

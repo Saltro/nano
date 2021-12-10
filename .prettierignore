@@ -3,4 +3,5 @@
 *.json
 *.html
 *.ttf
+*.svg
 node_modules
