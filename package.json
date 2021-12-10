@@ -45,6 +45,7 @@
     "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
+    "antd": "^4.17.3",
     "axios": "^0.24.0",
     "blueimp-md5": "^2.19.0",
     "react": "^17.0.2",

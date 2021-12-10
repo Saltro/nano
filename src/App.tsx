@@ -6,6 +6,7 @@ import Home from './views/Home';
 import Work from '@/views/Work';
 import './App.less';
 import './assets/iconfont/iconfont.css';
+import 'antd/dist/antd.css';
 
 const App: React.FC = () => {
   return (
