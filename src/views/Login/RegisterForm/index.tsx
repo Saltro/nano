@@ -14,24 +14,36 @@ const RegisterForm: React.FC = () => {
   const [isAllowed, setIsAllowed] = React.useState(false);
   const [isValidated, setIsValidated] = React.useState(false);
 
+  const isUsename = () => {
+    return username.length >= 6;
+  };
+
+  const isPassword = () => {
+    return password.length >= 6;
+  };
+
+  const isConfirmPassword = () => {
+    return confirmPassword === password;
+  };
+
+  const isMobile = () => {
+    return mobile.length === 11;
+  };
+
+  const isSms = () => {
+    return sms.length === 6;
+  };
+
   useEffect(() => {
-    if (
-      username.length >= 6 &&
-      password.length >= 6 &&
-      confirmPassword.length >= 6 &&
-      password === confirmPassword &&
-      mobile.length === 11 &&
-      sms.length === 6 &&
-      isAllowed
-    ) {
+    if (isUsename() && isPassword() && isConfirmPassword() && isMobile() && isSms() && isAllowed) {
       setIsValidated(true);
     } else {
       setIsValidated(false);
     }
-  }, [username, password, confirmPassword, mobile, sms]);
+  }, [username, password, confirmPassword, mobile, sms, isAllowed]);
 
-  const onButtonClick = () => {
-    console.log(username, password, confirmPassword, mobile, sms);
+  const onSubmitClick = () => {
+    console.log(username, password, confirmPassword, mobile, sms, isAllowed);
     auth?.register({
       username,
       password,
@@ -81,7 +93,9 @@ const RegisterForm: React.FC = () => {
               onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
             />
           </div>
-          <button>获取验证码</button>
+          <button disabled={!isMobile()} onClick={() => auth?.getSmsCode(mobile).then((res) => console.log(res))}>
+            获取验证码
+          </button>
         </div>
       </div>
       <div className={formStyle.functionBar}>
@@ -96,7 +110,7 @@ const RegisterForm: React.FC = () => {
           <label htmlFor="accept-checkbox">我已阅读并同意《Nano服务协议》</label>
         </div>
       </div>
-      <button className={formStyle.button} onClick={() => onButtonClick()} disabled={!isValidated}>
+      <button className={formStyle.button} onClick={onSubmitClick} disabled={!isValidated}>
         注册
       </button>
     </>

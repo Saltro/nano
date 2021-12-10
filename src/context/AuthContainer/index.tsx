@@ -24,6 +24,10 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
     setUserInfo(null);
   };
 
+  const getSmsCode = async (mobile: string) => {
+    return await Request.getSmsCode(mobile);
+  };
+
   useEffect(() => {
     // 首次进入后获取用户信息
     Request.getUserInfo()
@@ -43,6 +47,7 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
       login,
       logout,
       register,
+      getSmsCode,
     };
   }, [userInfo]);
 

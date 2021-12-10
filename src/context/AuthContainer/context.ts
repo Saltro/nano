@@ -5,6 +5,7 @@ interface IAuthContext {
   login: (form: ILoginRequest) => void;
   logout: () => void;
   register: (form: IRegisterRequest) => void;
+  getSmsCode: (mobile: string) => Promise<string>;
 }
 
 const AuthContext = createContext<IAuthContext | null>(null);

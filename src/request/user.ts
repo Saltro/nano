@@ -26,6 +26,12 @@ const register = async (form: IRegisterRequest) => {
   localStorage.setItem('refresh', res.data.refresh);
 };
 
+const getSmsCode = async (mobile: string) => {
+  console.log(mobile);
+  const res = await request.get<{ message: string }>(`/smscodes/${mobile}`);
+  return res.data.message;
+};
+
 const getUserInfo = async () => {
   const res = await request.get<UserInfo>('/user/').then((res) => {
     return res.data;
@@ -47,4 +53,4 @@ const refresh = () => {
     });
 };
 
-export default { login, getUserInfo, refresh, register };
+export default { login, getUserInfo, refresh, register, getSmsCode };
