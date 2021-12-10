@@ -4,114 +4,7 @@ import TypeChoose from '@/components/TypeChoose';
 import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
-
-const workTableList = [
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-  {
-    workId: 24,
-    title_cn: '侧耳倾听',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/44/CgAABGGwe3KAUPRqAACmUZUO3nA965.jpg',
-  },
-  {
-    workId: 25,
-    title_cn: '言叶之庭',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/45/CgAABGGwe7SAcqiMAAYOX2GR34M540.jpg',
-  },
-  {
-    workId: 26,
-    title_cn: '穿越时空的少女',
-    cover: 'https://media.nano.nagico.cn/group1/M00/00/46/CgAABGGwe_uAQlOkAAGuHnzhGNg957.jpg',
-  },
-];
+import WorkContainer from '@/context/WorkContainer';
 
 const Work: React.FC<{}> = () => {
   const TypeChooseItemList = [
@@ -126,9 +19,11 @@ const Work: React.FC<{}> = () => {
   return (
     <HomeLayout>
       <div id={style.container}>
-        <TypeChoose itemList={TypeChooseItemList} />
-        <WorkTable workItemList={workTableList} />
-        <PageController currentPage={1} totalPages={2} />
+        <WorkContainer>
+          <TypeChoose itemList={TypeChooseItemList} />
+          <WorkTable />
+          <PageController />
+        </WorkContainer>
       </div>
     </HomeLayout>
   );
