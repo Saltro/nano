@@ -54,6 +54,17 @@ module.exports = {
         ],
         exclude: path.resolve(__dirname, 'src/assets'),
       },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]', // 将图标名称作为导出的 id
+            },
+          },
+        ],
+      },
     ],
   },
   resolve: {
