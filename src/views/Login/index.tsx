@@ -46,6 +46,7 @@ const Login: React.FC = () => {
         width="1920"
         height="167"
         viewBox="0 0 1920 167"
+        preserveAspectRatio="none"
         fill="none"
       >
         <path
