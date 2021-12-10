@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.less';
-import NavigationSidebar from './components/NavigationSidebar';
-import RecommendSidebar from './components/RecommendSidebar';
+import NavigationSidebar from './NavigationSidebar';
+import RecommendSidebar from './RecommendSidebar';
 
 const HomeLayout: React.FC = ({ children }) => {
   return (
