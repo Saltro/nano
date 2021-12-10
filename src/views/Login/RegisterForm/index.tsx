@@ -22,9 +22,12 @@ const RegisterForm: React.FC = () => {
           <i className="iconfont icon-mobile" />
           <input type="text" placeholder="手机号" />
         </div>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-warning-circle" />
-          <input type="text" placeholder="短信验证码" />
+        <div id={style.smsBar}>
+          <div className={formStyle.barContainer}>
+            <i className="iconfont icon-warning-circle" />
+            <input type="text" placeholder="短信验证码" />
+          </div>
+          <button>获取验证码</button>
         </div>
       </div>
       <div className={formStyle.functionBar}>
