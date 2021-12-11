@@ -1,0 +1,81 @@
+.container {
+  width: 100%;
+}
+
+/* 滚动条宽度 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: transparent; //滚动槽
+  border-radius: 4%;
+}
+
+/* 滚动条颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: #fff2f2;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 18px;
+  text-align: left;
+
+  th,
+  td {
+    height: 50px;
+    padding: 10px;
+  }
+}
+
+tr {
+  :first-child {
+    width: 10%;
+  }
+
+  :nth-child(2) {
+    width: 25%;
+  }
+
+  :last-child {
+    width: 20%;
+  }
+
+  box-sizing: border-box;
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+
+table thead {
+  tr {
+    width: calc(100% + 10px);
+    background-color: #fff2f2;
+    border-radius: 15px 15px 0 0;
+
+    th {
+      border-right: #f0e3e3 solid 1px;
+    }
+
+    :last-child {
+      border: none;
+    }
+  }
+}
+
+table tbody {
+  display: block;
+  width: calc(100% + 10px); /* 这里的8px是滚动条的宽度 */
+  height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  tr td {
+    border-top: 1px #fff2f2 solid;
+  }
+}
