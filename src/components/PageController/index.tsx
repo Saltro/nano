@@ -39,7 +39,7 @@ const PageController: React.FC<{}> = () => {
           className={style.pageControllerContentButton}
           onClick={() => handleCurrentPage(currentPage - 1)}
         >
-          <PageButton content="←" />
+          <PageButton>←</PageButton>
         </div>
 
         <div
@@ -47,10 +47,10 @@ const PageController: React.FC<{}> = () => {
           className={style.pageControllerContentButton}
           onClick={() => handleCurrentPage(1)}
         >
-          <PageButton content="1" />
+          <PageButton>1</PageButton>
         </div>
         <div style={{ display: displayFrontEllipsis, cursor: 'auto' }} className={style.pageControllerContentButton}>
-          <PageButton content="···" />
+          <PageButton>···</PageButton>
         </div>
 
         {pages.map((page) => (
@@ -61,12 +61,12 @@ const PageController: React.FC<{}> = () => {
             key={page}
             onClick={() => handleCurrentPage(page)}
           >
-            <PageButton content={page.toString()} />
+            <PageButton>{page.toString()}</PageButton>
           </div>
         ))}
 
         <div style={{ display: displayEndEllipsis, cursor: 'auto' }} className={style.pageControllerContentButton}>
-          <PageButton content="···" />
+          <PageButton>···</PageButton>
         </div>
 
         <div
@@ -74,7 +74,7 @@ const PageController: React.FC<{}> = () => {
           className={style.pageControllerContentButton}
           onClick={() => handleCurrentPage(currentPage + 1)}
         >
-          <PageButton content="→" />
+          <PageButton>→</PageButton>
         </div>
       </div>
       <div className={style.pageControllerNum}>共 {workContext.totalPages} 页</div>
