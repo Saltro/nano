@@ -7,7 +7,7 @@ interface IAnimeInfo {
   results: {
     id: number;
     title_cn: string;
-    cover: string;
+    cover_medium: string;
     is_collected: boolean;
   }[];
 }

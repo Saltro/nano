@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { IWorkInfo } from '@/context/WorkContainer';
 
 const WorkItem: React.FC<IWorkInfo> = (props) => {
-  const { id, cover, title_cn } = props;
+  const { id, cover_medium, title_cn } = props;
   return (
     <div id={style.container}>
       <Link to={`/work/${id}`}>
         <div className={style.workCover}>
-          <img src={cover} alt={title_cn} />
+          <img src={cover_medium} alt={title_cn} />
         </div>
         <div className={style.workName}>{title_cn}</div>
       </Link>
