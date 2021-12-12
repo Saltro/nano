@@ -8,22 +8,21 @@ import React from 'react';
 import style from './index.less';
 
 export default function Details() {
-  
   return (
     <HomeLayout>
       <div className={style.container}>
-        <Detail/>
-       <div className={style.gallery}>
-          <Title text="实景照片"/>
-          <DoubleSwiper/>
+        <Detail />
+        <div className={style.gallery}>
+          <Title text="实景照片" />
+          <DoubleSwiper />
         </div>
         <div className={style.map}>
-          <Title text="朝圣地图"/> 
-          <Map/>
+          <Title text="朝圣地图" />
+          <Map />
         </div>
         <div className={style.locations}>
-          <Title text="地址详情"/>
-          <LocTable/>
+          <Title text="地址详情" />
+          <LocTable />
         </div>
       </div>
     </HomeLayout>
