@@ -17,8 +17,8 @@ const DoubleSwiper: React.FC = () => {
                 {pic.map((group, index) => {
                     return (
                         <div key={index} className={style.slide}>
-                            <div><img src={group[0]}/></div>
-                            <div><img src={group[1]}/></div>
+                            <div><img src={group[0]} className={style.firstImg}/></div>
+                            <div><img src={group[1]} className={style.secondImg}/></div>
                         </div>
                     )
                 })}
