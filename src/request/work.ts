@@ -15,11 +15,14 @@ interface IAnimeInfo {
 const getWorkList = async (typeId: number, page: number) => {
   let typeField = '';
   switch (typeId) {
-    case 1:
-      typeField = 'ordering=-id';
+    case 1:  // 全部作品 id递增排序
+      typeField = 'ordering=id';
       break;
-    case 2:
+    case 2:  // 热门作品 收藏数量递减排序
       typeField = 'ordering=-collection_num';
+      break;
+    case 3:  // 最新发布 时间递增排序
+      typeField = 'ordering=update_time';
       break;
     default:
       typeField = 'ordering=-id';
