@@ -6,11 +6,11 @@ import { useRecommendationContext } from '@/context/RecommendationContainer';
 const RecommendationTable: React.FC<{}> = () => {
   const recommendationContext = useRecommendationContext();
 
-  const [recommendationList, setRecommendationList] = useState(recommendationContext.recommendationList);
+  const [recommendationList, setRecommendationList] = useState(recommendationContext.itemList);
 
   useEffect(() => {
-    setRecommendationList(recommendationContext.recommendationList);
-  }, [recommendationContext.recommendationList]);
+    setRecommendationList(recommendationContext.itemList);
+  }, [recommendationContext.itemList]);
 
   return (
     <div id={style.container}>

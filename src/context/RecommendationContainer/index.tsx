@@ -20,14 +20,14 @@ export interface IRecommendationInfo {
 const RecommendationContainer: React.FC<{}> = ({ children }) => {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
-  const [recommendationList, setRecommendationList] = React.useState<IRecommendationInfo[]>([]);
+  const [itemList, setItemList] = React.useState<IRecommendationInfo[]>([]);
 
   useEffect(() => {
     Request.getRecommendationList(currentPage)
       .then((res) => {
         console.log('获取RecommendationList成功', res);
         setTotalPages(Math.ceil(res.count / 20));
-        setRecommendationList(res.results);
+        setItemList(res.results);
       })
       .catch((err) => {
         console.log('获取RecommendationList失败', err);
@@ -43,9 +43,9 @@ const RecommendationContainer: React.FC<{}> = ({ children }) => {
       currentPage,
       totalPages,
       setCurrentPage,
-      recommendationList,
+      itemList,
     };
-  }, [currentPage, totalPages, recommendationList]);
+  }, [currentPage, totalPages, itemList]);
 
   return <RecommendationContext.Provider value={value}>{children}</RecommendationContext.Provider>;
 };

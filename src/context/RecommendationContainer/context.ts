@@ -5,14 +5,14 @@ interface IRecommendationContext {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (page: number) => void;
-  recommendationList: IRecommendationInfo[];
+  itemList: IRecommendationInfo[];
 }
 
 const RecommendationContext = createContext<IRecommendationContext>({
   currentPage: 1,
   totalPages: 1,
   setCurrentPage: () => {},
-  recommendationList: [],
+  itemList: [],
 });
 
 export default RecommendationContext;

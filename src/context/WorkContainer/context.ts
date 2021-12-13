@@ -7,7 +7,7 @@ interface IWorkContext {
   setCurrentPage: (page: number) => void;
   typeId: number;
   setTypeId: (id: number) => void;
-  workList: IWorkInfo[];
+  itemList: IWorkInfo[];
 }
 
 const WorkContext = createContext<IWorkContext>({
@@ -16,7 +16,7 @@ const WorkContext = createContext<IWorkContext>({
   setCurrentPage: () => {},
   typeId: 0,
   setTypeId: () => {},
-  workList: [],
+  itemList: [],
 });
 
 export default WorkContext;
