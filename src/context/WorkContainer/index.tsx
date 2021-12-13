@@ -13,14 +13,14 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [totalPages, setTotalPages] = React.useState<number>(1);
   const [typeId, setTypeId] = React.useState<number>(1);
-  const [workList, setWorkList] = React.useState<IWorkInfo[]>([]);
+  const [itemList, setItemList] = React.useState<IWorkInfo[]>([]);
 
   useEffect(() => {
     Request.getWorkList(typeId, currentPage)
       .then((res) => {
         console.log('获取WorkList成功', res);
         setTotalPages(Math.ceil(res.count / 20));
-        setWorkList(res.results);
+        setItemList(res.results);
       })
       .catch((err) => {
         console.log('获取WorkList失败', err);
@@ -43,9 +43,9 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
       setCurrentPage,
       typeId,
       setTypeId: handleTypeIdChange,
-      workList,
+      itemList,
     };
-  }, [currentPage, totalPages, typeId, workList]);
+  }, [currentPage, totalPages, typeId, itemList]);
 
   return <WorkContext.Provider value={value}>{children}</WorkContext.Provider>;
 };

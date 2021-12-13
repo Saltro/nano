@@ -4,7 +4,7 @@ import TypeChoose from '@/components/TypeChoose';
 import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
-import WorkContainer from '@/context/WorkContainer';
+import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
 
 const Work: React.FC<{}> = () => {
   const TypeChooseItemList = [
@@ -22,7 +22,7 @@ const Work: React.FC<{}> = () => {
         <WorkContainer>
           <TypeChoose itemList={TypeChooseItemList} />
           <WorkTable />
-          <PageController />
+          <PageController context={useWorkContext} />
         </WorkContainer>
       </div>
     </HomeLayout>
