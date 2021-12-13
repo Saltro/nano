@@ -23,10 +23,12 @@ const RecommendationContainer: React.FC<{}> = ({ children }) => {
   const [itemList, setItemList] = React.useState<IRecommendationInfo[]>([]);
 
   useEffect(() => {
-    Request.getRecommendationList(currentPage)
+    // Request.getRecommendationList(currentPage)
+    Request.getRecommendationList(1) // TODO: 数据不够，暂时只请求第一页
       .then((res) => {
         console.log('获取RecommendationList成功', res);
-        setTotalPages(Math.ceil(res.count / 20));
+        // setTotalPages(Math.ceil(res.count / 20));
+        setTotalPages(16); // TODO: 假设有好多页数据
         setItemList(res.results);
       })
       .catch((err) => {
