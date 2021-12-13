@@ -1,4 +1,5 @@
 import React from 'react';
+import { message } from 'antd';
 import style from './index.less';
 import formStyle from '../assets/form.less';
 import { useAuth } from '@/context/AuthContainer';
@@ -7,6 +8,27 @@ const LoginForm: React.FC = () => {
   const auth = useAuth();
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const onLoginClick = () => {
+    const validations = [
+      {
+        validator: () => username.length > 6 && username.length <= 16,
+        message: '用户名长度不能小于6位且不能长于16位',
+      },
+      {
+        validator: () => password.length > 6 && password.length <= 24,
+        message: '密码长度不能小于6位且不能长于24位',
+      },
+    ];
+
+    for (const validation of validations) {
+      if (!validation.validator()) {
+        return message.error(validation.message);
+      }
+    }
+
+    auth?.login({ username, password });
+  };
 
   return (
     <>
@@ -27,12 +49,7 @@ const LoginForm: React.FC = () => {
         </div>
         <span>忘记密码？</span>
       </div>
-      <button
-        className={formStyle.button}
-        onClick={() => {
-          auth?.login({ username, password });
-        }}
-      >
+      <button className={formStyle.button} onClick={onLoginClick}>
         登录
       </button>
     </>

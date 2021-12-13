@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { message } from 'antd';
 import Utils from '@/utils';
 import { useAuth } from '@/context/AuthContainer';
 import formStyle from '../assets/form.less';
@@ -12,38 +13,53 @@ const RegisterForm: React.FC = () => {
   const [mobile, setMobile] = React.useState('');
   const [sms, setSms] = React.useState('');
   const [isAllowed, setIsAllowed] = React.useState(false);
-  const [isValidated, setIsValidated] = React.useState(false);
 
-  const isUsename = () => {
-    return username.length >= 6;
-  };
-
-  const isPassword = () => {
-    return password.length >= 6;
-  };
-
-  const isConfirmPassword = () => {
-    return confirmPassword === password;
-  };
-
-  const isMobile = () => {
-    return mobile.length === 11;
-  };
-
-  const isSms = () => {
-    return sms.length === 6;
-  };
-
-  useEffect(() => {
-    if (isUsename() && isPassword() && isConfirmPassword() && isMobile() && isSms() && isAllowed) {
-      setIsValidated(true);
+  const onSmsClick = () => {
+    if (mobile.length === 11) {
+      auth
+        ?.getSmsCode(mobile)
+        .then(() => message.success('发送成功'))
+        .catch(() => message.error('发送失败，请重试'));
     } else {
-      setIsValidated(false);
+      message.error('请输入正确的手机号');
     }
-  }, [username, password, confirmPassword, mobile, sms, isAllowed]);
+  };
 
   const onSubmitClick = () => {
-    console.log(username, password, confirmPassword, mobile, sms, isAllowed);
+    const validations = [
+      {
+        validator: () => username.length >= 6 && username.length <= 16,
+        message: '用户名长度不能小于6位且不能长于16位',
+      },
+      {
+        validator: () => password.length >= 6 && password.length <= 24,
+        message: '密码长度不能小于6位且不能长于24位',
+      },
+      {
+        validator: () => confirmPassword === password,
+        message: '两次密码不一致',
+      },
+      {
+        validator: () => mobile.length === 11,
+        message: '请输入正确的手机号',
+      },
+      {
+        validator: () => sms.length === 6,
+        message: '请输入正确的六位验证码',
+      },
+      {
+        validator: () => isAllowed,
+        message: '请同意用户协议',
+      },
+    ];
+
+    for (const validation of validations) {
+      if (!validation.validator()) {
+        message.error(validation.message);
+        return;
+      }
+    }
+
     auth?.register({
       username,
       password,
@@ -59,11 +75,21 @@ const RegisterForm: React.FC = () => {
       <div className={formStyle.inputContainer}>
         <div className={formStyle.barContainer}>
           <i className="iconfont icon-user" />
-          <input type="text" placeholder="用户名" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input
+            type="text"
+            placeholder="用户名"
+            value={username}
+            onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
+          />
         </div>
         <div className={formStyle.barContainer}>
           <i className="iconfont icon-lock" />
-          <input type="password" placeholder="密码" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            placeholder="密码"
+            value={password}
+            onChange={(e) => e.target.value.length <= 24 && setPassword(e.target.value)}
+          />
         </div>
         <div className={formStyle.barContainer}>
           <i className="iconfont icon-lock" />
@@ -93,9 +119,7 @@ const RegisterForm: React.FC = () => {
               onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
             />
           </div>
-          <button disabled={!isMobile()} onClick={() => auth?.getSmsCode(mobile).then((res) => console.log(res))}>
-            获取验证码
-          </button>
+          <button onClick={onSmsClick}>获取验证码</button>
         </div>
       </div>
       <div className={formStyle.functionBar}>
@@ -110,7 +134,7 @@ const RegisterForm: React.FC = () => {
           <label htmlFor="accept-checkbox">我已阅读并同意《Nano服务协议》</label>
         </div>
       </div>
-      <button className={formStyle.button} onClick={onSubmitClick} disabled={!isValidated}>
+      <button className={formStyle.button} onClick={onSubmitClick}>
         注册
       </button>
     </>
