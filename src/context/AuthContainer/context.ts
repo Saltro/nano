@@ -2,10 +2,9 @@ import { createContext } from 'react';
 
 interface IAuthContext {
   userInfo: UserInfo | null;
-  login: (form: ILoginRequest) => void;
+  login: (form: ILoginRequest) => Promise<unknown>;
+  register: (form: IRegisterRequest) => Promise<unknown>;
   logout: () => void;
-  register: (form: IRegisterRequest) => void;
-  getSmsCode: (mobile: string) => Promise<string>;
 }
 
 const AuthContext = createContext<IAuthContext | null>(null);

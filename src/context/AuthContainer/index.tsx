@@ -5,16 +5,32 @@ import Request from '@/request';
 const AuthContainer: React.FC<{}> = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
 
-  const login = async (form: ILoginRequest) => {
-    await Request.login(form);
-    await Request.getUserInfo().then((res) => {
-      console.log('登录后获取信息', res);
-      setUserInfo(res);
+  const login = (form: ILoginRequest) => {
+    return new Promise((resolve, reject) => {
+      Request.login(form)
+        .then((res) => {
+          localStorage.setItem('access', res.data.access);
+          localStorage.setItem('refresh', res.data.refresh);
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   };
 
-  const register = async (form: IRegisterRequest) => {
-    await Request.register(form);
+  const register = (form: IRegisterRequest) => {
+    return new Promise((resolve, reject) => {
+      Request.register(form)
+        .then((res) => {
+          localStorage.setItem('access', res.data.access);
+          localStorage.setItem('refresh', res.data.refresh);
+          resolve(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   };
 
   const logout = () => {
@@ -24,16 +40,12 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
     setUserInfo(null);
   };
 
-  const getSmsCode = async (mobile: string) => {
-    return await Request.getSmsCode(mobile);
-  };
-
   useEffect(() => {
     // 首次进入后获取用户信息
     Request.getUserInfo()
       .then((res) => {
         console.log('首次加载', res);
-        setUserInfo(res);
+        setUserInfo(res.data);
       })
       .catch((err) => {
         console.log('首次加载失败', err);
@@ -45,9 +57,8 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
     return {
       userInfo,
       login,
-      logout,
       register,
-      getSmsCode,
+      logout,
     };
   }, [userInfo]);
 

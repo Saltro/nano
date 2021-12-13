@@ -1,6 +1,7 @@
 import React from 'react';
 import { message } from 'antd';
 import Utils from '@/utils';
+import Request from '@/request';
 import { useAuth } from '@/context/AuthContainer';
 import formStyle from '../assets/form.less';
 import style from './index.less';
@@ -16,10 +17,9 @@ const RegisterForm: React.FC = () => {
 
   const onSmsClick = () => {
     if (mobile.length === 11) {
-      auth
-        ?.getSmsCode(mobile)
+      Request.getSmsCode(mobile)
         .then(() => message.success('发送成功'))
-        .catch(() => message.error('发送失败，请重试'));
+        .catch((err) => message.error(err.response.data.message));
     } else {
       message.error('请输入正确的手机号');
     }
@@ -60,14 +60,17 @@ const RegisterForm: React.FC = () => {
       }
     }
 
-    auth?.register({
-      username,
-      password,
-      confirmPassword,
-      mobile,
-      sms,
-      allow: isAllowed,
-    });
+    auth
+      ?.register({
+        username,
+        password,
+        confirmPassword,
+        mobile,
+        sms,
+        allow: isAllowed,
+      })
+      .then(() => message.success('注册成功'))
+      .catch(() => message.error('注册失败'));
   };
 
   return (

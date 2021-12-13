@@ -1,17 +1,15 @@
 import { request } from './instance';
 import md5 from 'blueimp-md5';
 
-const login = async (form: ILoginRequest) => {
-  const res = await request.post<{ username: string; access: string; id: number; refresh: string }>('/user/login/', {
+const login = (form: ILoginRequest) => {
+  return request.post<{ username: string; access: string; id: number; refresh: string }>('/user/login/', {
     username: form.username,
     password: md5(form.password),
   });
-  localStorage.setItem('access', res.data.access);
-  localStorage.setItem('refresh', res.data.refresh);
 };
 
-const register = async (form: IRegisterRequest) => {
-  const res = await request.post<{ username: string; access: string; id: number; refresh: string; mobile: string }>(
+const register = (form: IRegisterRequest) => {
+  return request.post<{ username: string; access: string; id: number; refresh: string; mobile: string }>(
     '/user/register/',
     {
       username: form.username,
@@ -22,21 +20,14 @@ const register = async (form: IRegisterRequest) => {
       allow: form.allow.toString(),
     },
   );
-  localStorage.setItem('access', res.data.access);
-  localStorage.setItem('refresh', res.data.refresh);
 };
 
-const getSmsCode = async (mobile: string) => {
-  console.log(mobile);
-  const res = await request.get<{ message: string }>(`/smscodes/${mobile}`);
-  return res.data.message;
+const getSmsCode = (mobile: string) => {
+  return request.get<{ message: string }>(`/smscodes/${mobile}`);
 };
 
-const getUserInfo = async () => {
-  const res = await request.get<UserInfo>('/user/').then((res) => {
-    return res.data;
-  });
-  return res;
+const getUserInfo = () => {
+  return request.get<UserInfo>('/user/');
 };
 
 const refresh = () => {

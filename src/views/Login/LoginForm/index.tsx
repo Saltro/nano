@@ -1,11 +1,13 @@
 import React from 'react';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import style from './index.less';
 import formStyle from '../assets/form.less';
 import { useAuth } from '@/context/AuthContainer';
 
 const LoginForm: React.FC = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -27,7 +29,14 @@ const LoginForm: React.FC = () => {
       }
     }
 
-    auth?.login({ username, password });
+    auth
+      ?.login({ username, password })
+      .then(() => {
+        navigate(-1);
+      })
+      .catch((err) => {
+        message.error(err.response.data.detail);
+      });
   };
 
   return (
