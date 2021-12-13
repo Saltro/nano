@@ -3,4 +3,6 @@
 *.json
 *.html
 *.ttf
+*.svg
+dist
 node_modules

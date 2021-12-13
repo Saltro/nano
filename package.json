@@ -7,13 +7,15 @@
     "dev": "webpack serve --mode=development",
     "build": "webpack --mode=production",
     "lint:js": "prettier --write . && eslint **/*",
-    "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix"
+    "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix",
+    "lint": "npm run lint:js && npm run lint:css"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
+    "@types/leaflet": "^1.7.6",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
@@ -37,6 +39,7 @@
     "stylelint-config-standard": "^24.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-webpack-plugin": "^3.1.0",
+    "svg-sprite-loader": "^6.0.11",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
     "webpack": "^5.64.4",
@@ -44,10 +47,13 @@
     "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
+    "antd": "^4.17.3",
     "axios": "^0.24.0",
     "blueimp-md5": "^2.19.0",
+    "leaflet": "^1.7.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-leaflet": "^3.2.2",
     "react-router-dom": "^6.0.2"
   }
 }

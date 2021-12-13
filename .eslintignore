@@ -5,3 +5,5 @@ webpack.config.js
 *.less
 *.html
 *.ttf
+*.svg
+dist

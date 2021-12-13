@@ -14,8 +14,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-        include: path.resolve(__dirname, 'src/assets'),
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+        ],
+        include: [/src\/assets/, /node_modules/],
       },
       {
         test: /\.css$/,
@@ -30,7 +38,7 @@ module.exports = {
             },
           },
         ],
-        exclude: path.resolve(__dirname, 'src/assets'),
+        exclude: [/src\/assets/, /node_modules/],
       },
       {
         test: /\.less$/,
@@ -52,7 +60,18 @@ module.exports = {
             loader: 'less-loader',
           },
         ],
-        exclude: path.resolve(__dirname, 'src/assets'),
+        exclude: [/src\/assets/, /node_modules/],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]', // 将图标名称作为导出的 id
+            },
+          },
+        ],
       },
     ],
   },

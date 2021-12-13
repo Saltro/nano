@@ -5,7 +5,7 @@ import Request from '@/request';
 export interface IWorkInfo {
   id: number;
   title_cn: string;
-  cover: string;
+  cover_medium: string;
   is_collected: boolean;
 }
 
