@@ -6,4 +6,9 @@ webpack.config.js
 *.html
 *.ttf
 *.svg
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
 dist
