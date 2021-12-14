@@ -70,7 +70,7 @@ const RegisterForm: React.FC = () => {
         allow: isAllowed,
       })
       .then(() => message.success('注册成功'))
-      .catch(() => message.error('注册失败'));
+      .catch((err) => message.error(err.response.data.detail));
   };
 
   return (
