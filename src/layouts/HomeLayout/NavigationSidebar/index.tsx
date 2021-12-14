@@ -28,24 +28,22 @@ const NavigationSidebar: React.FC<{}> = () => {
   ];
 
   return (
-    <div id={style.outer}>
-      <div id={style.container}>
-        <svg id={style.logo} onClick={() => navigate('/')} viewBox={logo.viewBox}>
-          <use xlinkHref={`#${logo.id}`} />
-        </svg>
-        <p className={style.title} onClick={() => navigate('/')}>
-          Nano
-        </p>
-        <p className={style.subtitle}>圣地巡礼地点全收录</p>
-        <div id={style.navContainer}>
-          {navItems.map((item, index) => (
-            <img key={index} src={item.default} alt="" onClick={item.onClick} />
-          ))}
-        </div>
-        <div id={style.userInfo}>
-          <img src={auth?.userInfo?.avatar} />
-          <p>{auth?.userInfo?.username}</p>
-        </div>
+    <div id={style.container}>
+      <svg id={style.logo} onClick={() => navigate('/')} viewBox={logo.viewBox}>
+        <use xlinkHref={`#${logo.id}`} />
+      </svg>
+      <p className={style.title} onClick={() => navigate('/')}>
+        Nano
+      </p>
+      <p className={style.subtitle}>圣地巡礼地点全收录</p>
+      <div id={style.navContainer}>
+        {navItems.map((item, index) => (
+          <img key={index} src={item.default} alt="" onClick={item.onClick} />
+        ))}
+      </div>
+      <div id={style.userInfo}>
+        <img src={auth?.userInfo?.avatar} />
+        <p>{auth?.userInfo?.username}</p>
       </div>
     </div>
   );
