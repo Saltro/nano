@@ -29,3 +29,12 @@ declare interface ILoginRequest {
   username: string;
   password: string;
 }
+
+declare interface IRegisterRequest {
+  username: string;
+  password: string;
+  confirmPassword: string;
+  mobile: string;
+  sms: string;
+  allow: boolean;
+}

@@ -23,7 +23,7 @@ module.exports = {
             },
           },
         ],
-        include: [/src\/assets/, /node_modules/],
+        include: [path.resolve(__dirname, 'src', 'assets'), /node_modules/],
       },
       {
         test: /\.css$/,
@@ -38,7 +38,7 @@ module.exports = {
             },
           },
         ],
-        exclude: [/src\/assets/, /node_modules/],
+        exclude: [path.resolve(__dirname, 'src', 'assets'), /node_modules/],
       },
       {
         test: /\.less$/,

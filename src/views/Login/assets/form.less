@@ -7,8 +7,9 @@
 
   .bar-container {
     display: flex;
+    flex: 1;
     width: 360px;
-    height: 40px;
+    min-height: 40px;
     padding: 8px 12px;
     background: rgb(255 255 255 / 40%);
     border: 1px solid #ffd0d6;
@@ -17,6 +18,11 @@
     flex-direction: row;
     gap: 12px;
     align-items: center;
+
+    &::after {
+      color: red;
+      content: '*';
+    }
 
     input {
       width: 0;
@@ -74,6 +80,10 @@
       ),
       radial-gradient(100% 144.66% at 0% 0%, rgb(254 81 138 / 80%) 0%, rgb(249 185 166 / 80%) 100%);
   }
+
+  &:disabled {
+    filter: brightness(.9);
+  }
 }
 
 .checkbox {
@@ -93,8 +103,8 @@
       position: absolute;
       top: 2px;
       left: 2px;
-      width: 8px;
-      height: 4px;
+      width: 10px;
+      height: 6px;
       border: #fff solid 3px;
       content: '';
       transform: rotate(-45deg);

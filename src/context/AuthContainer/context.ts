@@ -2,7 +2,8 @@ import { createContext } from 'react';
 
 interface IAuthContext {
   userInfo: UserInfo | null;
-  login: ({ username, password }: { username: string; password: string }) => void;
+  login: (form: ILoginRequest) => Promise<unknown>;
+  register: (form: IRegisterRequest) => Promise<unknown>;
   logout: () => void;
 }
 
