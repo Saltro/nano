@@ -12,8 +12,8 @@ const RecommendSidebar: React.FC<{}> = () => {
           <Image 
             title="寺庙、神社与祭典" 
             src="https://github.com/Saltro/nano/blob/master/src/assets/images/hotSpot1.jpg?raw=true" 
-            imgStyle={{width: "90%", marginRight:""}}
-            titleStyle={{top: "175%", right:"55%"}}
+            imgStyle={{width: "90%", marginTop:"20px"}}
+            titleStyle={{top: "225%", right:"55%"}}
           />
           <div className={style.secondRow}>
             <Image 
