@@ -5,16 +5,23 @@ import RecommendationTable from '@/components/RecommendationTable';
 import RecommendationContainer, { useRecommendationContext } from '@/context/RecommendationContainer';
 import { Link } from 'react-router-dom';
 import PageController from '@/components/PageController';
+import SearchBox from '@/components/SearchBox';
+import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
 
 const Home: React.FC<{}> = () => {
   return (
     <HomeLayout>
-      <RecommendationContainer>
+      <WorkContainer>
         <div id={style.container}>
-          <RecommendationTable />
-          <PageController context={useRecommendationContext} />
+          <SearchBox context={useWorkContext}/>
+          <RecommendationContainer>
+            <div>
+              <RecommendationTable />
+              <PageController context={useRecommendationContext} />
+            </div>
+          </RecommendationContainer>
         </div>
-      </RecommendationContainer>
+      </WorkContainer>
       <div style={{ position: 'absolute' }}>
         <Link to="/login">登录</Link>
         <Link to="/details">详情</Link>

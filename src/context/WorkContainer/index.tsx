@@ -26,7 +26,7 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
       .catch((err) => {
         console.log('获取WorkList失败', err);
       });
-  }, [typeId, currentPage]);
+  }, [typeId, currentPage, searchKey]);
 
   const handleTypeIdChange = (id: number) => {
     setTypeId(id);
@@ -34,7 +34,7 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log({ currentPage: currentPage, totalPages: totalPages, typeId: typeId });
+    console.log({ currentPage: currentPage, totalPages: totalPages, typeId: typeId, searchKey: searchKey });
   });
 
   const value = useMemo(() => {

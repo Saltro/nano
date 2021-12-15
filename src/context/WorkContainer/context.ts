@@ -8,6 +8,8 @@ interface IWorkContext {
   typeId: number;
   setTypeId: (id: number) => void;
   itemList: IWorkInfo[];
+  searchKey: string;
+  setSearchKey: (searchKey: string) => void;
 }
 
 const WorkContext = createContext<IWorkContext>({
@@ -17,6 +19,8 @@ const WorkContext = createContext<IWorkContext>({
   typeId: 0,
   setTypeId: () => {},
   itemList: [],
+  searchKey: '',
+  setSearchKey: () => {},
 });
 
 export default WorkContext;
