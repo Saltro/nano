@@ -1,26 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import style from './index.less';
 
-interface IContext {
-  setTypeId: (typeId: number) => void;
-  searchKey: string;
-  setSearchKey: (searchKey: string) => void;
-}
-
-const SearchBox: React.FC<{context: () => IContext}> = (props) => {
-  const { searchKey, setSearchKey, setTypeId } = props.context();
-
-  const [key, setKey] = React.useState(searchKey);
+const SearchBox: React.FC<{}> = () => {
+  const [key, setKey] = React.useState('');
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
-      setSearchKey(key);
+      console.log(key);
     }
   };
 
-  useEffect(() => {
-    setTypeId(-1)
-  },[])
 
   return (
     <div className={style.searchBox}>

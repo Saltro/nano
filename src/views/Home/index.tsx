@@ -6,14 +6,12 @@ import RecommendationContainer, { useRecommendationContext } from '@/context/Rec
 import { Link } from 'react-router-dom';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
-import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
 
 const Home: React.FC<{}> = () => {
   return (
     <HomeLayout>
-      <WorkContainer>
         <div id={style.container}>
-          <SearchBox context={useWorkContext}/>
+          <SearchBox />
           <RecommendationContainer>
             <div>
               <RecommendationTable />
@@ -21,10 +19,10 @@ const Home: React.FC<{}> = () => {
             </div>
           </RecommendationContainer>
         </div>
-      </WorkContainer>
       <div style={{ position: 'absolute' }}>
         <Link to="/login">登录</Link>
         <Link to="/details">详情</Link>
+        <Link to="/search?key=re">搜索</Link>
       </div>
     </HomeLayout>
   );

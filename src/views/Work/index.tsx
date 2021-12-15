@@ -21,7 +21,7 @@ const Work: React.FC<{}> = () => {
       <div id={style.container}>
         <WorkContainer>
           <TypeChoose itemList={TypeChooseItemList} />
-          <WorkTable />
+          <WorkTable searchKey="" />
           <PageController context={useWorkContext} />
         </WorkContainer>
       </div>
