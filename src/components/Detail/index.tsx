@@ -1,69 +1,73 @@
 import React from 'react';
 import style from './index.less';
 
-const Detail: React.FC = () => {
-  const data = {
-    title: '秒速5センチメートル',
-    title_cn: '秒速5厘米',
-    image: 'https://github.com/Saltro/nano/blob/master/src/assets/images/detailCover.jpg?raw=true',
-    description:
-      '第一话《樱花抄》主要场景为东京，从东京出发一路北上到达栃木岩舟的各个车站。 第二话《宇航员》场景集中在鹿儿岛县种子岛的中种子町。 第三话《秒速5厘米》场景再次回到东京，与第一话有诸多呼应之处。',
-    director: '新海诚',
-    screenwriter: '新海诚',
-    actor: ['水桥研二', '近藤好美'],
-    category: ['剧情', '爱情', '动画'],
-    website: 'www.cwfilms.jp/5cm',
-    country: '日本',
-    date: new Date().toLocaleDateString(),
-    imdb: '12345',
-    alias: ['秒速五厘米', '秒速五公分'],
-  };
+interface IDetailProps {
+  title: string;
+  titleCN: string;
+  image: string;
+  description: string;
+  director: string;
+  screenwriter: string;
+  actors: string[];
+  categories: string[];
+  website: string;
+  country: string;
+  date: Date;
+  imdb: string;
+  alias: string[];
+}
+
+const Detail: React.FC<IDetailProps> = (props) => {
+  const {
+    title,
+    titleCN,
+    image,
+    description,
+    director,
+    screenwriter,
+    actors,
+    categories,
+    website,
+    country,
+    date,
+    imdb,
+    alias,
+  } = props;
+
   return (
     <div className="container">
-      <h1 className={style.title}>{data.title_cn + '  ' + data.title}</h1>
+      <h1 className={style.title}>{titleCN + '  ' + title}</h1>
       <div className={style.tags}>
         <span className={style.date}>动画电影</span>
-        <span className={style.date}>{data.date}</span>
-        {data.category.map((c, i) => {
+        <span className={style.date}>{date.toLocaleDateString()}</span>
+        {categories.map((category, index) => {
           return (
-            <span className={style.category} key={i}>
-              {c}
+            <span className={style.category} key={index}>
+              {category}
             </span>
           );
         })}
       </div>
 
       <div className={style.details}>
-        <img src={data.image} className={style.image} />
+        <img src={image} className={style.image} />
         <div className={style.info}>
-          <p>导演 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data.director}</p>
-          <p>编剧 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data.screenwriter}</p>
-          <p>演员 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addSlash(data.actor)}</p>
-          <p>类型 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{addSlash(data.category)}</p>
-          <p>官方网站 : {data.website}</p>
-          <p>制片国家 : {data.country}</p>
-          <p>上映日期 : {data.date}</p>
-          <p>其他名称 : {addSlash(data.alias)}</p>
-          <p>IMDb : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data.imdb}</p>
+          <p>导演 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{director}</p>
+          <p>编剧 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{screenwriter}</p>
+          <p>演员 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{actors.join(' / ')}</p>
+          <p>类型 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{categories.join(' / ')}</p>
+          <p>官方网站 : {website}</p>
+          <p>制片国家 : {country}</p>
+          <p>上映日期 : {date.toLocaleDateString()}</p>
+          <p>其他名称 : {alias.join(' / ')}</p>
+          <p>IMDb : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{imdb}</p>
         </div>
       </div>
       <div className={style.description}>
-        <p className={style.descriptionText}>{data.description}</p>
+        <p className={style.descriptionText}>{description}</p>
       </div>
     </div>
   );
 };
-
-function addSlash(words: string[]) {
-  let res = '';
-  words.forEach((word, index) => {
-    if (index === words.length - 1) {
-      res += word;
-    } else {
-      res += word + ' / ';
-    }
-  });
-  return res;
-}
 
 export default Detail;

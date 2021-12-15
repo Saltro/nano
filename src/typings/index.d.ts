@@ -38,3 +38,11 @@ declare interface IRegisterRequest {
   sms: string;
   allow: boolean;
 }
+
+declare interface PlaceInfoBrief {
+  id: number;
+  name: string;
+  address: string;
+  latitude: number;
+  longtitude: number;
+}
