@@ -7,7 +7,7 @@ const WorkItem: React.FC<IWorkInfo> = (props) => {
   const { id, cover_medium, title_cn } = props;
   return (
     <div id={style.container}>
-      <Link to={`/work/${id}`}>
+      <Link to={`/detail/${id}`}>
         <div className={style.workCover}>
           <img src={cover_medium} alt={title_cn} />
         </div>

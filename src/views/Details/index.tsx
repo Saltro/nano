@@ -6,8 +6,12 @@ import Detail from '@/components/Detail';
 import Title from '@/components/Title';
 import React from 'react';
 import style from './index.less';
+import { useParams } from 'react-router-dom';
 
 export default function Details() {
+  const { id } = useParams();
+  console.log(id);
+
   return (
     <HomeLayout>
       <div className={style.container}>

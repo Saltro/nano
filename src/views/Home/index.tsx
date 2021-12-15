@@ -17,7 +17,7 @@ const Home: React.FC<{}> = () => {
       </RecommendationContainer>
       <div style={{ position: 'absolute' }}>
         <Link to="/login">登录</Link>
-        <Link to="/details">详情</Link>
+        <Link to="/detail/1">详情</Link>
       </div>
     </HomeLayout>
   );
