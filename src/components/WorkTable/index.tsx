@@ -12,6 +12,7 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
   const { currentPage, totalPages, typeId, searchKey, setTotalPages, setSearchKey, setTypeId } = useWorkContext();
 
   const [workItemList, setWorkItemList] = useState<IWorkItem[]>([]);
+  const [empty, setEmpty] = useState(false);
 
   const refreshWorkItemList = () => {
     if (typeId === 0 || currentPage === 0) {
@@ -22,7 +23,13 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
       .then((res) => {
         console.log('获取WorkList成功', res);
         setTotalPages(Math.ceil(res.count / 20));
-        setWorkItemList(res.results);
+        if (res.results.length === 0) {
+          setEmpty(true);
+          setWorkItemList([]);
+        } else {
+          setEmpty(false);
+          setWorkItemList(res.results);
+        }
       })
       .catch((err) => {
         console.log('获取WorkList失败', err);
@@ -51,6 +58,7 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
       {workItemList.map((item) => {
         return <WorkItem key={item.id} {...item} />;
       })}
+      <div style={{display: empty?"block":"none"}} className={style.text}> 暂无数据 </div>
     </div>
   );
 };

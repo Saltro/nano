@@ -10,6 +10,12 @@ interface IContext {
 
 const PageController: React.FC<{ context: () => IContext }> = (props) => {
   const context = props.context();
+
+  if (context.totalPages <= 0) {
+    // 没有数据
+    return null;
+  }
+
   const LEFTNUM = 3;
   const RIGHTNUM = 3;
 
