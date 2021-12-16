@@ -5,6 +5,7 @@ import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
 import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
+import SearchBox from '@/components/SearchBox';
 
 const Work: React.FC<{}> = () => {
   const TypeChooseItemList = [
@@ -19,6 +20,16 @@ const Work: React.FC<{}> = () => {
   return (
     <HomeLayout>
       <div id={style.container}>
+        <div className={style.top}>
+          <div className={style.breadCrumb}>
+            <span style={{ color: '#3E4252' }}>首页</span>
+            <span style={{margin: '0 4px'}}>/</span>
+            <span>作品</span>
+          </div>
+          <div className={style.search}>
+            <SearchBox />
+          </div>
+        </div>
         <WorkContainer>
           <TypeChoose itemList={TypeChooseItemList} />
           <WorkTable searchKey="" />
