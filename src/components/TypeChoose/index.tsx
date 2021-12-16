@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './index.less';
 import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
 import { useWorkContext } from '@/context/WorkContainer';
@@ -15,6 +15,10 @@ const TypeChoose: React.FC<IProps> = (props) => {
   const { itemList } = props;
 
   const [chooseId, setChooseId] = useState(workContext.typeId);
+
+  useEffect(()=>{
+    setChooseId(workContext.typeId);
+  },[workContext.typeId])
 
   const handleChooseIdChange = (id: number) => {
     setChooseId(id);

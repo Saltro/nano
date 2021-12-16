@@ -23,7 +23,6 @@ const PageController: React.FC<{ context: () => IContext }> = (props) => {
 
   for (let i = Math.max(1, currentPage - LEFTNUM); i <= Math.min(context.totalPages, currentPage + RIGHTNUM); i++) {
     // 计算展示页码
-    console.log(props);
     pages.push(i);
   }
 

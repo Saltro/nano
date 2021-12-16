@@ -12,9 +12,12 @@ interface IAnimeInfo {
   }[];
 }
 
-const getWorkList = async (typeId: number, page: number) => {
+const getWorkList = async (typeId: number, page: number, searchKey: string) => {
   let typeField = '';
   switch (typeId) {
+    case -1: // 根据searchKey搜索
+      typeField = `search=${searchKey}`;
+      break;
     case 1: // 全部作品 id递增排序
       typeField = 'ordering=id';
       break;
