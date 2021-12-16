@@ -12,7 +12,7 @@ const Home: React.FC<{}> = () => {
     <HomeLayout>
       <div id={style.container}>
         <div className={style.top}>
-          <div className={style.search} tabIndex={1}>
+          <div className={style.search}>
             <SearchBox searchKey="" />
           </div>
         </div>
