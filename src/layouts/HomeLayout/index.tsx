@@ -17,9 +17,15 @@ const HomeLayout: React.FC = ({ children }) => {
   return (
     <>
       <div id={style.container}>
-        <NavigationSidebar navSelected={navSelected} />
-        {children}
-        <RecommendSidebar />
+        <div className={style.left}>
+          <NavigationSidebar navSelected={navSelected} />
+        </div>
+        <div className={style.center}>
+          {children}
+        </div>
+        <div className={style.right}>
+          <RecommendSidebar />
+        </div>
       </div>
       <footer>
         <p id={style.copyright}>Copy Right©2021, All Rights Reserved. </p>
