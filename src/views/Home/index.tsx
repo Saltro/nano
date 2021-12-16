@@ -13,7 +13,7 @@ const Home: React.FC<{}> = () => {
       <div id={style.container}>
         <div className={style.top}>
           <div className={style.search}>
-            <SearchBox />
+            <SearchBox searchKey="" />
           </div>
         </div>
         <RecommendationContainer>

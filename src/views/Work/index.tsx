@@ -27,7 +27,7 @@ const Work: React.FC<{}> = () => {
             <span>作品</span>
           </div>
           <div className={style.search}>
-            <SearchBox />
+            <SearchBox searchKey='' />
           </div>
         </div>
         <WorkContainer>

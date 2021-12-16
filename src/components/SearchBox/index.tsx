@@ -2,12 +2,17 @@ import React from 'react';
 
 import style from './index.less';
 
-const SearchBox: React.FC<{}> = () => {
-  const [key, setKey] = React.useState('');
+interface ISearchBox {
+  searchKey: string;
+}
+
+const SearchBox: React.FC<ISearchBox> = (props) => {
+  const [key, setKey] = React.useState(props.searchKey);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
       console.log(key);
+      // TODO: 跳转至页面 `/search?key=${key}`
     }
   };
 
