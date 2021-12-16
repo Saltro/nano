@@ -9,8 +9,7 @@ interface IWorkTable {
 }
 
 const WorkTable: React.FC<IWorkTable> = (props) => {
-  const { currentPage, totalPages, typeId, searchKey, setTotalPages, setSearchKey, setTypeId } =
-    useWorkContext();
+  const { currentPage, totalPages, typeId, searchKey, setTotalPages, setSearchKey, setTypeId } = useWorkContext();
 
   const [workItemList, setWorkItemList] = useState<IWorkItem[]>([]);
 
@@ -35,6 +34,12 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
     setSearchKey(props.searchKey);
     setTypeId(props.searchKey === '' ? 1 : -1);
   }, []);
+
+  useEffect(() => {
+    // 改变搜索关键字
+    setSearchKey(props.searchKey);
+    setTypeId(props.searchKey === '' ? 1 : -1);
+  }, [props.searchKey]);
 
   useEffect(() => {
     // 刷新
