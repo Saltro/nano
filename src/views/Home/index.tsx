@@ -10,15 +10,19 @@ import SearchBox from '@/components/SearchBox';
 const Home: React.FC<{}> = () => {
   return (
     <HomeLayout>
-        <div id={style.container}>
-          <SearchBox />
-          <RecommendationContainer>
-            <div>
-              <RecommendationTable />
-              <PageController context={useRecommendationContext} />
-            </div>
-          </RecommendationContainer>
+      <div id={style.container}>
+        <div className={style.top}>
+          <div className={style.search}>
+            <SearchBox />
+          </div>
         </div>
+        <RecommendationContainer>
+          <div>
+            <RecommendationTable />
+            <PageController context={useRecommendationContext} />
+          </div>
+        </RecommendationContainer>
+      </div>
       <div style={{ position: 'absolute' }}>
         <Link to="/login">登录</Link>
         <Link to="/details">详情</Link>
