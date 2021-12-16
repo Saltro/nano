@@ -7,7 +7,7 @@ interface IProps {
 
 const Title: React.FC<IProps> = (props) => {
   return (
-    <div className={style.container}>
+    <div id={props.text} className={style.container}>
       <span className={style.title}>{props.text}</span>
     </div>
   );

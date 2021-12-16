@@ -1,13 +1,14 @@
 import React from 'react';
 import Image from './component/Image';
+import cardStyle from '../assets/card.less';
 import style from './index.less';
 
 const RecommendSidebar: React.FC<{}> = () => {
   return (
-    <div id={style.container}>
+    <div id={style.container} className={cardStyle.card}>
       <div className={style.hotSpot}>
-        <span className={style.title}>热门路线推荐</span>
-        <span className={style.arrow}>→</span>
+        <span className={cardStyle.title}>热门路线推荐</span>
+        <span className={cardStyle.arrow}>→</span>
         <div className={style.recommend}>
           <Image 
             title="寺庙、神社与祭典" 
@@ -32,8 +33,8 @@ const RecommendSidebar: React.FC<{}> = () => {
         </div>
       </div>
       <div className={style.cityRec}>
-        <span className={style.title}>城市推荐</span>
-        <span className={style.arrow}>→</span>
+        <span className={cardStyle.title}>城市推荐</span>
+        <span className={cardStyle.arrow}>→</span>
         <div className={style.cityImage}> 
           <Image 
               title="东京" 
@@ -56,8 +57,8 @@ const RecommendSidebar: React.FC<{}> = () => {
         </div>
       </div>
       <div className={style.strategy}>
-        <span className={style.title}>圣地巡礼攻略</span>
-        <span className={style.arrow}>→</span>
+        <span className={cardStyle.title}>圣地巡礼攻略</span>
+        <span className={cardStyle.arrow}>→</span>
         <div className={style.imgs}>
           <img className={style.img} src="https://github.com/Saltro/nano/blob/master/src/assets/images/%E8%B7%AF%E7%BA%BF.png?raw=true"/>
           <img className={style.img} src="https://github.com/Saltro/nano/blob/master/src/assets/images/%E4%BA%A4%E9%80%9A.png?raw=true"/>
