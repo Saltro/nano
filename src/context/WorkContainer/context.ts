@@ -1,24 +1,23 @@
 import { createContext } from 'react';
-import { IWorkInfo } from '@/context/WorkContainer/index';
 
 interface IWorkContext {
   currentPage: number;
-  totalPages: number;
   setCurrentPage: (page: number) => void;
+  totalPages: number;
+  setTotalPages: (page: number) => void;
   typeId: number;
   setTypeId: (id: number) => void;
-  itemList: IWorkInfo[];
   searchKey: string;
   setSearchKey: (searchKey: string) => void;
 }
 
 const WorkContext = createContext<IWorkContext>({
-  currentPage: 1,
-  totalPages: 1,
+  currentPage: 0,
   setCurrentPage: () => {},
+  totalPages: 0,
+  setTotalPages: () => {},
   typeId: 0,
   setTypeId: () => {},
-  itemList: [],
   searchKey: '',
   setSearchKey: () => {},
 });
