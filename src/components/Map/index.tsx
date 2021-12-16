@@ -7,6 +7,7 @@ interface IMapProps {
 }
 
 const Map: React.FC<IMapProps> = ({ places }) => {
+  console.log(places)
   return (
     <div className={style.container}>
       <MapContainer

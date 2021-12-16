@@ -3,14 +3,14 @@ import style from './index.less';
 import { Carousel } from 'antd';
 
 interface IDoubleSwiperProps {
-  pictures: [string, string][];
+  pictures: string[];
 }
 
 const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   return (
     <div className={style.container}>
       <Carousel autoplay>
-        {pictures.map((group, index) => {
+        {toGroup(pictures).map((group, index) => {
           return (
             <div key={index} className={style.slide}>
               <div>
@@ -27,3 +27,13 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   );
 };
 export default DoubleSwiper;
+
+
+function toGroup(arr: string[]): [string, string][]{
+  let res: [string, string][] = []
+  for(let i = 0; i < Math.min(arr.length, 10); i+=2){
+    res.push([arr[i], arr[i+1]])
+  }
+  console.log(res)
+  return res === [] ? [["",""]] : res
+}

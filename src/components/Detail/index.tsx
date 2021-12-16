@@ -6,15 +6,18 @@ interface IDetailProps {
   titleCN: string;
   image: string;
   description: string;
-  director: string;
-  screenwriter: string;
+  director: string[];
   actors: string[];
   categories: string[];
   website: string;
   country: string;
-  date: Date;
-  imdb: string;
+  origin: string[];
+  storyboard: string[];
+  script: string[];
+  music: string[];
+  producer: string[];
   alias: string[];
+  date: string;
 }
 
 const Detail: React.FC<IDetailProps> = (props) => {
@@ -24,14 +27,16 @@ const Detail: React.FC<IDetailProps> = (props) => {
     image,
     description,
     director,
-    screenwriter,
     actors,
     categories,
-    website,
     country,
     date,
-    imdb,
     alias,
+    origin,
+    storyboard,
+    script,
+    music,
+    producer,
   } = props;
 
   return (
@@ -39,7 +44,7 @@ const Detail: React.FC<IDetailProps> = (props) => {
       <h1 className={style.title}>{titleCN + '  ' + title}</h1>
       <div className={style.tags}>
         <span className={style.date}>动画电影</span>
-        <span className={style.date}>{date.toLocaleDateString()}</span>
+        <span className={style.date}>{date}</span>
         {categories.map((category, index) => {
           return (
             <span className={style.category} key={index}>
@@ -52,15 +57,15 @@ const Detail: React.FC<IDetailProps> = (props) => {
       <div className={style.details}>
         <img src={image} className={style.image} />
         <div className={style.info}>
-          <p>导演 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{director}</p>
-          <p>编剧 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{screenwriter}</p>
+          <p>导演 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{director.join(' / ')}</p>
+          <p>原作 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{origin.join(' / ')}</p>
+          <p>分镜 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{storyboard.join(' / ')}</p>
+          <p>脚本 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{script.join(' / ')}</p>
+          <p>音乐 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{music.join(' / ')}</p>
+          <p>制作 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{producer.join(' / ')}</p>
           <p>演员 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{actors.join(' / ')}</p>
-          <p>类型 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{categories.join(' / ')}</p>
-          <p>官方网站 : {website}</p>
           <p>制片国家 : {country}</p>
-          <p>上映日期 : {date.toLocaleDateString()}</p>
           <p>其他名称 : {alias.join(' / ')}</p>
-          <p>IMDb : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{imdb}</p>
         </div>
       </div>
       <div className={style.description}>
