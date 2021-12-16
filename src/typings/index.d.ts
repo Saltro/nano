@@ -18,6 +18,8 @@ declare module '*.svg' {
   export default content;
 }
 
+declare type NavItemsName = '' | 'Work' | 'Place';
+
 declare interface UserInfo {
   username: string;
   id: number;
