@@ -7,12 +7,14 @@ interface IMapProps {
 }
 
 const Map: React.FC<IMapProps> = ({ places }) => {
-  console.log(places)
+  if (places[0].latitude === 0) {
+    return <div />;
+  }
   return (
     <div className={style.container}>
       <MapContainer
         center={[places[0].latitude, places[0].longtitude]}
-        zoom={14}
+        zoom={15}
         scrollWheelZoom={false}
         className={style.mapContainer}
       >
