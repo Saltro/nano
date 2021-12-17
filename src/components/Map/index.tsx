@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import React from 'react';
 import style from './index.less';
+import NoData from '@/components/NoData';
 
 interface IMapProps {
   places: PlaceInfoBrief[];
@@ -8,7 +9,12 @@ interface IMapProps {
 
 const Map: React.FC<IMapProps> = ({ places }) => {
   if (places[0].latitude === 0) {
-    return <div />;
+    return (
+      <NoData
+        img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/map.png?raw=true"
+        text="暂无数据"
+      />
+    );
   }
   return (
     <div className={style.container}>

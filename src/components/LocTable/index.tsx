@@ -1,13 +1,19 @@
 import React from 'react';
 import style from './index.less';
+import NoData from '@/components/NoData';
 
 interface ILocTableProps {
   places: PlaceInfoBrief[];
 }
 
 const LocTable: React.FC<ILocTableProps> = ({ places }) => {
-  if(places[0].latitude===0){
-    return <div/>
+  if (places[0].latitude === 0) {
+    return (
+      <NoData
+        img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/loc.png?raw=true"
+        text="暂无数据"
+      />
+    );
   }
   return (
     <div>
