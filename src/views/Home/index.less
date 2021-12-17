@@ -1,4 +1,20 @@
 #container {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.search {
+  width: 60%;
+  transition: width .5s ease;
+}
+
+.search:focus-within {
+  width: 90%;
 }

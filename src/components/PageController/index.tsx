@@ -10,6 +10,12 @@ interface IContext {
 
 const PageController: React.FC<{ context: () => IContext }> = (props) => {
   const context = props.context();
+
+  if (context.totalPages <= 0) {
+    // 没有数据
+    return null;
+  }
+
   const LEFTNUM = 3;
   const RIGHTNUM = 3;
 
@@ -23,7 +29,6 @@ const PageController: React.FC<{ context: () => IContext }> = (props) => {
 
   for (let i = Math.max(1, currentPage - LEFTNUM); i <= Math.min(context.totalPages, currentPage + RIGHTNUM); i++) {
     // 计算展示页码
-    console.log(props);
     pages.push(i);
   }
 

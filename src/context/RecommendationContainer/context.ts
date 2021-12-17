@@ -1,18 +1,17 @@
 import { createContext } from 'react';
-import { IRecommendationInfo } from '@/context/RecommendationContainer/index';
 
 interface IRecommendationContext {
   currentPage: number;
-  totalPages: number;
   setCurrentPage: (page: number) => void;
-  itemList: IRecommendationInfo[];
+  totalPages: number;
+  setTotalPages: (page: number) => void;
 }
 
 const RecommendationContext = createContext<IRecommendationContext>({
   currentPage: 1,
+  setTotalPages: () => {},
   totalPages: 1,
   setCurrentPage: () => {},
-  itemList: [],
 });
 
 export default RecommendationContext;

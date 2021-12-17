@@ -8,6 +8,7 @@ import Work from '@/views/Work';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 import 'antd/dist/antd.css';
+import Search from '@/views/Search';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +18,8 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/work" element={<Work />} />
-          <Route path="/detail/:id" element={<Details />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="/search/" element={<Search />} />
         </Routes>
       </AuthContainer>
     </div>

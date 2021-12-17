@@ -1,9 +1,15 @@
 import React from 'react';
 import style from './index.less';
 import { Link } from 'react-router-dom';
-import { IWorkInfo } from '@/context/WorkContainer';
 
-const WorkItem: React.FC<IWorkInfo> = (props) => {
+export interface IWorkItem {
+  id: number;
+  title_cn: string;
+  cover_medium: string;
+  is_collected: boolean;
+}
+
+const WorkItem: React.FC<IWorkItem> = (props) => {
   const { id, cover_medium, title_cn } = props;
   return (
     <div id={style.container}>

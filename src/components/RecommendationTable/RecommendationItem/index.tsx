@@ -1,8 +1,22 @@
 import React from 'react';
 import style from './index.less';
 import { Link } from 'react-router-dom';
-import { IRecommendationInfo } from '@/context/RecommendationContainer';
 import Tag from '@/components/Tag';
+
+export interface IRecommendationInfo {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  score: number;
+  create_time: string;
+  update_time: string;
+  anime: number;
+  tags: {
+    id: number;
+    name: string;
+  }[];
+}
 
 const RecommendationItem: React.FC<IRecommendationInfo> = (props) => {
   const { title, image, description, anime, update_time, tags } = props;
