@@ -6,6 +6,9 @@ interface ILocTableProps {
 }
 
 const LocTable: React.FC<ILocTableProps> = ({ places }) => {
+  if(places[0].latitude===0){
+    return <div/>
+  }
   return (
     <div>
       <table className={style.table}>

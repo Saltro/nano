@@ -7,6 +7,9 @@ interface IDoubleSwiperProps {
 }
 
 const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
+  if(pictures[0]===""){
+    return <div/>
+  }
   return (
     <div className={style.container}>
       <Carousel autoplay>
@@ -34,6 +37,5 @@ function toGroup(arr: string[]): [string, string][]{
   for(let i = 0; i < Math.min(arr.length, 10); i+=2){
     res.push([arr[i], arr[i+1]])
   }
-  console.log(res)
   return res === [] ? [["",""]] : res
 }

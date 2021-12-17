@@ -75,9 +75,15 @@ export default function Details() {
         producer: getName(res.producer, 4),
         origin: getName(res.original, 4),
       })
+      if(res.photos.length === 0){
+        return
+      }
       setPictures(res.photos.map((p:photo) => p.image))
     })
     request.getPlaces(id).then(res => {
+      if(res.count === 0){
+        return
+      }
       setPlaces(res.results.map((r: placeRes) => {
         const {id, name, address, longitude, latitude} = r;
         console.log(r)
