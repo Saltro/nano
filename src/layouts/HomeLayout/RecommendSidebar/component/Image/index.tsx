@@ -1,26 +1,17 @@
 import React from 'react';
 import style from './index.less';
 
-interface IProps {
-    src:string,
-    title: string,
-    imgStyle: {
-        width?: string,
-        marginRight?: string,
-        marginTop?: string
-    }
-    titleStyle?: {
-        top: string,
-        right: string
-    }
+interface IImageProps {
+  src: string;
+  title?: string;
 }
 
-const Image: React.FC<IProps> = (props) => {
-    return (
-        <div className={style.container}>
-            <img src={props.src} alt={props.title} style={props.imgStyle}/>
-            <span className={style.title} style={props.titleStyle}>{props.title}</span>
-        </div>
-    )
-}
-export default Image
+const Image: React.FC<IImageProps> = ({ src, title }) => {
+  return (
+    <div className={style.container}>
+      <img src={src} alt={title} />
+      {title && <span className={style.title}>{title}</span>}
+    </div>
+  );
+};
+export default Image;
