@@ -9,31 +9,30 @@ import style from './index.less';
 import { useParams } from 'react-router-dom';
 import request from '@/request';
 
-interface tag{
-  id: string,
-  name: string
+interface tag {
+  id: string;
+  name: string;
 }
-interface photo{
-  id: string,
-  name: string,
-  image: string
+interface photo {
+  id: string;
+  name: string;
+  image: string;
 }
-interface placeRes{
-  id: number,
-  name: string,
-  address: string,
-  longitude: number,
-  latitude: number
+interface placeRes {
+  id: number;
+  name: string;
+  address: string;
+  longitude: number;
+  latitude: number;
 }
-
 
 export default function Details() {
   const { id } = useParams();
-  const [ detailProps, setDetailProps ] = useState({
+  const [detailProps, setDetailProps] = useState({
     title: '',
     titleCN: '',
     image: '',
-    description:'',
+    description: '',
     director: [''],
     origin: [''],
     storyboard: [''],
@@ -46,16 +45,19 @@ export default function Details() {
     country: '',
     date: '',
     alias: [''],
-  })
-  const [ pictures, setPictures ] = useState([''])
-  const [ places, setPlaces ] = useState([{
-    id: 0,
-    name: "",
-    address: "",
-    longtitude: 0,
-    latitude: 0,
-  }])
+  });
+  const [pictures, setPictures] = useState(['']);
+  const [places, setPlaces] = useState([
+    {
+      id: 0,
+      name: '',
+      address: '',
+      longtitude: 0,
+      latitude: 0,
+    },
+  ]);
   useEffect(() => {
+    console.log('show details');
     request.getAnimeDetail(id).then((res) => {
       setDetailProps({
         title: res.title,
@@ -74,29 +76,31 @@ export default function Details() {
         music: getName(res.music, 4),
         producer: getName(res.producer, 4),
         origin: getName(res.original, 4),
-      })
-      if(res.photos.length === 0){
-        return
+      });
+      if (res.photos.length === 0) {
+        return;
       }
-      setPictures(res.photos.map((p:photo) => p.image))
-    })
-    request.getPlaces(id).then(res => {
-      if(res.count === 0){
-        return
+      setPictures(res.photos.map((p: photo) => p.image));
+    });
+    request.getPlaces(id).then((res) => {
+      if (res.count === 0) {
+        return;
       }
-      setPlaces(res.results.map((r: placeRes) => {
-        const {id, name, address, longitude, latitude} = r;
-        console.log(r)
-        return {
-          id: id,
-          name: name,
-          address: address,
-          longtitude: longitude,
-          latitude: latitude
-        }
-      }))
-    })
-  }, [])
+      setPlaces(
+        res.results.map((r: placeRes) => {
+          const { id, name, address, longitude, latitude } = r;
+          console.log(r);
+          return {
+            id: id,
+            name: name,
+            address: address,
+            longtitude: longitude,
+            latitude: latitude,
+          };
+        }),
+      );
+    });
+  }, []);
 
   // const detailProps = {
   //   title: '秒速5センチメートル',
@@ -195,7 +199,7 @@ export default function Details() {
   //     longtitude: 30.12345,
   //   },
   // ];
-  
+
   return (
     <HomeLayout>
       <div className={style.container}>
@@ -217,14 +221,12 @@ export default function Details() {
   );
 }
 
-function getName(arr: tag[], max: number){
+function getName(arr: tag[], max: number) {
   let new_arr = arr;
-  if(arr.length === 0){
-    return ['']
+  if (arr.length === 0) {
+    return [''];
+  } else if (arr.length > max) {
+    new_arr = arr.slice(0, max);
   }
-  else if(arr.length > max){
-    new_arr = arr.slice(0, max)
-  }
-  return new_arr.map((tag: tag) => tag.name)
+  return new_arr.map((tag: tag) => tag.name);
 }
-
