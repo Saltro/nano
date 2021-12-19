@@ -5,118 +5,65 @@ import HomeLayout from '@/layouts/HomeLayout';
 import Map from '@/components/Map';
 import LocTable from './LocTable';
 import DoubleSwiper from './DoubleSwiper';
-import Detail from './Detail';
+import Detail, { IDetailProps } from './Detail';
+import Title from './Title';
 import style from './index.less';
-
-interface tag {
-  id: string;
-  name: string;
-}
-interface photo {
-  id: string;
-  name: string;
-  image: string;
-}
-interface placeRes {
-  id: number;
-  name: string;
-  address: string;
-  longitude: number;
-  latitude: number;
-}
-
-interface ITitleProps {
-  text: string;
-}
-
-const Title: React.FC<ITitleProps> = (props) => {
-  return (
-    <div className={style.title}>
-      <span>{props.text}</span>
-    </div>
-  );
-};
 
 export default function Details() {
   const { id } = useParams();
-  const [detailProps, setDetailProps] = useState({
-    title: '',
-    titleCN: '',
-    image: '',
-    description: '',
-    director: [''],
-    origin: [''],
-    storyboard: [''],
-    script: [''],
-    music: [''],
-    producer: [''],
-    actors: [''],
-    categories: [''],
-    website: '',
-    country: '',
-    date: '',
-    alias: [''],
-  });
-  const [pictures, setPictures] = useState(['']);
-  const [places, setPlaces] = useState([
-    {
-      id: 0,
-      name: '',
-      address: '',
-      longtitude: 0,
-      latitude: 0,
-    },
-  ]);
+  const [detailProps, setDetailProps] = useState<IDetailProps | null>(null);
+  const [pictures, setPictures] = useState<string[]>([]);
+  const [places, setPlaces] = useState<IPlaceInfoBrief[]>([]);
+
   useEffect(() => {
     console.log('show details');
-    Request.getAnimeDetail(id).then((res) => {
-      setDetailProps({
-        title: res.title,
-        titleCN: res.title_cn,
-        image: res.cover,
-        description: res.description,
-        director: getName(res.director, 4),
-        actors: getName(res.actor, 4),
-        categories: getName(res.tags, 5),
-        website: res.website || '',
-        country: res.country,
-        date: res.air_date,
-        alias: res.alias,
-        storyboard: getName(res.storyboard, 4),
-        script: getName(res.script, 4),
-        music: getName(res.music, 4),
-        producer: getName(res.producer, 4),
-        origin: getName(res.original, 4),
+    id &&
+      Request.getAnimeDetail(id).then((res) => {
+        const { data } = res;
+        setDetailProps({
+          title: data.title,
+          titleCN: data.title_cn,
+          image: data.cover,
+          description: data.description,
+          director: data.director.slice(0, 3).map((director) => director.name),
+          actors: data.actor.slice(0, 3).map((actor) => actor.name),
+          categories: data.tags.slice(0, 4).map((tag) => tag.name),
+          website: data.website || '',
+          country: data.country,
+          date: data.air_date,
+          alias: data.alias,
+          storyboard: data.storyboard.slice(0, 3).map((storyboard) => storyboard.name),
+          script: data.script.slice(0, 3).map((script) => script.name),
+          music: data.music.slice(0, 3).map((music) => music.name),
+          producer: data.producer.slice(0, 3).map((producer) => producer.name),
+          origin: data.original.slice(0, 3).map((original) => original.name),
+        });
+        data.photos.length !== 0 && setPictures(data.photos.map((photo) => photo.image));
       });
-      if (res.photos.length === 0) {
-        return;
-      }
-      setPictures(res.photos.map((p: photo) => p.image));
-    });
-    Request.getPlaces(id).then((res) => {
-      if (res.count === 0) {
-        return;
-      }
-      setPlaces(
-        res.results.map((r: placeRes) => {
-          const { id, name, address, longitude, latitude } = r;
-          console.log(r);
-          return {
-            id: id,
-            name: name,
-            address: address,
-            longtitude: longitude,
-            latitude: latitude,
-          };
-        }),
-      );
-    });
+
+    id &&
+      Request.getAnimePlaces(id).then((res) => {
+        const { data } = res;
+        data.count !== 0 &&
+          setPlaces(
+            data.results.map((place) => {
+              console.log(place);
+              return {
+                id: place.id,
+                name: place.name,
+                address: place.address,
+                longitude: place.longitude,
+                latitude: place.latitude,
+              };
+            }),
+          );
+      });
   }, []);
 
   return (
     <HomeLayout>
       <div className={style.container}>
-        <Detail {...detailProps} />
+        {detailProps && <Detail {...detailProps} />}
         <div className={style.gallery}>
           <Title text="实景照片" />
           <DoubleSwiper pictures={pictures} />
@@ -132,14 +79,4 @@ export default function Details() {
       </div>
     </HomeLayout>
   );
-}
-
-function getName(arr: tag[], max: number) {
-  let new_arr = arr;
-  if (arr.length === 0) {
-    return [''];
-  } else if (arr.length > max) {
-    new_arr = arr.slice(0, max);
-  }
-  return new_arr.map((tag: tag) => tag.name);
 }

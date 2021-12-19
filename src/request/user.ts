@@ -27,7 +27,7 @@ const getSmsCode = (mobile: string) => {
 };
 
 const getUserInfo = () => {
-  return request.get<UserInfo>('/user/');
+  return request.get<IUserInfo>('/user/');
 };
 
 const refresh = () => {

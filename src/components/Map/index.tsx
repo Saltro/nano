@@ -4,11 +4,11 @@ import style from './index.less';
 import NoData from '@/components/NoData';
 
 interface IMapProps {
-  places: PlaceInfoBrief[];
+  places: IPlaceInfoBrief[];
 }
 
 const Map: React.FC<IMapProps> = ({ places }) => {
-  if (places[0].latitude === 0) {
+  if (places.length === 0) {
     return (
       <NoData
         img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/map.png?raw=true"
@@ -19,7 +19,7 @@ const Map: React.FC<IMapProps> = ({ places }) => {
   return (
     <div className={style.container}>
       <MapContainer
-        center={[places[0].latitude, places[0].longtitude]}
+        center={[places[0].latitude, places[0].longitude]}
         zoom={15}
         scrollWheelZoom={false}
         className={style.mapContainer}
@@ -27,7 +27,7 @@ const Map: React.FC<IMapProps> = ({ places }) => {
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {places.map((place, index) => {
           return (
-            <Marker position={[place.latitude, place.longtitude]} key={index}>
+            <Marker position={[place.latitude, place.longitude]} key={index}>
               <Popup>{place.name}</Popup>
             </Marker>
           );

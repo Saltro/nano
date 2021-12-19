@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.less';
 
-interface IDetailProps {
+export interface IDetailProps {
   title: string;
   titleCN: string;
   image: string;

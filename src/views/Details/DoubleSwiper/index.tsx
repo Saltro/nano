@@ -8,7 +8,7 @@ interface IDoubleSwiperProps {
 }
 
 const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
-  if (pictures[0] === '') {
+  if (pictures.length === 0) {
     return (
       <NoData
         img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/pic.png?raw=true"

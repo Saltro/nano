@@ -3,11 +3,11 @@ import style from './index.less';
 import NoData from '@/components/NoData';
 
 interface ILocTableProps {
-  places: PlaceInfoBrief[];
+  places: IPlaceInfoBrief[];
 }
 
 const LocTable: React.FC<ILocTableProps> = ({ places }) => {
-  if (places[0].latitude === 0) {
+  if (places.length === 0) {
     return (
       <NoData
         img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/loc.png?raw=true"
@@ -33,7 +33,7 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
                 <td>{place.id}</td>
                 <td>{place.name}</td>
                 <td>{place.address}</td>
-                <td>{place.latitude + ', ' + place.longtitude}</td>
+                <td>{place.latitude + ', ' + place.longitude}</td>
               </tr>
             );
           })}
