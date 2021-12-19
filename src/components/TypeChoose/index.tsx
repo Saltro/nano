@@ -16,9 +16,9 @@ const TypeChoose: React.FC<IProps> = (props) => {
 
   const [chooseId, setChooseId] = useState(workContext.typeId);
 
-  useEffect(()=>{
+  useEffect(() => {
     setChooseId(workContext.typeId);
-  },[workContext.typeId])
+  }, [workContext.typeId]);
 
   const handleChooseIdChange = (id: number) => {
     setChooseId(id);

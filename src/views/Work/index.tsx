@@ -1,11 +1,11 @@
 import React from 'react';
-import style from './index.less';
-import TypeChoose from '@/components/TypeChoose';
-import HomeLayout from '@/layouts/HomeLayout';
-import WorkTable from '@/components/WorkTable';
-import PageController from '@/components/PageController';
 import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
+import HomeLayout from '@/layouts/HomeLayout';
+import TypeChoose from '@/components/TypeChoose';
+import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
+import WorkTable from '@/components/WorkTable';
+import style from './index.less';
 
 const Work: React.FC<{}> = () => {
   const TypeChooseItemList = [
@@ -23,11 +23,11 @@ const Work: React.FC<{}> = () => {
         <div className={style.top}>
           <div className={style.breadCrumb}>
             <span style={{ color: '#3E4252' }}>首页</span>
-            <span style={{margin: '0 4px'}}>/</span>
+            <span style={{ margin: '0 4px' }}>/</span>
             <span>作品</span>
           </div>
           <div className={style.search}>
-            <SearchBox searchKey='' />
+            <SearchBox searchKey="" />
           </div>
         </div>
         <WorkContainer>

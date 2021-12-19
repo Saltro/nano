@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import style from './index.less';
-import WorkItem, { IWorkItem } from '@/components/WorkTable/WorkItem';
-import { useWorkContext } from '@/context/WorkContainer';
 import Request from '@/request';
+import { useWorkContext } from '@/context/WorkContainer';
+import WorkItem, { IWorkItem } from './WorkItem';
+import style from './index.less';
 
 interface IWorkTable {
   searchKey: string;
@@ -58,7 +58,10 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
       {workItemList.map((item) => {
         return <WorkItem key={item.id} {...item} />;
       })}
-      <div style={{display: empty?"block":"none"}} className={style.text}> 暂无数据 </div>
+      <div style={{ display: empty ? 'block' : 'none' }} className={style.text}>
+        {' '}
+        暂无数据{' '}
+      </div>
     </div>
   );
 };

@@ -7,5 +7,5 @@ export default {
   ...user,
   ...work,
   ...recommendation,
-  ...detail
+  ...detail,
 };
