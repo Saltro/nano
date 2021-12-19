@@ -4,11 +4,12 @@ import WorkContext from './context';
 const WorkContainer: React.FC<{}> = ({ children }) => {
   const [currentPage, setCurrentPage] = React.useState<number>(0);
   const [totalPages, setTotalPages] = React.useState<number>(0);
-  const [typeId, setTypeId] = React.useState<number>(0);
-  const [searchKey, setSearchKey] = React.useState<string>('');
+  const [orderingKey, setOrderingKey] = React.useState<AnimeOrderingKey>('id');
+  const [ascending, setAscending] = React.useState(true);
+  const [search, setSearch] = React.useState<string>('');
 
-  const handleTypeIdChange = (typeId: number) => {
-    setTypeId(typeId);
+  const handleOrderingKeyChange = (orderingKey: AnimeOrderingKey) => {
+    setOrderingKey(orderingKey);
     setCurrentPage(1);
   };
 
@@ -18,12 +19,14 @@ const WorkContainer: React.FC<{}> = ({ children }) => {
       setCurrentPage,
       totalPages,
       setTotalPages,
-      typeId,
-      setTypeId: handleTypeIdChange,
-      searchKey,
-      setSearchKey,
+      orderingKey,
+      setOrderingKey: handleOrderingKeyChange,
+      ascending,
+      setAscending,
+      search,
+      setSearch,
     };
-  }, [currentPage, totalPages, typeId, searchKey]);
+  }, [currentPage, totalPages, orderingKey, search]);
 
   return <WorkContext.Provider value={value}>{children}</WorkContext.Provider>;
 };

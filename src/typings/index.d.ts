@@ -20,6 +20,26 @@ declare module '*.svg' {
 
 declare type NavItemsName = '' | 'Work' | 'Place';
 
+// 可排序字段
+declare type AnimeOrderingKey =
+  | 'id'
+  | 'create_time'
+  | 'update_time'
+  | 'title'
+  | 'title_cn'
+  | 'is_approved'
+  | 'is_public'
+  | 'create_user'
+  | 'anime_id'
+  | 'collection_num';
+
+declare interface IPageInfo<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
 declare interface ITag {
   id: number;
   name: string;
