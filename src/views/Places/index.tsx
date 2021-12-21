@@ -27,7 +27,12 @@ const Places: React.FC<{}> = () => {
   return (
     <HomeLayout>
       <div className={style.container}>
-        <Map places={places} styles={{ height: '90vh' }} zoom={7} center={[35.69, 135.69]} />
+        <Map
+          places={places}
+          styles={{ height: '90vh' }}
+          zoom={17}
+          center={places.length > 0 ? [places[0].latitude, places[0].longitude] : [35.69, 135.69]}
+        />
       </div>
     </HomeLayout>
   );
