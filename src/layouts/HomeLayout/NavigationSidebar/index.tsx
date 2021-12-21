@@ -1,6 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '@/assets/icons/logo.svg';
+import animeNormal from '@/assets/icons/anime_normal.svg';
+import animeSelect from '@/assets/icons/anime_select.svg';
+import placeNormal from '@/assets/icons/place_normal.svg';
+import placeSelect from '@/assets/icons/place_select.svg';
 import { useAuth } from '@/context/AuthContainer';
 import style from './index.less';
 
@@ -15,16 +19,18 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
   const navItems = [
     {
       name: 'Work',
-      default: 'http://qiniu-picgo.saltroping.com/作品.png',
-      selected: 'http://qiniu-picgo.saltroping.com/作品-选中.png',
+      text: '作品',
+      default: animeNormal,
+      selected: animeSelect,
       onClick: () => {
         navigate('/work');
       },
     },
     {
       name: 'Place',
-      default: 'http://qiniu-picgo.saltroping.com/地点.png',
-      selected: 'http://qiniu-picgo.saltroping.com/地点.png',
+      text: '地点',
+      default: placeNormal,
+      selected: placeSelect,
       onClick: () => {
         console.log('Place');
       },
@@ -34,21 +40,30 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
   return (
     <div id={style.outer}>
       <div id={style.container}>
-        <svg id={style.logo} onClick={() => navigate('/')} viewBox={logo.viewBox}>
-          <use xlinkHref={`#${logo.id}`} />
-        </svg>
+        <div id={style.logo}>
+          <svg onClick={() => navigate('/')} viewBox={logo.viewBox}>
+            <use xlinkHref={`#${logo.id}`} />
+          </svg>
+        </div>
         <p className={style.title} onClick={() => navigate('/')}>
           Nano
         </p>
         <p className={style.subtitle}>圣地巡礼地点全收录</p>
         <div id={style.navContainer}>
           {navItems.map((item, index) => (
-            <img
+            <div
+              className={style.navItem + ' ' + (navSelected === item.name ? style.selected : '')}
               key={index}
-              src={navSelected === item.name ? item.selected : item.default}
-              alt=""
               onClick={item.onClick}
-            />
+            >
+              <svg
+                className={style.logo}
+                viewBox={navSelected === item.name ? item.selected.viewBox : item.default.viewBox}
+              >
+                <use xlinkHref={`#${navSelected === item.name ? item.selected.id : item.default.id}`} />
+              </svg>
+              <span>{item.text}</span>
+            </div>
           ))}
         </div>
         <div id={style.userInfo}>
