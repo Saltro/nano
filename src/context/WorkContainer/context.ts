@@ -5,10 +5,12 @@ interface IWorkContext {
   setCurrentPage: (page: number) => void;
   totalPages: number;
   setTotalPages: (page: number) => void;
-  typeId: number;
-  setTypeId: (id: number) => void;
-  searchKey: string;
-  setSearchKey: (searchKey: string) => void;
+  orderingKey: AnimeOrderingKey;
+  setOrderingKey: (orderingKey: AnimeOrderingKey) => void;
+  ascending: boolean;
+  setAscending: (ascending: boolean) => void;
+  search: string;
+  setSearch: (searchKey: string) => void;
 }
 
 const WorkContext = createContext<IWorkContext>({
@@ -16,10 +18,12 @@ const WorkContext = createContext<IWorkContext>({
   setCurrentPage: () => {},
   totalPages: 0,
   setTotalPages: () => {},
-  typeId: 0,
-  setTypeId: () => {},
-  searchKey: '',
-  setSearchKey: () => {},
+  orderingKey: 'id',
+  setOrderingKey: () => {},
+  ascending: true,
+  setAscending: () => {},
+  search: '',
+  setSearch: () => {},
 });
 
 export default WorkContext;

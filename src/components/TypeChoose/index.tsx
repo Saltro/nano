@@ -1,40 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import style from './index.less';
-import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
+// import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
 import { useWorkContext } from '@/context/WorkContainer';
 
-interface IProps {
+interface ITypeChooseProps {
   itemList: {
-    id: number;
+    orderingKey: AnimeOrderingKey;
+    ascending: boolean;
     name: string;
   }[];
 }
 
-const TypeChoose: React.FC<IProps> = (props) => {
+const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
   const workContext = useWorkContext();
   const { itemList } = props;
 
-  const [chooseId, setChooseId] = useState(workContext.typeId);
-
-  useEffect(()=>{
-    setChooseId(workContext.typeId);
-  },[workContext.typeId])
-
-  const handleChooseIdChange = (id: number) => {
-    setChooseId(id);
-    workContext.setTypeId(id);
+  const handleChooseIdChange = (orderingKey: AnimeOrderingKey, ascending: boolean) => {
+    workContext.setOrderingKey(orderingKey);
+    workContext.setAscending(ascending);
   };
 
   return (
     <div id={style.container}>
-      {itemList.map((item) => {
+      {itemList.map((item, index) => {
         return (
           <div
-            className={item.id === chooseId ? style.typeChooseItemChosen : style.typeChooseItem}
-            key={item.id}
-            onClick={() => handleChooseIdChange(item.id)}
+            className={
+              item.orderingKey === workContext.orderingKey && item.ascending === workContext.ascending
+                ? style.typeChooseItemChosen
+                : style.typeChooseItem
+            }
+            key={index}
+            onClick={() => handleChooseIdChange(item.orderingKey, item.ascending)}
           >
-            <TypeChooseItem {...item} />
+            <span>{item.name}</span>
           </div>
         );
       })}

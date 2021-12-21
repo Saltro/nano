@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import style from './index.less';
-import WorkItem, { IWorkItem } from '@/components/WorkTable/WorkItem';
-import { useWorkContext } from '@/context/WorkContainer';
 import Request from '@/request';
+import { useWorkContext } from '@/context/WorkContainer';
+import WorkItem, { IWorkItem } from './WorkItem';
+import style from './index.less';
 
 interface IWorkTable {
   searchKey: string;
 }
 
 const WorkTable: React.FC<IWorkTable> = (props) => {
-  const { currentPage, totalPages, typeId, searchKey, setTotalPages, setSearchKey, setTypeId } = useWorkContext();
+  const { currentPage, totalPages, orderingKey, search, setTotalPages, setSearch, setOrderingKey } = useWorkContext();
 
   const [workItemList, setWorkItemList] = useState<IWorkItem[]>([]);
   const [empty, setEmpty] = useState(false);
 
   const refreshWorkItemList = () => {
-    if (typeId === 0 || currentPage === 0) {
+    if (currentPage === 0) {
       return;
     }
-    console.log({ currentPage: currentPage, totalPages: totalPages, typeId: typeId, searchKey: searchKey });
-    Request.getWorkList(typeId, currentPage, searchKey)
+    console.log(currentPage, totalPages, search, orderingKey);
+    Request.getAnimePage(currentPage, undefined, search, orderingKey)
       .then((res) => {
-        console.log('获取WorkList成功', res);
-        setTotalPages(Math.ceil(res.count / 20));
-        if (res.results.length === 0) {
+        const { data } = res;
+        console.log('获取WorkList成功', data);
+        setTotalPages(Math.ceil(data.count / 20));
+        if (data.results.length === 0) {
           setEmpty(true);
           setWorkItemList([]);
         } else {
           setEmpty(false);
-          setWorkItemList(res.results);
+          setWorkItemList(data.results);
         }
       })
       .catch((err) => {
@@ -38,27 +39,30 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
 
   useEffect(() => {
     // 初始化加载
-    setSearchKey(props.searchKey);
-    setTypeId(props.searchKey === '' ? 1 : -1);
+    setSearch(props.searchKey);
+    setOrderingKey('id');
   }, []);
 
   useEffect(() => {
     // 改变搜索关键字
-    setSearchKey(props.searchKey);
-    setTypeId(props.searchKey === '' ? 1 : -1);
+    setSearch(props.searchKey);
+    setOrderingKey('id');
   }, [props.searchKey]);
 
   useEffect(() => {
     // 刷新
     refreshWorkItemList();
-  }, [currentPage, typeId, searchKey]);
+  }, [currentPage, orderingKey, search]);
 
   return (
     <div id={style.container}>
       {workItemList.map((item) => {
         return <WorkItem key={item.id} {...item} />;
       })}
-      <div style={{display: empty?"block":"none"}} className={style.text}> 暂无数据 </div>
+      <div style={{ display: empty ? 'block' : 'none' }} className={style.text}>
+        {' '}
+        暂无数据{' '}
+      </div>
     </div>
   );
 };

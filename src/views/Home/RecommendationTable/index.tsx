@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import style from './index.less';
-import RecommendationItem, { IRecommendationInfo } from '@/components/RecommendationTable/RecommendationItem';
+import RecommendationItem, { IRecommendationInfo } from '@/views/Home/RecommendationTable/RecommendationItem';
 import { useRecommendationContext } from '@/context/RecommendationContainer';
 import Request from '@/request';
 
 const RecommendationTable: React.FC<{}> = () => {
-  const {currentPage, totalPages, setTotalPages, setCurrentPage} = useRecommendationContext();
+  const { currentPage, totalPages, setTotalPages, setCurrentPage } = useRecommendationContext();
 
   const [recommendationList, setRecommendationList] = useState<IRecommendationInfo[]>([]);
 

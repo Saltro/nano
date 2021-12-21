@@ -1,11 +1,11 @@
 import React from 'react';
-import HomeLayout from '@/layouts/HomeLayout';
-import style from './index.less';
-import RecommendationTable from '@/components/RecommendationTable';
-import RecommendationContainer, { useRecommendationContext } from '@/context/RecommendationContainer';
 import { Link } from 'react-router-dom';
+import RecommendationContainer, { useRecommendationContext } from '@/context/RecommendationContainer';
+import HomeLayout from '@/layouts/HomeLayout';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
+import RecommendationTable from './RecommendationTable';
+import style from './index.less';
 
 const Home: React.FC<{}> = () => {
   return (

@@ -3,7 +3,7 @@ import AuthContext from './context';
 import Request from '@/request';
 
 const AuthContainer: React.FC<{}> = ({ children }) => {
-  const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
+  const [userInfo, setUserInfo] = React.useState<IUserInfo | null>(null);
 
   const login = (form: ILoginRequest) => {
     return new Promise((resolve, reject) => {
