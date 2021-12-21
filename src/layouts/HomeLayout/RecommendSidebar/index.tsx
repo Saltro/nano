@@ -9,18 +9,9 @@ const RecommendSidebar: React.FC<{}> = () => {
         <span className={style.title}>热门路线推荐</span>
         <span className={style.arrow}>→</span>
         <div className={style.recommend}>
-          <Image
-            title="寺庙、神社与祭典"
-            src="http://qiniu-picgo.saltroping.com/hotSpot1.jpg"
-          />
-          <Image
-            title="秋叶原"
-            src="http://qiniu-picgo.saltroping.com/hotSpot2.jpg"
-          />
-          <Image
-            title="走进新海诚"
-            src="http://qiniu-picgo.saltroping.com/hotSpot3.jpg"
-          />
+          <Image title="寺庙、神社与祭典" src="http://qiniu-picgo.saltroping.com/hotSpot1.jpg" />
+          <Image title="秋叶原" src="http://qiniu-picgo.saltroping.com/hotSpot2.jpg" />
+          <Image title="走进新海诚" src="http://qiniu-picgo.saltroping.com/hotSpot3.jpg" />
         </div>
       </div>
       <div className={style.cityRec}>
