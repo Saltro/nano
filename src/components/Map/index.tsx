@@ -20,11 +20,14 @@ const Map: React.FC<IMapProps> = ({ places }) => {
     <div className={style.container}>
       <MapContainer
         center={[places[0].latitude, places[0].longtitude]}
-        zoom={15}
-        scrollWheelZoom={false}
+        zoom={6}
+        scrollWheelZoom={true}
         className={style.mapContainer}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
         {places.map((place, index) => {
           return (
             <Marker position={[place.latitude, place.longtitude]} key={index}>
