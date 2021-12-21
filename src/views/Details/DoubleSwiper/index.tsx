@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './index.less';
-import { Carousel } from 'antd';
+import { Carousel, Image } from 'antd';
 import NoData from '@/components/NoData';
 
 interface IDoubleSwiperProps {
@@ -18,20 +18,28 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   }
   return (
     <div className={style.container}>
-      <Carousel autoplay>
-        {toGroup(pictures).map((group, index) => {
-          return (
-            <div key={index} className={style.slide}>
-              <div>
-                <img src={group[0]} className={style.firstImg} />
+      <Image.PreviewGroup>
+        <Carousel autoplay>
+          {toGroup(pictures).map((group, index) => {
+            return (
+              <div key={index} className={style.slide}>
+                <div className={style.imgContainer}>
+                  <Image
+                    src={group[0]}
+                    className={style.firstImg}
+                    width="100%"
+                    height="100%"
+                    preview={{ visible: false }}
+                  />
+                </div>
+                <div className={style.imgContainer}>
+                  <Image src={group[1]} className={style.secondImg} width="100%" height="100%" />
+                </div>
               </div>
-              <div>
-                <img src={group[1]} className={style.secondImg} />
-              </div>
-            </div>
-          );
-        })}
-      </Carousel>
+            );
+          })}
+        </Carousel>
+      </Image.PreviewGroup>
     </div>
   );
 };
