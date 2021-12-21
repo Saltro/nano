@@ -4,8 +4,8 @@ const getAnimePlaces = (id: string) => {
   return request.get<IPageInfo<IPlaceInfo>>(`/place?anime_id=${id}`);
 };
 
-const getPlaces = () => {
-  return request.get<IPageInfo<IPlaceInfo>>('/place');
+const getPlace = (id: string | undefined) => {
+  return request.get<IPlaceInfo>(`/place/${id}`);
 };
 
-export default { getAnimePlaces, getPlaces };
+export default { getAnimePlaces, getPlace };
