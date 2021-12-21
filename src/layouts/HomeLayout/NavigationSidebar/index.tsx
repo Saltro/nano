@@ -26,7 +26,7 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
       default: 'http://qiniu-picgo.saltroping.com/地点.png',
       selected: 'http://qiniu-picgo.saltroping.com/地点.png',
       onClick: () => {
-        console.log('Place');
+        navigate('/places');
       },
     },
   ];
