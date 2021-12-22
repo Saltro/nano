@@ -66,10 +66,16 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
             </div>
           ))}
         </div>
-        <div id={style.userInfo} onClick={() => navigate('/mine')}>
-          <img src={auth?.userInfo?.avatar} />
-          <p>{auth?.userInfo?.username}</p>
-        </div>
+        {auth?.userInfo ? (
+          <div id={style.userInfo} onClick={() => navigate('/mine')}>
+            <img src={auth?.userInfo?.avatar} />
+            <p>{auth?.userInfo?.username}</p>
+          </div>
+        ) : (
+          <div id={style.userInfo} onClick={() => navigate('/login')}>
+            <p>登录</p>
+          </div>
+        )}
       </div>
     </div>
   );
