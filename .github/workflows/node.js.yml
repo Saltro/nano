@@ -19,7 +19,8 @@ jobs:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-      - uses: actions/checkout@v2
+      - name: checkout code
+        uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
@@ -28,8 +29,8 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - name: Build the Docker image
-      run: |
-      docker login --username=${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_REPOSITORY  }} --password=${{ secrets.DOCKER_PASSWORD }}
-      docker build -t ${{ secrets.DOCKER_IMAGE_NAME  }}:latest .
-      docker tag ${{ secrets.DOCKER_IMAGE_NAME  }} ${{ secrets.DOCKER_REPOSITORY  }}/${{ secrets.DOCKER_IMAGE_NAME  }}:latest
-      docker push ${{ secrets.DOCKER_REPOSITORY  }}/${{ secrets.DOCKER_IMAGE_NAME  }}:latest # 推送
+        run: |
+        docker login --username=${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_REPOSITORY  }} --password=${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_IMAGE_NAME  }}:latest .
+        docker tag ${{ secrets.DOCKER_IMAGE_NAME  }} ${{ secrets.DOCKER_REPOSITORY  }}/${{ secrets.DOCKER_IMAGE_NAME  }}:latest
+        docker push ${{ secrets.DOCKER_REPOSITORY  }}/${{ secrets.DOCKER_IMAGE_NAME  }}:latest # 推送
