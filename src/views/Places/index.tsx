@@ -7,6 +7,7 @@ import HomeLayout from '@/layouts/HomeLayout';
 const Places: React.FC<{}> = () => {
   const [place, setPlace] = useState<IPlaceInfoBrief[]>([]);
   const [centerIdx, setCenterIdx] = useState(0);
+  const [zoom, setZoom] = useState(17);
   const { id } = useParams();
   useEffect(() => {
     if (id) {
@@ -26,6 +27,7 @@ const Places: React.FC<{}> = () => {
     } else {
       const PAGE = 1;
       const PAGE_SIZE = 200;
+      setZoom(6);
       Request.getPlacePage(PAGE, PAGE_SIZE).then((res) => {
         setCenterIdx(Math.floor(Math.random() * PAGE_SIZE));
         const { data } = res;
@@ -49,7 +51,7 @@ const Places: React.FC<{}> = () => {
         <Map
           places={place}
           styles={{ height: '90vh' }}
-          zoom={17}
+          zoom={zoom}
           center={place.length === 0 ? [35.69, 135.69] : [place[centerIdx].latitude, place[centerIdx].longitude]}
         />
       </div>
