@@ -1,7 +1,9 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import MineLayout from '@/layouts/MineLayout';
 import { useAuth } from '@/context/AuthContainer';
 import style from './index.less';
+import Settings from './Settings';
 
 const Mine: React.FC = () => {
   const auth = useAuth();
@@ -15,7 +17,11 @@ const Mine: React.FC = () => {
             <span id={style.nickname}>{auth?.userInfo?.username}</span>
           </>
         ),
-        content: <div id={style.content} />,
+        content: (
+          <Routes>
+            <Route path="/" element={<Settings />} />
+          </Routes>
+        ),
       }}
     </MineLayout>
   );
