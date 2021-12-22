@@ -4,11 +4,12 @@ import AuthContainer from './context/AuthContainer';
 import Login from './views/Login';
 import Home from './views/Home';
 import Details from './views/Details';
-import Work from '@/views/Work';
+import Mine from './views/Mine';
+import Work from './views/Work';
+import Search from './views/Search';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 import 'antd/dist/antd.css';
-import Search from '@/views/Search';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/mine" element={<Mine />} />
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/search/" element={<Search />} />
         </Routes>

@@ -66,7 +66,7 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
             </div>
           ))}
         </div>
-        <div id={style.userInfo}>
+        <div id={style.userInfo} onClick={() => navigate('/mine')}>
           <img src={auth?.userInfo?.avatar} />
           <p>{auth?.userInfo?.username}</p>
         </div>
