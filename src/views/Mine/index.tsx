@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContainer';
 import RequireAuth from '@/components/RequireAuth';
 import Settings from './Settings';
 import style from './index.less';
+import Favorites from './Collections';
 
 const Mine: React.FC = () => {
   const auth = useAuth();
@@ -21,7 +22,8 @@ const Mine: React.FC = () => {
           ),
           content: (
             <Routes>
-              <Route path="/" element={<Settings />} />
+              <Route path="/" element={<Favorites />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           ),
         }}

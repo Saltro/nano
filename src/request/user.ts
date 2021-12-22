@@ -44,4 +44,12 @@ const refresh = () => {
     });
 };
 
-export default { login, getUserInfo, refresh, register, getSmsCode };
+const getUserAnimeCollection = () => {
+  return request.get<IPageInfo<{ anime: IAnimeInfoBrief }>>('/user/anime/');
+};
+
+const getUserPlaceCollection = () => {
+  return request.get<IPageInfo<{ place: { id: string; name: string; city: string; address: string } }>>('/user/place/');
+};
+
+export default { login, getUserInfo, refresh, register, getSmsCode, getUserAnimeCollection, getUserPlaceCollection };

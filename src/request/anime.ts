@@ -8,7 +8,7 @@ const getAnimePage = (
   ascending = true,
   // eslint-disable-next-line max-params
 ) => {
-  return request.get<IPageInfo<IAnimeInfo>>('/anime', {
+  return request.get<IPageInfo<IAnimeInfoBrief>>('/anime', {
     params: {
       page,
       page_size: pageSize,
@@ -22,4 +22,8 @@ const getAnimeDetail = (id: string) => {
   return request.get<IAnimeInfo>(`/anime/${id}`);
 };
 
-export default { getAnimeDetail, getAnimePage };
+const addAnimeCollection = (id: string) => {
+  return request.post(`/anime/${id}/collection/`);
+};
+
+export default { getAnimeDetail, getAnimePage, addAnimeCollection };
