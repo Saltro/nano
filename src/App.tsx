@@ -21,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/work" element={<Work />} />
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/search/" element={<Search />} />
+          <Route path="/places" element={<Places />} />
           <Route path="/places/:id" element={<Places />} />
         </Routes>
       </AuthContainer>
