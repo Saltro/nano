@@ -12,3 +12,6 @@ webpack.config.js
 *.gif
 *.ico
 dist
+*.conf
+*.yml
+Dockerfile
