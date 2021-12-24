@@ -1,3 +1,5 @@
+@import '~@/App.less';
+
 #container {
   display: flex;
   flex-direction: column;
@@ -17,4 +19,40 @@
 
 .search:focus-within {
   width: 90%;
+}
+
+.carousel {
+  margin: 20px 10px 0;
+
+  .slide {
+    position: relative;
+
+    .description {
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      width: 26vw;
+      padding: 10px;
+      font-size: 1.4em;
+      font-weight: bold;
+      line-height: 1.5em;
+      letter-spacing: .05em;
+      color: #fff;
+      text-align: left;
+      text-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+      background: rgb(0 0 0 / 44%);
+      border-radius: 8px;
+      .multi-text-overflow;
+    }
+
+    .img-container {
+      img {
+        width: 35.45vw;
+        height: auto;
+        max-width: 100%;
+        border-radius: 15px;
+        background-position: center;
+      }
+    }
+  }
 }
