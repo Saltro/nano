@@ -1,5 +1,6 @@
 import React from 'react';
 import Request from '@/request';
+import style from './index.less';
 
 function Collections() {
   Request.getUserAnimeCollection().then((res) => {
@@ -14,7 +15,9 @@ function Collections() {
 
   return (
     <div>
-      <h1>Favorites</h1>
+      <p id={style.title}>我的收藏</p>
+      <p className={style.subtitle}>收藏的作品</p>
+      <p className={style.subtitle}>收藏的地点</p>
     </div>
   );
 }
