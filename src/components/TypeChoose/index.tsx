@@ -1,9 +1,11 @@
 import React from 'react';
 import style from './index.less';
-// import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
-import { useWorkContext } from '@/context/WorkContainer';
 
 interface ITypeChooseProps {
+  orderingKey: AnimeOrderingKey;
+  ascending: boolean;
+  setOrderingKey: (orderingKey: AnimeOrderingKey) => void;
+  setAscending: (ascending: boolean) => void;
   itemList: {
     orderingKey: AnimeOrderingKey;
     ascending: boolean;
@@ -12,12 +14,11 @@ interface ITypeChooseProps {
 }
 
 const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
-  const workContext = useWorkContext();
-  const { itemList } = props;
+  const { orderingKey, ascending, setOrderingKey, setAscending, itemList } = props;
 
   const handleChooseIdChange = (orderingKey: AnimeOrderingKey, ascending: boolean) => {
-    workContext.setOrderingKey(orderingKey);
-    workContext.setAscending(ascending);
+    setOrderingKey(orderingKey);
+    setAscending(ascending);
   };
 
   return (
@@ -26,7 +27,7 @@ const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
         return (
           <div
             className={
-              item.orderingKey === workContext.orderingKey && item.ascending === workContext.ascending
+              item.orderingKey === orderingKey && item.ascending === ascending
                 ? style.typeChooseItemChosen
                 : style.typeChooseItem
             }

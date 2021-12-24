@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RecommendationContainer, { useRecommendationContext } from '@/context/RecommendationContainer';
+import RecommendationContainer from '@/context/RecommendationContainer';
 import HomeLayout from '@/layouts/HomeLayout';
-import PageController from '@/components/PageController';
+// import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
 import RecommendationTable from './RecommendationTable';
 import style from './index.less';
@@ -19,7 +19,7 @@ const Home: React.FC<{}> = () => {
         <RecommendationContainer>
           <div>
             <RecommendationTable />
-            <PageController context={useRecommendationContext} />
+            {/* <PageController context={useRecommendationContext} /> */}
           </div>
         </RecommendationContainer>
       </div>

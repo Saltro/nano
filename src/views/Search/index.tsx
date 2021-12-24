@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import style from './index.less';
 import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
-import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
 import SearchBox from '@/components/SearchBox';
 import { useLocation } from 'react-router-dom';
 
 const Search: React.FC<{}> = () => {
   let { state } = useLocation();
-  const [searchKey, setSearchKey] = React.useState(state.key || '');
-
-  useEffect(() => {
-    if (state.key) {
-      setSearchKey(state.key);
-    }
-  }, [state]);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState<number>(0);
 
   return (
     <HomeLayout>
@@ -27,13 +21,11 @@ const Search: React.FC<{}> = () => {
             <span>搜索</span>
           </div>
           <div className={style.search}>
-            <SearchBox searchKey={searchKey} />
+            <SearchBox searchKey={state.key} />
           </div>
         </div>
-        <WorkContainer>
-          <WorkTable searchKey={searchKey} />
-          <PageController context={useWorkContext} />
-        </WorkContainer>
+        <WorkTable currentPage={currentPage} totalPages={totalPages} search={state.key} setTotalPages={setTotalPages} />
+        <PageController currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
       </div>
     </HomeLayout>
   );

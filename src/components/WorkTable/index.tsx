@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Request from '@/request';
-import { useWorkContext } from '@/context/WorkContainer';
 import WorkItem, { IWorkItem } from './WorkItem';
 import style from './index.less';
 
 interface IWorkTable {
-  searchKey: string;
+  currentPage: number;
+  totalPages: number;
+  orderingKey?: AnimeOrderingKey;
+  ascending?: boolean;
+  search?: string;
+  setTotalPages: (totalPages: number) => void;
 }
 
 const WorkTable: React.FC<IWorkTable> = (props) => {
-  const { currentPage, totalPages, orderingKey, search, setTotalPages, setSearch, setOrderingKey } = useWorkContext();
+  const { currentPage, totalPages, orderingKey, ascending, search, setTotalPages } = props;
 
   const [workItemList, setWorkItemList] = useState<IWorkItem[]>([]);
   const [empty, setEmpty] = useState(false);
@@ -18,8 +22,8 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
     if (currentPage === 0) {
       return;
     }
-    console.log(currentPage, totalPages, search, orderingKey);
-    Request.getAnimePage(currentPage, undefined, search, orderingKey)
+    console.log(currentPage, totalPages, search, orderingKey, ascending);
+    Request.getAnimePage(currentPage, undefined, search, orderingKey, ascending)
       .then((res) => {
         const { data } = res;
         console.log('获取WorkList成功', data);
@@ -36,18 +40,6 @@ const WorkTable: React.FC<IWorkTable> = (props) => {
         console.log('获取WorkList失败', err);
       });
   };
-
-  useEffect(() => {
-    // 初始化加载
-    setSearch(props.searchKey);
-    setOrderingKey('id');
-  }, []);
-
-  useEffect(() => {
-    // 改变搜索关键字
-    setSearch(props.searchKey);
-    setOrderingKey('id');
-  }, [props.searchKey]);
 
   useEffect(() => {
     // 刷新

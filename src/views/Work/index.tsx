@@ -1,5 +1,4 @@
 import React from 'react';
-import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
 import HomeLayout from '@/layouts/HomeLayout';
 import TypeChoose from '@/components/TypeChoose';
 import PageController from '@/components/PageController';
@@ -8,6 +7,16 @@ import WorkTable from '@/components/WorkTable';
 import style from './index.less';
 
 const Work: React.FC<{}> = () => {
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [totalPages, setTotalPages] = React.useState<number>(0);
+  const [orderingKey, setOrderingKey] = React.useState<AnimeOrderingKey>('id');
+  const [ascending, setAscending] = React.useState(true);
+
+  const handleOrderingKeyChange = (orderingKey: AnimeOrderingKey) => {
+    setOrderingKey(orderingKey);
+    setCurrentPage(1);
+  };
+
   const TypeChooseItemList: {
     name: string;
     orderingKey: AnimeOrderingKey;
@@ -34,11 +43,21 @@ const Work: React.FC<{}> = () => {
             <SearchBox searchKey="" />
           </div>
         </div>
-        <WorkContainer>
-          <TypeChoose itemList={TypeChooseItemList} />
-          <WorkTable searchKey="" />
-          <PageController context={useWorkContext} />
-        </WorkContainer>
+        <TypeChoose
+          orderingKey={orderingKey}
+          ascending={ascending}
+          setOrderingKey={handleOrderingKeyChange}
+          setAscending={setAscending}
+          itemList={TypeChooseItemList}
+        />
+        <WorkTable
+          currentPage={currentPage}
+          totalPages={totalPages}
+          orderingKey={orderingKey}
+          ascending={ascending}
+          setTotalPages={setTotalPages}
+        />
+        <PageController currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
       </div>
     </HomeLayout>
   );
