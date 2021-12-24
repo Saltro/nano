@@ -91,6 +91,7 @@ declare interface IPlaceInfoBrief {
   address: string;
   latitude: number;
   longitude: number;
+  photos: { id: number; name: string; image: string }[];
 }
 
 declare interface IPlaceInfo extends IPlaceInfoBrief {

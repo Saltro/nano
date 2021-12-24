@@ -9,6 +9,7 @@ import './App.less';
 import './assets/iconfont/iconfont.css';
 import 'antd/dist/antd.css';
 import Search from '@/views/Search';
+import Places from './views/Places';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,8 @@ const App: React.FC = () => {
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/search/:key/:page" element={<Search />} />
           <Route path="/search/:key" element={<Search />} />
+          <Route path="/places" element={<Places />} />
+          <Route path="/places/:id" element={<Places />} />
         </Routes>
       </AuthContainer>
     </div>
