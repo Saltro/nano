@@ -42,7 +42,7 @@ const Search: React.FC<{}> = () => {
           </div>
         </div>
         <WorkTable workItems={workItems} />
-        <PageController currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+        <PageController currentPage={currentPage} totalPages={totalPages} onCurrentPageChange={setCurrentPage} />
       </div>
     </HomeLayout>
   );

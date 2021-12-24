@@ -5,14 +5,14 @@
   justify-content: space-between;
 }
 
-.page-controller-content {
+.content {
   display: inline-flex;
   font-weight: bold;
   justify-content: center;
   align-items: center;
 }
 
-.page-controller-content-button {
+.button {
   display: inline-flex;
   width: 46px;
   height: 46px;
@@ -24,13 +24,15 @@
   justify-content: center;
 }
 
-.page-controller-content-button-selected:extend(.page-controller-content-button) {
+.button-selected {
+  .button;
+
   color: #fff;
   cursor: auto;
   background: #f09199;
 }
 
-.page-controller-num {
+.num {
   display: inline-flex;
   font-size: 14px;
   align-self: center;
