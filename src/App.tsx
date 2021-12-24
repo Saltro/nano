@@ -15,7 +15,8 @@ const App: React.FC = () => {
     <div>
       <AuthContainer>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/:page" element={<Home />} />
+          <Route path="/" element={<Navigate to="/1" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/work/:page/:ordering/:ascending" element={<Work />} />
           <Route path="/work" element={<Navigate to="/work/1/id/true" />} />
