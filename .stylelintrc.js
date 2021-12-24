@@ -20,6 +20,12 @@ module.exports = {
     'no-descending-specificity': true, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器。
     'selector-max-id': 1, // 限制一个选择器中 ID 选择器的数量
     'max-nesting-depth': 3,
+    'value-no-vendor-prefix': [
+      true,
+      {
+        ignoreValues: ['box'], // 允许 -webkit-box
+      },
+    ], // 允许使用前缀
     indentation: [
       2,
       {

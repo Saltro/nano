@@ -1,9 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import style from './index.less';
-// import TypeChooseItem from '@/components/TypeChoose/TypeChooseItem';
-import { useWorkContext } from '@/context/WorkContainer';
 
 interface ITypeChooseProps {
+  orderingKey: AnimeOrderingKey;
+  ascending: boolean;
   itemList: {
     orderingKey: AnimeOrderingKey;
     ascending: boolean;
@@ -12,13 +13,8 @@ interface ITypeChooseProps {
 }
 
 const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
-  const workContext = useWorkContext();
-  const { itemList } = props;
-
-  const handleChooseIdChange = (orderingKey: AnimeOrderingKey, ascending: boolean) => {
-    workContext.setOrderingKey(orderingKey);
-    workContext.setAscending(ascending);
-  };
+  const { orderingKey, ascending, itemList } = props;
+  const navigate = useNavigate();
 
   return (
     <div id={style.container}>
@@ -26,12 +22,12 @@ const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
         return (
           <div
             className={
-              item.orderingKey === workContext.orderingKey && item.ascending === workContext.ascending
+              item.orderingKey === orderingKey && item.ascending === ascending
                 ? style.typeChooseItemChosen
                 : style.typeChooseItem
             }
             key={index}
-            onClick={() => handleChooseIdChange(item.orderingKey, item.ascending)}
+            onClick={() => navigate(`/work/1/${item.orderingKey}/${item.ascending}`)}
           >
             <span>{item.name}</span>
           </div>

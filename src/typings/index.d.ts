@@ -111,6 +111,21 @@ declare interface IPlaceInfo extends IPlaceInfoBrief {
   contributor: number[];
 }
 
+declare interface IRecommendInfo {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  score: number;
+  create_time: string;
+  update_time: string;
+  anime: number;
+  tags: {
+    id: number;
+    name: string;
+  }[];
+}
+
 declare interface ILoginRequest {
   username: string;
   password: string;

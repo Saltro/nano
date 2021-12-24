@@ -1,13 +1,21 @@
-import React from 'react';
-import WorkContainer, { useWorkContext } from '@/context/WorkContainer';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
-import TypeChoose from '@/components/TypeChoose';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
 import WorkTable from '@/components/WorkTable';
+import TypeChoose from './TypeChoose';
 import style from './index.less';
 
 const Work: React.FC<{}> = () => {
+  const { page, ordering, ascending } = useParams();
+  const navigate = useNavigate();
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [workItems, setWorkItems] = useState<
+    { id: number; title_cn: string; cover_medium: string; is_collected: boolean }[]
+  >([]);
+
   const TypeChooseItemList: {
     name: string;
     orderingKey: AnimeOrderingKey;
@@ -21,6 +29,23 @@ const Work: React.FC<{}> = () => {
     { name: '轻小说/游戏衍生', orderingKey: 'create_time', ascending: true },
   ];
 
+  const onCurrentPageChange = (currentPage: number) => {
+    navigate(`/work/${currentPage}/${ordering}/${ascending}`);
+  };
+
+  useEffect(() => {
+    Request.getAnimePage(Number(page), undefined, undefined, ordering as AnimeOrderingKey, ascending === 'true')
+      .then((res) => {
+        const { data } = res;
+        console.log('获取AnimePage成功', data);
+        setTotalPages(Math.ceil(data.count / 20));
+        setWorkItems(data.results);
+      })
+      .catch((err) => {
+        console.error('获取WorkList失败', err);
+      });
+  }, [page, ordering, ascending]);
+
   return (
     <HomeLayout>
       <div id={style.container}>
@@ -31,14 +56,16 @@ const Work: React.FC<{}> = () => {
             <span>作品</span>
           </div>
           <div className={style.search}>
-            <SearchBox searchKey="" />
+            <SearchBox />
           </div>
         </div>
-        <WorkContainer>
-          <TypeChoose itemList={TypeChooseItemList} />
-          <WorkTable searchKey="" />
-          <PageController context={useWorkContext} />
-        </WorkContainer>
+        <TypeChoose
+          orderingKey={ordering as AnimeOrderingKey}
+          ascending={ascending === 'true'}
+          itemList={TypeChooseItemList}
+        />
+        <WorkTable workItems={workItems} />
+        <PageController currentPage={Number(page)} totalPages={totalPages} onCurrentPageChange={onCurrentPageChange} />
       </div>
     </HomeLayout>
   );
