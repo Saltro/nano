@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthContainer from './context/AuthContainer';
 import Login from './views/Login';
 import Home from './views/Home';
@@ -17,7 +17,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/work" element={<Work />} />
+          <Route path="/work/:page/:ordering/:ascending" element={<Work />} />
+          <Route path="/work" element={<Navigate to="/work/1/id/true" />} />
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/search/" element={<Search />} />
         </Routes>

@@ -1,11 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import style from './index.less';
 
 interface ITypeChooseProps {
   orderingKey: AnimeOrderingKey;
   ascending: boolean;
-  setOrderingKey: (orderingKey: AnimeOrderingKey) => void;
-  setAscending: (ascending: boolean) => void;
   itemList: {
     orderingKey: AnimeOrderingKey;
     ascending: boolean;
@@ -14,12 +13,8 @@ interface ITypeChooseProps {
 }
 
 const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
-  const { orderingKey, ascending, setOrderingKey, setAscending, itemList } = props;
-
-  const handleChooseIdChange = (orderingKey: AnimeOrderingKey, ascending: boolean) => {
-    setOrderingKey(orderingKey);
-    setAscending(ascending);
-  };
+  const { orderingKey, ascending, itemList } = props;
+  const navigate = useNavigate();
 
   return (
     <div id={style.container}>
@@ -32,7 +27,7 @@ const TypeChoose: React.FC<ITypeChooseProps> = (props) => {
                 : style.typeChooseItem
             }
             key={index}
-            onClick={() => handleChooseIdChange(item.orderingKey, item.ascending)}
+            onClick={() => navigate(`/work/1/${item.orderingKey}/${item.ascending}`)}
           >
             <span>{item.name}</span>
           </div>
