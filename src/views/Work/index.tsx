@@ -56,7 +56,7 @@ const Work: React.FC<{}> = () => {
             <span>作品</span>
           </div>
           <div className={style.search}>
-            <SearchBox searchKey="" />
+            <SearchBox />
           </div>
         </div>
         <TypeChoose

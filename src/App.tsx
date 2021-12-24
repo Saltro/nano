@@ -20,7 +20,8 @@ const App: React.FC = () => {
           <Route path="/work/:page/:ordering/:ascending" element={<Work />} />
           <Route path="/work" element={<Navigate to="/work/1/id/true" />} />
           <Route path="/detail/:id" element={<Details />} />
-          <Route path="/search/" element={<Search />} />
+          <Route path="/search/:key/:page" element={<Search />} />
+          <Route path="/search/:key" element={<Search />} />
         </Routes>
       </AuthContainer>
     </div>

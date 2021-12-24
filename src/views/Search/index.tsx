@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
@@ -8,25 +8,29 @@ import SearchBox from '@/components/SearchBox';
 import style from './index.less';
 
 const Search: React.FC<{}> = () => {
-  let { state } = useLocation();
-  const [currentPage, setCurrentPage] = useState(1);
+  const { key, page } = useParams();
+  const navigate = useNavigate();
   const [totalPages, setTotalPages] = useState<number>(0);
   const [workItems, setWorkItems] = useState<
     { id: number; title_cn: string; cover_medium: string; is_collected: boolean }[]
   >([]);
 
+  const onCurrentPageChange = (currentPage: number) => {
+    navigate(`/search/${key}/${currentPage}`);
+  };
+
   useEffect(() => {
-    Request.getAnimePage(currentPage, undefined, state.key)
+    Request.getAnimePage(page ? Number(page) : 1, undefined, key)
       .then((res) => {
         const { data } = res;
-        console.log('获取AnimePage成功', data);
+        console.log('获取WorkList成功', data);
         setTotalPages(Math.ceil(data.count / 20));
         setWorkItems(data.results);
       })
       .catch((err) => {
         console.error('获取WorkList失败', err);
       });
-  }, []);
+  }, [key, page]);
 
   return (
     <HomeLayout>
@@ -38,11 +42,15 @@ const Search: React.FC<{}> = () => {
             <span>搜索</span>
           </div>
           <div className={style.search}>
-            <SearchBox searchKey={state.key} />
+            <SearchBox init={key} />
           </div>
         </div>
         <WorkTable workItems={workItems} />
-        <PageController currentPage={currentPage} totalPages={totalPages} onCurrentPageChange={setCurrentPage} />
+        <PageController
+          currentPage={page ? Number(page) : 1}
+          totalPages={totalPages}
+          onCurrentPageChange={onCurrentPageChange}
+        />
       </div>
     </HomeLayout>
   );
