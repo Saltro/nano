@@ -1,23 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import style from './index.less';
 
-interface ISearchBox {
-  searchKey: string;
+interface ISearchBoxProps {
+  init?: string;
 }
 
-const SearchBox: React.FC<ISearchBox> = (props) => {
-  const [key, setKey] = React.useState(props.searchKey);
+const SearchBox: React.FC<ISearchBoxProps> = ({ init }) => {
+  const [key, setKey] = useState(init ?? '');
   const navigate = useNavigate();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
-      navigate(`/search`, {
-        state: {
-          key,
-        },
-      });
+    if (e.key === 'Enter') {
+      navigate(`/search/${key}`);
     }
   };
 
