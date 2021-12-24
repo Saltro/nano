@@ -49,7 +49,7 @@ const getUserAnimeCollection = () => {
 };
 
 const getUserPlaceCollection = () => {
-  return request.get<IPageInfo<{ place: { id: string; name: string; city: string; address: string } }>>('/user/place/');
+  return request.get<IPageInfo<{ place: { id: number; name: string; city: string; address: string } }>>('/user/place/');
 };
 
 export default { login, getUserInfo, refresh, register, getSmsCode, getUserAnimeCollection, getUserPlaceCollection };
