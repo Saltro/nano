@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Modal, message } from 'antd';
+import Request from '@/request';
 import MineLayout from '@/layouts/MineLayout';
 import { useAuth } from '@/context/AuthContainer';
 import RequireAuth from '@/components/RequireAuth';
@@ -11,6 +13,9 @@ const Mine: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const path = useLocation().pathname;
+  const avatarInputRef = useRef<HTMLInputElement>(null);
+  const [isChangingAvatar, setIsChangingAvatar] = useState(false);
+  const [isAvatarUploading, setIsAvatarUploading] = useState(false);
 
   const navItems = [
     {
@@ -30,13 +35,32 @@ const Mine: React.FC = () => {
     },
   ];
 
+  const onChangeAvatar = () => {
+    if (avatarInputRef.current?.files) {
+      setIsAvatarUploading(true);
+      Request.changeAvatar(avatarInputRef.current?.files[0])
+        .then(() => {
+          message.success('修改成功');
+          auth?.refreshInfo();
+          setIsAvatarUploading(false);
+          setIsChangingAvatar(false);
+        })
+        .catch(() => {
+          message.error('修改失败');
+          setIsAvatarUploading(false);
+        });
+    }
+  };
+
   return (
     <RequireAuth>
       <MineLayout>
         {{
           sidebar: (
             <>
-              <img id={style.avatar} src={auth?.userInfo?.avatar} />
+              <div id={style.avatar}>
+                <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
+              </div>
               <span id={style.nickname}>{auth?.userInfo?.username}</span>
               <div id={style.statisticsContainer}>
                 {statisticsItems.map((item) => (
@@ -57,6 +81,14 @@ const Mine: React.FC = () => {
                   </div>
                 ))}
               </div>
+              <Modal
+                title="修改头像"
+                visible={isChangingAvatar}
+                onOk={onChangeAvatar}
+                confirmLoading={isAvatarUploading}
+              >
+                <input type="file" ref={avatarInputRef} />
+              </Modal>
             </>
           ),
           content: (

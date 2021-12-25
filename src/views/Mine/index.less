@@ -1,8 +1,13 @@
 #avatar {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  border-radius: 50%;
+  position: relative;
+
+  img {
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border-radius: 50%;
+    object-fit: contain;
+  }
 }
 
 #nickname {
@@ -63,4 +68,8 @@
     cursor: default;
     background: rgb(255 208 214 / 60%);
   }
+}
+
+#form {
+  position: absolute;
 }

@@ -64,4 +64,30 @@ const deleteAnimeCollection = (id: string | undefined) => {
   return request.delete<IPageInfo<{ anime: IAnimeInfoBrief }>>(`/anime/${id}/collection/`);
 };
 
-export default { login, getUserInfo, refresh, register, getSmsCode, getUserAnimeCollection, getUserPlaceCollection, checkAnimeCollection, addAnimeCollection, deleteAnimeCollection };
+const changeAvatar = (avatar: File) => {
+  const formData = new FormData();
+  formData.append('avatar', avatar);
+  return request.put<{ avatar: string }>(
+    '/user/',
+    formData,
+    // {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // },
+  );
+};
+
+export default {
+  login,
+  getUserInfo,
+  refresh,
+  register,
+  getSmsCode,
+  getUserAnimeCollection,
+  getUserPlaceCollection,
+  checkAnimeCollection,
+  addAnimeCollection,
+  deleteAnimeCollection,
+  changeAvatar,
+};
