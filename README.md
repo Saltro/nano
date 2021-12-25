@@ -28,11 +28,11 @@ $ npm install
 项目启动
 
 ```bash
-$ npm dev
+$ npm run dev
 ```
 
 项目构建
 
 ```bash
-$ npm build
+$ npm run build
 ```
