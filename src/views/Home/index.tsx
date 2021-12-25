@@ -58,7 +58,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div>
-          {page === "1" && (<RecommendCarousel recommendList={recommendCarousel} />)}
+          {page === '1' && <RecommendCarousel recommendList={recommendCarousel} />}
           <RecommendationTable recommendList={recommendTable} />
           <PageController
             currentPage={page ? Number(page) : 1}
