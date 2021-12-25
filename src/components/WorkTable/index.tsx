@@ -3,12 +3,7 @@ import WorkItem from './WorkItem';
 import style from './index.less';
 
 interface IWorkTableProps {
-  workItems: {
-    id: number;
-    title_cn: string;
-    cover_medium: string;
-    is_collected: boolean;
-  }[];
+  workItems: IAnimeInfoBrief[];
 }
 
 const WorkTable: React.FC<IWorkTableProps> = ({ workItems }) => {

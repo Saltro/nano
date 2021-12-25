@@ -56,9 +56,15 @@ declare interface IUserInfo {
   mobile: string;
 }
 
-declare interface IAnimeInfo {
+declare interface IAnimeInfoBrief {
   id: number;
+  title_cn: string;
+  cover_medium: string;
   is_collected: boolean;
+}
+
+declare interface IAnimeInfo extends IAnimeInfoBrief {
+  title: string;
   places: { id: number; name: string }[];
   photos: { id: number; name: string; image: string }[];
   alias: string[];
@@ -70,11 +76,8 @@ declare interface IAnimeInfo {
   music: { id: number; name: string }[];
   producer: { id: number; name: string }[];
   tags: ITag[];
-  title: string;
-  title_cn: string;
   description: string;
   cover: string;
-  cover_medium: string;
   cover_small: string;
   epi_num: number;
   website: string;
