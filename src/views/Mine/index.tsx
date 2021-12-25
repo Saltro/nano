@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import MineLayout from '@/layouts/MineLayout';
 import { useAuth } from '@/context/AuthContainer';
 import RequireAuth from '@/components/RequireAuth';
@@ -10,15 +10,23 @@ import Collections from './Collections';
 const Mine: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const path = useLocation().pathname;
 
   const navItems = [
     {
       name: '收藏',
-      path: '/mine/',
+      path: '/mine',
     },
     {
       name: '设置',
       path: '/mine/settings',
+    },
+  ];
+
+  const statisticsItems = [
+    {
+      name: '收藏数',
+      value: 4,
     },
   ];
 
@@ -30,9 +38,21 @@ const Mine: React.FC = () => {
             <>
               <img id={style.avatar} src={auth?.userInfo?.avatar} />
               <span id={style.nickname}>{auth?.userInfo?.username}</span>
+              <div id={style.statisticsContainer}>
+                {statisticsItems.map((item) => (
+                  <div key={item.name} className={style.statistics}>
+                    <span className={style.value}>{item.value}</span>
+                    <span className={style.name}>{item.name}</span>
+                  </div>
+                ))}
+              </div>
               <div id={style.navContainer}>
                 {navItems.map((item, index) => (
-                  <div className={style.navItem} key={index} onClick={() => navigate(item.path)}>
+                  <div
+                    className={path === item.path ? style.navItemSelected : style.navItem}
+                    key={index}
+                    onClick={() => navigate(item.path)}
+                  >
                     <span>{item.name}</span>
                   </div>
                 ))}

@@ -26,9 +26,13 @@ const Collections: React.FC = () => {
     <div>
       <p id={style.title}>我的收藏</p>
       <p className={style.subtitle}>收藏的作品</p>
-      <WorkTable workItems={animeList} />
+      <div className={style.table}>
+        <WorkTable workItems={animeList} />
+      </div>
       <p className={style.subtitle}>收藏的地点</p>
-      <LocTable places={placeList} />
+      <div className={style.table}>
+        <LocTable places={placeList} />
+      </div>
     </div>
   );
 };

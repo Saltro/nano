@@ -11,17 +11,42 @@
   color: #3e4252;
 }
 
+#statistics-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+
+  .statistics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .value {
+      font-size: 22px;
+      color: #3e4252;
+    }
+
+    .name {
+      font-size: 14px;
+      color: #9ea0b3;
+    }
+  }
+}
+
 #nav-container {
   display: flex;
   flex-direction: column;
   gap: 13px;
 
+  .nav-item-selected,
   .nav-item {
     display: flex;
     width: 210px;
     height: 40px;
     color: rgb(0 0 0 / 70%);
-    background: rgb(255 208 214 / 60%);
+    cursor: pointer;
+    user-select: none;
     border-radius: 10px;
     flex-direction: row;
     justify-content: center;
@@ -31,5 +56,11 @@
       font-size: 18px;
       line-height: 26px;
     }
+  }
+
+  .nav-item-selected {
+    color: #f25d8e;
+    cursor: default;
+    background: rgb(255 208 214 / 60%);
   }
 }
