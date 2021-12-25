@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
 import RecommendationTable from './RecommendTable';
 import style from './index.less';
-import { Carousel } from 'antd';
+import RecommendCarousel from '@/views/Home/RecommendCarousel';
 
 const Home: React.FC = () => {
   const { page } = useParams();
@@ -58,22 +58,7 @@ const Home: React.FC = () => {
           </div>
         </div>
         <div>
-          <div className={style.carousel}>
-            <Carousel autoplay>
-              {recommendCarousel.map((info, index) => {
-                return (
-                  <div className={style.slide} key={index}>
-                    <Link to={`/detail/${info?.anime}`}>
-                      <div className={style.description}>{info?.description}</div>
-                      <div className={style.imgContainer}>
-                        <img src={info?.image} />
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
-            </Carousel>
-          </div>
+          <RecommendCarousel recommendList={recommendCarousel} />
           <RecommendationTable recommendList={recommendTable} />
           <PageController
             currentPage={page ? Number(page) : 1}
