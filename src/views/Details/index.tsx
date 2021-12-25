@@ -21,6 +21,7 @@ export default function Details() {
       Request.getAnimeDetail(id).then((res) => {
         const { data } = res;
         setDetailProps({
+          id: id,
           title: data.title,
           titleCN: data.title_cn,
           image: data.cover,
