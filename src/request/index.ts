@@ -1,5 +1,5 @@
 import user from './user';
-import recommendation from './recommendation';
+import recommendation from './recommend';
 import anime from './anime';
 import place from './place';
 

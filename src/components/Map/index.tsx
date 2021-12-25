@@ -2,12 +2,18 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import React from 'react';
 import style from './index.less';
 import NoData from '@/components/NoData';
+import { Image } from 'antd';
 
 interface IMapProps {
   places: IPlaceInfoBrief[];
+  styles: {
+    height: string;
+  };
+  zoom: number;
+  center?: [number, number];
 }
 
-const Map: React.FC<IMapProps> = ({ places }) => {
+const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
   if (places.length === 0) {
     return (
       <NoData
@@ -16,12 +22,14 @@ const Map: React.FC<IMapProps> = ({ places }) => {
       />
     );
   }
+
   return (
-    <div className={style.container}>
+    <div className={style.container} style={styles}>
       <MapContainer
-        center={[places[0].latitude, places[0].longitude]}
-        zoom={6}
+        center={center || [places[0].latitude, places[0].longitude]}
+        zoom={zoom}
         scrollWheelZoom={true}
+        style={style}
         className={style.mapContainer}
       >
         <TileLayer
@@ -31,7 +39,12 @@ const Map: React.FC<IMapProps> = ({ places }) => {
         {places.map((place, index) => {
           return (
             <Marker position={[place.latitude, place.longitude]} key={index}>
-              <Popup>{place.name}</Popup>
+              <Popup minWidth={150}>
+                <p className={style.popupText}>{place.name}</p>
+                {place.photos.length > 0 && (
+                  <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
+                )}
+              </Popup>
             </Marker>
           );
         })}

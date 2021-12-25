@@ -27,17 +27,16 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
       <table className={style.table}>
         <thead>
           <tr className={style.head}>
-            <th>地点ID</th>
             <th>场景名称</th>
             <th>详细地址</th>
             <th>坐标位置</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
           {places.map((place, index) => {
             return (
               <tr key={index}>
-                <td>{place.id}</td>
                 <td>{place.name}</td>
                 <td>{place.address}</td>
                 {place.city && <td>{place.city}</td>}

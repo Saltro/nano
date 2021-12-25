@@ -16,16 +16,16 @@ const RecommendItem: React.FC<IRecommendInfo> = (props) => {
           <img src={image} alt={title} />
         </div>
         <div className={style.name}>{title}</div>
-        <div className={style.info}>
-          <div className={style.tags}>
-            <Tag item={tags} />
-          </div>
-          <div className={style.date}>
-            {year}-{month}-{day}
-          </div>
-        </div>
-        <div className={style.description}>{description}</div>
       </Link>
+      <div className={style.info}>
+        <div className={style.tags}>
+          <Tag item={tags} />
+        </div>
+        <div className={style.date}>
+          {year}-{month}-{day}
+        </div>
+      </div>
+      <div className={style.description}>{description}</div>
     </div>
   );
 };

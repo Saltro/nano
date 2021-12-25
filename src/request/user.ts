@@ -52,4 +52,16 @@ const getUserPlaceCollection = () => {
   return request.get<IPageInfo<{ place: { id: number; name: string; city: string; address: string } }>>('/user/place/');
 };
 
-export default { login, getUserInfo, refresh, register, getSmsCode, getUserAnimeCollection, getUserPlaceCollection };
+const checkAnimeCollection = (id: string | undefined) => {
+  return request.get(`/anime/${id}/collection/`);
+};
+
+const addAnimeCollection = (id: string | undefined) => {
+  return request.post<IPageInfo<{ anime: IAnimeInfoBrief }>>(`/anime/${id}/collection/`);
+};
+
+const deleteAnimeCollection = (id: string | undefined) => {
+  return request.delete<IPageInfo<{ anime: IAnimeInfoBrief }>>(`/anime/${id}/collection/`);
+};
+
+export default { login, getUserInfo, refresh, register, getSmsCode, getUserAnimeCollection, getUserPlaceCollection, checkAnimeCollection, addAnimeCollection, deleteAnimeCollection };

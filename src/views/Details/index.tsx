@@ -21,6 +21,7 @@ export default function Details() {
       Request.getAnimeDetail(id).then((res) => {
         const { data } = res;
         setDetailProps({
+          id: id,
           title: data.title,
           titleCN: data.title_cn,
           image: data.cover,
@@ -54,6 +55,7 @@ export default function Details() {
                 address: place.address,
                 longitude: place.longitude,
                 latitude: place.latitude,
+                photos: place.photos,
               };
             }),
           );
@@ -70,7 +72,7 @@ export default function Details() {
         </div>
         <div className={style.map}>
           <Title text="朝圣地图" />
-          <Map places={places} />
+          <Map places={places} styles={{ height: '300px' }} zoom={7} />
         </div>
         <div className={style.locations}>
           <Title text="地址详情" />

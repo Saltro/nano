@@ -7,6 +7,7 @@ import Details from './views/Details';
 import Mine from './views/Mine';
 import Work from './views/Work';
 import Search from './views/Search';
+import Places from './views/Places';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 import 'antd/dist/antd.css';
@@ -25,6 +26,8 @@ const App: React.FC = () => {
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/search/:key/:page" element={<Search />} />
           <Route path="/search/:key" element={<Search />} />
+          <Route path="/places" element={<Places />} />
+          <Route path="/places/:id" element={<Places />} />
         </Routes>
       </AuthContainer>
     </div>
