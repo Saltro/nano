@@ -111,6 +111,8 @@ const Mine: React.FC = () => {
                 onOk={onChangeAvatar}
                 onCancel={() => setIsChangingAvatar(false)}
                 confirmLoading={isConfirmLoading}
+                okText="确认"
+                cancelText="取消"
               >
                 <input type="file" ref={avatarInputRef} />
               </Modal>
@@ -119,6 +121,8 @@ const Mine: React.FC = () => {
                 visible={isChangingNickname}
                 onOk={onChangeNickname}
                 onCancel={() => setIsChangingNickname(false)}
+                okText="确认"
+                cancelText="取消"
                 confirmLoading={isConfirmLoading}
               >
                 <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
