@@ -1,5 +1,6 @@
 import request from '@/request';
 import React, { useEffect, useState } from 'react';
+import { message } from 'antd';
 import style from './index.less';
 export interface IDetailProps {
   id: string;
@@ -51,10 +52,10 @@ const Detail: React.FC<IDetailProps> = (props) => {
 
   const toggleLiked = () => {
     if(liked){
-      request.deleteAnimeCollection(id).then(res => console.log(res))
+      request.deleteAnimeCollection(id).then(() => message.success('取消收藏成功'))
     }
     else{
-      request.addAnimeCollection(id).then(res => console.log(res))
+      request.addAnimeCollection(id).then(() => message.success('收藏成功'))
     }
     setLiked((prev) => !prev)
   }
@@ -72,16 +73,13 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        {liked ?
-        <button className={style.like} onClick={toggleLiked}>
+        <button className={style.like} onClick={toggleLiked} style={ !liked ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
-        </button> :
-        <button className={style.like} onClick={toggleLiked}>
+        </button>
+        <button className={style.like} onClick={toggleLiked} style={ liked ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
         </button>
-        }
       </div>
-
       <div className={style.details}>
         <img src={image} className={style.image} />
         <div className={style.info}>
