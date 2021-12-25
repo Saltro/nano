@@ -67,15 +67,13 @@ const deleteAnimeCollection = (id: string | undefined) => {
 const changeAvatar = (avatar: File) => {
   const formData = new FormData();
   formData.append('avatar', avatar);
-  return request.put<{ avatar: string }>(
-    '/user/',
-    formData,
-    // {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // },
-  );
+  return request.put<{ avatar: string }>('/user/', formData);
+};
+
+const changeNickname = (nickname: string) => {
+  const formData = new FormData();
+  formData.append('nickname', nickname);
+  return request.put<{ nickname: string }>('/user/', formData);
 };
 
 export default {
@@ -90,4 +88,5 @@ export default {
   addAnimeCollection,
   deleteAnimeCollection,
   changeAvatar,
+  changeNickname,
 };

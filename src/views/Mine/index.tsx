@@ -14,8 +14,10 @@ const Mine: React.FC = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const avatarInputRef = useRef<HTMLInputElement>(null);
+  const [nickname, setNickname] = useState(auth?.userInfo?.username);
   const [isChangingAvatar, setIsChangingAvatar] = useState(false);
-  const [isAvatarUploading, setIsAvatarUploading] = useState(false);
+  const [isChangingNickname, setIsChangingNickname] = useState(false);
+  const [isConfirmLoading, setIsConfirmLoading] = useState(false);
 
   const navItems = [
     {
@@ -37,17 +39,34 @@ const Mine: React.FC = () => {
 
   const onChangeAvatar = () => {
     if (avatarInputRef.current?.files) {
-      setIsAvatarUploading(true);
+      setIsConfirmLoading(true);
       Request.changeAvatar(avatarInputRef.current?.files[0])
         .then(() => {
-          message.success('修改成功');
+          message.success('修改头像成功');
           auth?.refreshInfo();
-          setIsAvatarUploading(false);
+          setIsConfirmLoading(false);
           setIsChangingAvatar(false);
         })
         .catch(() => {
-          message.error('修改失败');
-          setIsAvatarUploading(false);
+          message.error('修改头像失败');
+          setIsConfirmLoading(false);
+        });
+    }
+  };
+
+  const onChangeNickname = () => {
+    if (nickname !== undefined && nickname.length !== 0) {
+      setIsConfirmLoading(true);
+      Request.changeNickname(nickname)
+        .then(() => {
+          message.success('修改昵称成功');
+          auth?.refreshInfo();
+          setIsConfirmLoading(false);
+          setIsChangingNickname(false);
+        })
+        .catch(() => {
+          message.error('修改昵称失败');
+          setIsConfirmLoading(false);
         });
     }
   };
@@ -61,7 +80,7 @@ const Mine: React.FC = () => {
               <div id={style.avatar}>
                 <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
               </div>
-              <span id={style.nickname}>{auth?.userInfo?.username}</span>
+              <span id={style.username} onClick={() => setIsChangingNickname(true)}>{auth?.userInfo?.username}</span>
               <div id={style.statisticsContainer}>
                 {statisticsItems.map((item) => (
                   <div key={item.name} className={style.statistics}>
@@ -85,9 +104,18 @@ const Mine: React.FC = () => {
                 title="修改头像"
                 visible={isChangingAvatar}
                 onOk={onChangeAvatar}
-                confirmLoading={isAvatarUploading}
+                onCancel={() => setIsChangingAvatar(false)}
+                confirmLoading={isConfirmLoading}
               >
                 <input type="file" ref={avatarInputRef} />
+              </Modal>
+              <Modal
+                title="修改昵称"
+                visible={isChangingNickname}
+                onOk={onChangeNickname}
+                confirmLoading={isConfirmLoading}
+              >
+                <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
               </Modal>
             </>
           ),
