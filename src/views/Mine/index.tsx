@@ -14,7 +14,7 @@ const Mine: React.FC = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const avatarInputRef = useRef<HTMLInputElement>(null);
-  const [nickname, setNickname] = useState(auth?.userInfo?.username);
+  const [nickname, setNickname] = useState(auth?.userInfo?.nickname);
   const [isChangingAvatar, setIsChangingAvatar] = useState(false);
   const [isChangingNickname, setIsChangingNickname] = useState(false);
   const [isConfirmLoading, setIsConfirmLoading] = useState(false);
@@ -80,7 +80,12 @@ const Mine: React.FC = () => {
               <div id={style.avatar}>
                 <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
               </div>
-              <span id={style.username} onClick={() => setIsChangingNickname(true)}>{auth?.userInfo?.username}</span>
+              <div id={style.usernameContainer}>
+                <p id={style.nickname} onClick={() => setIsChangingNickname(true)}>
+                  {auth?.userInfo?.nickname}
+                </p>
+                <p id={style.username}>{auth?.userInfo?.username}</p>
+              </div>
               <div id={style.statisticsContainer}>
                 {statisticsItems.map((item) => (
                   <div key={item.name} className={style.statistics}>
@@ -113,6 +118,7 @@ const Mine: React.FC = () => {
                 title="修改昵称"
                 visible={isChangingNickname}
                 onOk={onChangeNickname}
+                onCancel={() => setIsChangingNickname(false)}
                 confirmLoading={isConfirmLoading}
               >
                 <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />

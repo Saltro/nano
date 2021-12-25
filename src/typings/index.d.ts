@@ -54,6 +54,7 @@ declare interface IUserInfo {
   id: number;
   avatar: string;
   mobile: string;
+  nickname: string;
 }
 
 declare interface IAnimeInfoBrief {
