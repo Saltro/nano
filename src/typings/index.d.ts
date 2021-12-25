@@ -33,6 +33,10 @@ declare type AnimeOrderingKey =
   | 'anime_id'
   | 'collection_num';
 
+declare type RecommendOrderingKey = 'id' | 'create_time' | 'update_time' | 'score';
+
+declare type RecommendTypeKey = 'CAROUSEL' | 'TABLE';
+
 declare interface IPageInfo<T> {
   count: number;
   next: string | null;
@@ -118,6 +122,7 @@ declare interface IRecommendInfo {
   create_time: string;
   update_time: string;
   anime: number;
+  type: number;
   tags: {
     id: number;
     name: string;
