@@ -10,7 +10,8 @@ const Places: React.FC<{}> = () => {
   const [zoom, setZoom] = useState(17);
   const { id } = useParams();
   useEffect(() => {
-    if (id) {
+    console.log(id);
+    if (id !== '0') {
       Request.getPlace(id).then((res) => {
         const { data } = res;
         setPlace([
@@ -29,6 +30,7 @@ const Places: React.FC<{}> = () => {
       const PAGE_SIZE = 200;
       setZoom(6);
       Request.getPlacePage(PAGE, PAGE_SIZE).then((res) => {
+        setPlace([]);
         setCenterIdx(Math.floor(Math.random() * PAGE_SIZE));
         const { data } = res;
         setPlace(
@@ -43,7 +45,7 @@ const Places: React.FC<{}> = () => {
         );
       });
     }
-  }, []);
+  }, [id]);
 
   return (
     <HomeLayout>

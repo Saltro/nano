@@ -32,7 +32,7 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
       default: placeNormal,
       selected: placeSelect,
       onClick: () => {
-        navigate('/places');
+        navigate('/places/0');
       },
     },
   ];
