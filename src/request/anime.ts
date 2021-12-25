@@ -22,8 +22,16 @@ const getAnimeDetail = (id: string) => {
   return request.get<IAnimeInfo>(`/anime/${id}`);
 };
 
-const addAnimeCollection = (id: string) => {
+const checkAnimeCollection = (id: string | undefined) => {
+  return request.get(`/anime/${id}/collection/`);
+};
+
+const addAnimeCollection = (id: string | undefined) => {
   return request.post(`/anime/${id}/collection/`);
 };
 
-export default { getAnimeDetail, getAnimePage, addAnimeCollection };
+const deleteAnimeCollection = (id: string | undefined) => {
+  return request.delete(`/anime/${id}/collection/`);
+};
+
+export default { getAnimeDetail, getAnimePage, addAnimeCollection, checkAnimeCollection, deleteAnimeCollection };
