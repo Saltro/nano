@@ -5,6 +5,17 @@ import Request from '@/request';
 const AuthContainer: React.FC<{}> = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<IUserInfo | null>(null);
 
+  const refreshInfo = () => {
+    Request.getUserInfo()
+      .then((res) => {
+        console.log('首次加载', res);
+        setUserInfo(res.data);
+      })
+      .catch((err) => {
+        console.log('首次加载失败', err);
+      });
+  };
+
   const login = (form: ILoginRequest) => {
     return new Promise((resolve, reject) => {
       Request.login(form)
@@ -42,20 +53,14 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
 
   useEffect(() => {
     // 首次进入后获取用户信息
-    Request.getUserInfo()
-      .then((res) => {
-        console.log('首次加载', res);
-        setUserInfo(res.data);
-      })
-      .catch((err) => {
-        console.log('首次加载失败', err);
-      });
+    refreshInfo();
   }, []);
 
   const value = useMemo(() => {
     // console.log('userInfo改变了', userInfo);
     return {
       userInfo,
+      refreshInfo,
       login,
       register,
       logout,

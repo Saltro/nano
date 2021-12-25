@@ -1,7 +1,9 @@
-import React from 'react';
+import request from '@/request';
+import React, { useEffect, useState } from 'react';
+import { message } from 'antd';
 import style from './index.less';
-
 export interface IDetailProps {
+  id: string;
   title: string;
   titleCN: string;
   image: string;
@@ -22,6 +24,7 @@ export interface IDetailProps {
 
 const Detail: React.FC<IDetailProps> = (props) => {
   const {
+    id,
     title,
     titleCN,
     image,
@@ -39,6 +42,24 @@ const Detail: React.FC<IDetailProps> = (props) => {
     producer,
   } = props;
 
+  const [collected, setCollected] = useState(false);
+
+  useEffect(() => {
+    request.checkAnimeCollection(id).then((res) => {
+      setCollected(res.data.is_collected)
+    })
+  })
+
+  const toggleCollected = () => {
+    if(collected){
+      request.deleteAnimeCollection(id).then(() => message.success('取消收藏成功'))
+    }
+    else{
+      request.addAnimeCollection(id).then(() => message.success('收藏成功'))
+    }
+    setCollected((prev) => !prev)
+  }
+
   return (
     <div className="container">
       <h1 className={style.title}>{titleCN + '  ' + title}</h1>
@@ -52,8 +73,13 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
+        <button className={style.collect} onClick={toggleCollected} style={ !collected ? {display: 'none'} : {}}>
+          <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
+        </button>
+        <button className={style.collect} onClick={toggleCollected} style={ collected ? {display: 'none'} : {}}>
+          <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
+        </button>
       </div>
-
       <div className={style.details}>
         <img src={image} className={style.image} />
         <div className={style.info}>

@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import style from './index.less';
 import NoData from '@/components/NoData';
 
 interface ILocTableProps {
-  places: IPlaceInfoBrief[];
+  places: {
+    id: number;
+    name: string;
+    city?: string;
+    address: string;
+    latitude?: number;
+    longitude?: number;
+  }[];
 }
 
 const LocTable: React.FC<ILocTableProps> = ({ places }) => {
@@ -33,12 +39,8 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
               <tr key={index}>
                 <td>{place.name}</td>
                 <td>{place.address}</td>
-                <td>{place.latitude + ', ' + place.longitude}</td>
-                <td>
-                  <Link to={`/places/${place.id}`}>
-                    <span className={style.link}>详情</span>
-                  </Link>
-                </td>
+                {place.city && <td>{place.city}</td>}
+                {place.latitude && place.longitude && <td>{place.latitude + ', ' + place.longitude}</td>}
               </tr>
             );
           })}

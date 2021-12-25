@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
 import Map from '@/components/Map';
-import LocTable from './LocTable';
+import LocTable from '@/components/LocTable';
 import DoubleSwiper from './DoubleSwiper';
 import Detail, { IDetailProps } from './Detail';
 import Title from './Title';
@@ -13,7 +13,7 @@ export default function Details() {
   const { id } = useParams();
   const [detailProps, setDetailProps] = useState<IDetailProps | null>(null);
   const [pictures, setPictures] = useState<string[]>([]);
-  const [places, setPlaces] = useState<IPlaceInfoBrief[]>([]);
+  const [places, setPlaces] = useState<(IPlaceInfoBrief & { city?: string })[]>([]);
 
   useEffect(() => {
     console.log('show details');
@@ -21,6 +21,7 @@ export default function Details() {
       Request.getAnimeDetail(id).then((res) => {
         const { data } = res;
         setDetailProps({
+          id: id,
           title: data.title,
           titleCN: data.title_cn,
           image: data.cover,
