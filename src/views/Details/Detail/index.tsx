@@ -42,22 +42,22 @@ const Detail: React.FC<IDetailProps> = (props) => {
     producer,
   } = props;
 
-  const [liked, setLiked] = useState(false);
+  const [collected, setCollected] = useState(false);
 
   useEffect(() => {
     request.checkAnimeCollection(id).then((res) => {
-      setLiked(res.data.is_collected)
+      setCollected(res.data.is_collected)
     })
   })
 
-  const toggleLiked = () => {
-    if(liked){
+  const toggleCollected = () => {
+    if(collected){
       request.deleteAnimeCollection(id).then(() => message.success('取消收藏成功'))
     }
     else{
       request.addAnimeCollection(id).then(() => message.success('收藏成功'))
     }
-    setLiked((prev) => !prev)
+    setCollected((prev) => !prev)
   }
 
   return (
@@ -73,10 +73,10 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        <button className={style.like} onClick={toggleLiked} style={ !liked ? {display: 'none'} : {}}>
+        <button className={style.collect} onClick={toggleCollected} style={ !collected ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
         </button>
-        <button className={style.like} onClick={toggleLiked} style={ liked ? {display: 'none'} : {}}>
+        <button className={style.collect} onClick={toggleCollected} style={ collected ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
         </button>
       </div>
