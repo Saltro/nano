@@ -60,16 +60,18 @@ const Home: React.FC = () => {
         <div>
           <div className={style.carousel}>
             <Carousel autoplay>
-              <div className={style.slide}>
-                <Link to={`/detail/${recommendCarousel[0]?.anime}`}>
-                  <div className={style.description}>
-                    {recommendCarousel[0]?.description}
+              {recommendCarousel.map((info, index) => {
+                return (
+                  <div className={style.slide} key={index}>
+                    <Link to={`/detail/${info?.anime}`}>
+                      <div className={style.description}>{info?.description}</div>
+                      <div className={style.imgContainer}>
+                        <img src={info?.image} />
+                      </div>
+                    </Link>
                   </div>
-                  <div className={style.imgContainer}>
-                    <img src={recommendCarousel[0]?.image}/>
-                  </div>
-                </Link>
-              </div>
+                );
+              })}
             </Carousel>
           </div>
           <RecommendationTable recommendList={recommendTable} />
