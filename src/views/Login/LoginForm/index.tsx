@@ -14,11 +14,11 @@ const LoginForm: React.FC = () => {
   const onLoginClick = () => {
     const validations = [
       {
-        validator: () => username.length > 6 && username.length <= 16,
+        validator: () => username.length >= 6 && username.length <= 16,
         message: '用户名长度不能小于6位且不能长于16位',
       },
       {
-        validator: () => password.length > 6 && password.length <= 24,
+        validator: () => password.length >= 6 && password.length <= 24,
         message: '密码长度不能小于6位且不能长于24位',
       },
     ];
