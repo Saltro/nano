@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
-import RecommendationTable from './RecommendTable';
+import Loading from '@/components/Loading';
+import RecommendTable from './RecommendTable';
 import style from './index.less';
 import RecommendCarousel from '@/views/Home/RecommendCarousel';
 
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
   const [totalPages, setTotalPages] = React.useState(0);
   const [recommendTable, setRecommendTable] = React.useState<IRecommendInfo[]>([]);
   const [recommendCarousel, setRecommendCarousel] = React.useState<IRecommendInfo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // 初始化加载轮播图
@@ -35,6 +37,7 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     // TODO: 数据不够，暂时只请求第一页
     Request.getRecommendPage(Number(1), RecommendTablePageSize, 'TABLE', 'score', false)
       .then((res) => {
@@ -43,6 +46,7 @@ const Home: React.FC = () => {
         console.log('获取RecommendTablePage成功', data);
         setTotalPages(16); // TODO: 假设有好多页数据
         setRecommendTable(data.results);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log('获取RecommendTablePage失败', err);
@@ -57,15 +61,15 @@ const Home: React.FC = () => {
             <SearchBox />
           </div>
         </div>
-        <div>
+        <Loading isLoading={isLoading}>
           {page === '1' && <RecommendCarousel recommendList={recommendCarousel} />}
-          <RecommendationTable recommendList={recommendTable} />
+          <RecommendTable recommendList={recommendTable} />
           <PageController
             currentPage={page ? Number(page) : 1}
             totalPages={totalPages}
             onCurrentPageChange={onCurrentPageChange}
           />
-        </div>
+        </Loading>
       </div>
     </HomeLayout>
   );

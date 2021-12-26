@@ -7,6 +7,7 @@ import SearchBox from '@/components/SearchBox';
 import WorkTable from '@/components/WorkTable';
 import TypeChoose from './TypeChoose';
 import style from './index.less';
+import Loading from '@/components/Loading';
 
 const Work: React.FC<{}> = () => {
   const { page, ordering, ascending } = useParams();
@@ -15,6 +16,7 @@ const Work: React.FC<{}> = () => {
   const [workItems, setWorkItems] = useState<
     { id: number; title_cn: string; cover_medium: string; is_collected: boolean }[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const TypeChooseItemList: {
     name: string;
@@ -34,12 +36,14 @@ const Work: React.FC<{}> = () => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     Request.getAnimePage(Number(page), undefined, undefined, ordering as AnimeOrderingKey, ascending === 'true')
       .then((res) => {
         const { data } = res;
         console.log('获取AnimePage成功', data);
         setTotalPages(Math.ceil(data.count / 20));
         setWorkItems(data.results);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error('获取WorkList失败', err);
@@ -64,8 +68,14 @@ const Work: React.FC<{}> = () => {
           ascending={ascending === 'true'}
           itemList={TypeChooseItemList}
         />
-        <WorkTable workItems={workItems} />
-        <PageController currentPage={Number(page)} totalPages={totalPages} onCurrentPageChange={onCurrentPageChange} />
+        <Loading isLoading={isLoading}>
+          <WorkTable workItems={workItems} />
+          <PageController
+            currentPage={Number(page)}
+            totalPages={totalPages}
+            onCurrentPageChange={onCurrentPageChange}
+          />
+        </Loading>
       </div>
     </HomeLayout>
   );

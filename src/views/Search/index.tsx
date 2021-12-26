@@ -5,6 +5,7 @@ import HomeLayout from '@/layouts/HomeLayout';
 import WorkTable from '@/components/WorkTable';
 import PageController from '@/components/PageController';
 import SearchBox from '@/components/SearchBox';
+import Loading from '@/components/Loading';
 import style from './index.less';
 
 const Search: React.FC<{}> = () => {
@@ -14,6 +15,7 @@ const Search: React.FC<{}> = () => {
   const [workItems, setWorkItems] = useState<
     { id: number; title_cn: string; cover_medium: string; is_collected: boolean }[]
   >([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onCurrentPageChange = (currentPage: number) => {
     navigate(`/search/${key}/${currentPage}`);
@@ -29,6 +31,9 @@ const Search: React.FC<{}> = () => {
       })
       .catch((err) => {
         console.error('获取WorkList失败', err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [key, page]);
 
@@ -45,12 +50,14 @@ const Search: React.FC<{}> = () => {
             <SearchBox init={key} />
           </div>
         </div>
-        <WorkTable workItems={workItems} />
-        <PageController
-          currentPage={page ? Number(page) : 1}
-          totalPages={totalPages}
-          onCurrentPageChange={onCurrentPageChange}
-        />
+        <Loading isLoading={isLoading}>
+          <WorkTable workItems={workItems} />
+          <PageController
+            currentPage={page ? Number(page) : 1}
+            totalPages={totalPages}
+            onCurrentPageChange={onCurrentPageChange}
+          />
+        </Loading>
       </div>
     </HomeLayout>
   );

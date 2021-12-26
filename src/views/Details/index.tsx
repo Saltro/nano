@@ -4,6 +4,7 @@ import Request from '@/request';
 import HomeLayout from '@/layouts/HomeLayout';
 import Map from '@/components/Map';
 import LocTable from '@/components/LocTable';
+import Loading from '@/components/Loading';
 import DoubleSwiper from './DoubleSwiper';
 import Detail, { IDetailProps } from './Detail';
 import Title from './Title';
@@ -14,6 +15,7 @@ export default function Details() {
   const [detailProps, setDetailProps] = useState<IDetailProps | null>(null);
   const [pictures, setPictures] = useState<string[]>([]);
   const [places, setPlaces] = useState<(IPlaceInfoBrief & { city?: string })[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log('show details');
@@ -40,6 +42,7 @@ export default function Details() {
           origin: data.original.slice(0, 3).map((original) => original.name),
         });
         data.photos.length !== 0 && setPictures(data.photos.map((photo) => photo.image));
+        setIsLoading(false);
       });
 
     id &&
@@ -59,26 +62,29 @@ export default function Details() {
               };
             }),
           );
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <HomeLayout>
-      <div className={style.container}>
-        {detailProps && <Detail {...detailProps} />}
-        <div className={style.gallery}>
-          <Title text="实景照片" />
-          <DoubleSwiper pictures={pictures} />
+      <Loading isLoading={isLoading}>
+        <div className={style.container}>
+          {detailProps && <Detail {...detailProps} />}
+          <div className={style.gallery}>
+            <Title text="实景照片" />
+            <DoubleSwiper pictures={pictures} />
+          </div>
+          <div className={style.map}>
+            <Title text="朝圣地图" />
+            <Map places={places} styles={{ height: '300px' }} zoom={7} />
+          </div>
+          <div className={style.locations}>
+            <Title text="地址详情" />
+            <LocTable places={places} />
+          </div>
         </div>
-        <div className={style.map}>
-          <Title text="朝圣地图" />
-          <Map places={places} styles={{ height: '300px' }} zoom={7} />
-        </div>
-        <div className={style.locations}>
-          <Title text="地址详情" />
-          <LocTable places={places} />
-        </div>
-      </div>
+      </Loading>
     </HomeLayout>
   );
 }
