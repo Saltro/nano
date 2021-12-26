@@ -6,13 +6,12 @@ interface ILoadingProps {
 }
 
 const Loading: React.FC<ILoadingProps> = ({ isLoading, children }) => {
-  return (
-    <>
-      <div style={{ display: isLoading ? 'flex' : 'none' }} id={style.loading}>
-        <div />
-      </div>
-      <div style={{ display: !isLoading ? 'block' : 'none' }}>{children}</div>
-    </>
+  return isLoading ? (
+    <div style={{ display: isLoading ? 'flex' : 'none' }} id={style.loading}>
+      <div />
+    </div>
+  ) : (
+    (children as React.ReactElement)
   );
 };
 

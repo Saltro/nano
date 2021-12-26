@@ -18,7 +18,7 @@ const getPlace = (id: string | undefined) => {
 };
 
 const checkPlaceCollection = (id: number | undefined) => {
-  return request.get(`/place/${id}/collection/`);
+  return request.get<{ is_collected: boolean }>(`/place/${id}/collection/`);
 };
 
 const addPlaceCollection = (id: number | undefined) => {

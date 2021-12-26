@@ -5,6 +5,7 @@ import HomeLayout from '@/layouts/HomeLayout';
 import Map from '@/components/Map';
 import LocTable from '@/components/LocTable';
 import Loading from '@/components/Loading';
+import NoData from '@/components/NoData';
 import DoubleSwiper from './DoubleSwiper';
 import Detail, { IDetailProps } from './Detail';
 import Title from './Title';
@@ -77,7 +78,14 @@ export default function Details() {
           </div>
           <div className={style.map}>
             <Title text="朝圣地图" />
-            <Map places={places} styles={{ height: '300px' }} zoom={7} />
+            {places.length === 0 ? (
+              <NoData
+                img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/map.png?raw=true"
+                text="暂无数据"
+              />
+            ) : (
+              <Map places={places} styles={{ height: '300px' }} zoom={10} />
+            )}
           </div>
           <div className={style.locations}>
             <Title text="地址详情" />

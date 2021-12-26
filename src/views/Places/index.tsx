@@ -25,6 +25,7 @@ const Places: React.FC<{}> = () => {
             longitude: data.longitude,
             latitude: data.latitude,
             photos: data.photos,
+            isCollected: data.is_collected,
           },
         ]);
         setIsLoading(false);
@@ -45,6 +46,7 @@ const Places: React.FC<{}> = () => {
             longitude: item.longitude,
             latitude: item.latitude,
             photos: item.photos,
+            isCollected: item.is_collected,
           })),
         );
         setIsLoading(false);
