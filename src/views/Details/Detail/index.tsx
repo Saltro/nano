@@ -2,6 +2,7 @@ import request from '@/request';
 import React, { useEffect, useState } from 'react';
 import { message } from 'antd';
 import style from './index.less';
+import { StarOutlined, StarFilled } from '@ant-design/icons'
 export interface IDetailProps {
   id: string;
   title: string;
@@ -46,18 +47,29 @@ const Detail: React.FC<IDetailProps> = (props) => {
 
   useEffect(() => {
     request.checkAnimeCollection(id).then((res) => {
-      setCollected(res.data.is_collected)
+      setCollected(res.data.is_collected);
     })
   })
 
   const toggleCollected = () => {
     if(collected){
-      request.deleteAnimeCollection(id).then(() => message.success('取消收藏成功'))
+      request.deleteAnimeCollection(id).then(() => {
+        message.success('取消收藏成功');
+        setCollected((prev) => !prev);
+      })
+      .catch(() => {
+        message.error('请先登录')
+      })
     }
     else{
-      request.addAnimeCollection(id).then(() => message.success('收藏成功'))
+      request.addAnimeCollection(id).then(() => {
+        message.success('收藏成功');
+        setCollected((prev) => !prev);
+      })
+      .catch(() => {
+        message.error('请先登录')
+      })
     }
-    setCollected((prev) => !prev)
   }
 
   return (
@@ -73,11 +85,17 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        <button className={style.collect} onClick={toggleCollected} style={ !collected ? {display: 'none'} : {}}>
+        {/* <button className={style.collect} onClick={toggleCollected} style={ !collected ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
         </button>
         <button className={style.collect} onClick={toggleCollected} style={ collected ? {display: 'none'} : {}}>
           <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
+        </button> */}
+        <button 
+          className={style.collect}
+          onClick={toggleCollected}
+        >
+          {collected ? <StarFilled style={{color:'#f09199', fontSize: '25px'}}/> : <StarOutlined style={{color:'#f09199', fontSize: '25px'}}/>}
         </button>
       </div>
       <div className={style.details}>
