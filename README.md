@@ -149,7 +149,7 @@ UI 由团队成员 *kinokosi* 使用 `Figma` 软件，结合作品主题，选�
 
 ## 项目目录结构
 
-.
+```.
 ├── Dockerfile
 ├── README.md
 ├── commitlint.config.js
@@ -169,5 +169,5 @@ UI 由团队成员 *kinokosi* 使用 `Figma` 软件，结合作品主题，选�
 ├── template 
         ├──index.html
 ├── tsconfig.json
-├── webpack.config.js
+├── webpack.config.js```
 
