@@ -146,3 +146,28 @@ UI 由团队成员 *kinokosi* 使用 `Figma` 软件，结合作品主题，选�
   ```shell
   $ docker run -d --name nano_frontend -p EXPOSE_PORT:80 nano_frontend:latest
   ```
+
+## 项目目录结构
+
+.
+├── Dockerfile
+├── README.md
+├── commitlint.config.js
+├── nginx.conf
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── src  // 项目源码
+        ├──assets  // 静态资源
+        ├──components  // 自定义组件
+        ├──context  // 状态管理
+        ├──layouts  // 页面布局
+        ├──request  // 后端请求
+        ├──typings  // ts类型文件
+        ├──utils
+        ├──views  // 页面容器
+├── template 
+        ├──index.html
+├── tsconfig.json
+├── webpack.config.js
+
