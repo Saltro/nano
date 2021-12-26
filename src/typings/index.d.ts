@@ -147,3 +147,5 @@ declare interface IRegisterRequest {
   sms: string;
   allow: boolean;
 }
+
+declare type GetPromiseValueType<T> = T extends Promise<infer R> ? R : never;
