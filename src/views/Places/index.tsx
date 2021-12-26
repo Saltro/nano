@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom';
 import Request from '@/request';
 import Map from '@/components/Map';
 import HomeLayout from '@/layouts/HomeLayout';
+import Loading from '@/components/Loading';
 
 const Places: React.FC<{}> = () => {
+  const { id } = useParams();
   const [place, setPlace] = useState<IPlaceInfoBrief[]>([]);
   const [centerIdx, setCenterIdx] = useState(0);
   const [zoom, setZoom] = useState(17);
-  const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     console.log(id);
     if (id !== '0') {
@@ -24,6 +27,7 @@ const Places: React.FC<{}> = () => {
             photos: data.photos,
           },
         ]);
+        setIsLoading(false);
       });
     } else {
       const PAGE = 1;
@@ -43,20 +47,21 @@ const Places: React.FC<{}> = () => {
             photos: item.photos,
           })),
         );
+        setIsLoading(false);
       });
     }
   }, [id]);
 
   return (
     <HomeLayout>
-      <div>
+      <Loading isLoading={isLoading}>
         <Map
           places={place}
           styles={{ height: '90vh' }}
           zoom={zoom}
           center={place.length === 0 ? [35.69, 135.69] : [place[centerIdx].latitude, place[centerIdx].longitude]}
         />
-      </div>
+      </Loading>
     </HomeLayout>
   );
 };
