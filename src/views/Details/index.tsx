@@ -19,52 +19,52 @@ export default function Details() {
 
   useEffect(() => {
     console.log('show details');
-    id &&
-      Request.getAnimeDetail(id).then((res) => {
-        const { data } = res;
-        setDetailProps({
-          id: id,
-          title: data.title,
-          titleCN: data.title_cn,
-          image: data.cover,
-          description: data.description,
-          director: data.director.slice(0, 3).map((director) => director.name),
-          actors: data.actor.slice(0, 3).map((actor) => actor.name),
-          categories: data.tags.slice(0, 4).map((tag) => tag.name),
-          website: data.website || '',
-          country: data.country,
-          date: data.air_date,
-          alias: data.alias,
-          storyboard: data.storyboard.slice(0, 3).map((storyboard) => storyboard.name),
-          script: data.script.slice(0, 3).map((script) => script.name),
-          music: data.music.slice(0, 3).map((music) => music.name),
-          producer: data.producer.slice(0, 3).map((producer) => producer.name),
-          origin: data.original.slice(0, 3).map((original) => original.name),
-        });
-        data.photos.length !== 0 && setPictures(data.photos.map((photo) => photo.image));
-        setIsLoading(false);
-      });
+    if (id) {
+      Promise.all<[ReturnType<typeof Request.getAnimeDetail>, ReturnType<typeof Request.getAnimePlaces>]>([
+        Request.getAnimeDetail(id),
+        Request.getAnimePlaces(id),
+      ])
+        .then(([detail, places]) => {
+          setDetailProps({
+            id: id,
+            title: detail.data.title,
+            titleCN: detail.data.title_cn,
+            image: detail.data.cover,
+            description: detail.data.description,
+            director: detail.data.director.slice(0, 3).map((director) => director.name),
+            actors: detail.data.actor.slice(0, 3).map((actor) => actor.name),
+            categories: detail.data.tags.slice(0, 4).map((tag) => tag.name),
+            website: detail.data.website || '',
+            country: detail.data.country,
+            date: detail.data.air_date,
+            alias: detail.data.alias,
+            storyboard: detail.data.storyboard.slice(0, 3).map((storyboard) => storyboard.name),
+            script: detail.data.script.slice(0, 3).map((script) => script.name),
+            music: detail.data.music.slice(0, 3).map((music) => music.name),
+            producer: detail.data.producer.slice(0, 3).map((producer) => producer.name),
+            origin: detail.data.original.slice(0, 3).map((original) => original.name),
+          });
 
-    id &&
-      Request.getAnimePlaces(id).then((res) => {
-        const { data } = res;
-        data.count !== 0 &&
-          setPlaces(
-            data.results.map((place) => {
-              console.log(place);
-              return {
-                id: place.id,
-                name: place.name,
-                address: place.address,
-                longitude: place.longitude,
-                latitude: place.latitude,
-                photos: place.photos,
-              };
-            }),
-          );
-        setIsLoading(false);
-      });
-  }, []);
+          detail.data.photos.length !== 0 && setPictures(detail.data.photos.map((photo) => photo.image));
+
+          places.data.count !== 0 &&
+            setPlaces(
+              places.data.results.map((place) => {
+                console.log(place);
+                return {
+                  id: place.id,
+                  name: place.name,
+                  address: place.address,
+                  longitude: place.longitude,
+                  latitude: place.latitude,
+                  photos: place.photos,
+                };
+              }),
+            );
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [id]);
 
   return (
     <HomeLayout>
