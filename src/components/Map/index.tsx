@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from './index.less';
 import NoData from '@/components/NoData';
 import { Image, message } from 'antd';
+import { StarOutlined, StarFilled } from '@ant-design/icons'
 import request from '@/request';
 import { AxiosResponse } from 'axios';
 
@@ -23,7 +24,6 @@ const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
       console.log(placesArr[index])
       request.deletePlaceCollection(id).then(() => {
         message.success("取消地点收藏成功");
-        console.log(placesArr[index])
         setPlaces(prev => {
           const a = [...prev]
           a[index].isCollected = false
@@ -31,17 +31,21 @@ const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
           return a
         })
       })
+      .catch(() => {
+        message.error('请先登录')
+      })
     }
     else {
       request.addPlaceCollection(id).then(() => {
         message.success("地点收藏成功");
-        console.log(placesArr[index])
+        setPlaces(prev => {
+          const a = [...prev]
+          a[index].isCollected = true
+          return a
+        })
       })
-      setPlaces(prev => {
-        const a = [...prev]
-        a[index].isCollected = true
-        console.log(a[index])
-        return a
+      .catch(() => {
+        message.error('请先登录')
       })
     }
   };
@@ -53,9 +57,13 @@ const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
       promiseList.push(request.checkPlaceCollection(place.id))
     })
     Promise.all(promiseList).then((res) => {
+      console.log('@')
       arr.forEach((place, index) => {
         place.isCollected = res[index].data.is_collected
       })
+      setPlaces(arr)
+    })
+    .catch(() => {
       setPlaces(arr)
     })
   })
@@ -90,16 +98,8 @@ const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
                 <button 
                   className={style.like}
                   onClick={() => toggleCollected(place.id, index)}
-                  style={place.isCollected ? {} : {display: 'none'}}
                 >
-                  <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
-                </button>
-                <button 
-                  className={style.like}
-                  onClick={() => toggleCollected(place.id, index)}
-                  style={!place.isCollected ? {} : {display: 'none'}}
-                >
-                  <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
+                  {place.isCollected ? <StarFilled style={{color:'#f09199', fontSize:'17px'}}/> : <StarOutlined style={{color:'#f09199', fontSize:'17px'}}/>}
                 </button>
                 {place.photos.length > 0 && (
                   <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
