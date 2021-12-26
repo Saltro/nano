@@ -44,4 +44,49 @@ const refresh = () => {
     });
 };
 
-export default { login, getUserInfo, refresh, register, getSmsCode };
+const getUserAnimeCollection = () => {
+  return request.get<IPageInfo<{ anime: IAnimeInfoBrief }>>('/user/anime/');
+};
+
+const getUserPlaceCollection = () => {
+  return request.get<IPageInfo<{ place: { id: number; name: string; city: string; address: string } }>>('/user/place/');
+};
+
+const checkAnimeCollection = (id: string | undefined) => {
+  return request.get(`/anime/${id}/collection/`);
+};
+
+const addAnimeCollection = (id: string | undefined) => {
+  return request.post<IPageInfo<{ anime: IAnimeInfoBrief }>>(`/anime/${id}/collection/`);
+};
+
+const deleteAnimeCollection = (id: string | undefined) => {
+  return request.delete<IPageInfo<{ anime: IAnimeInfoBrief }>>(`/anime/${id}/collection/`);
+};
+
+const changeAvatar = (avatar: File) => {
+  const formData = new FormData();
+  formData.append('avatar', avatar);
+  return request.put<{ avatar: string }>('/user/', formData);
+};
+
+const changeNickname = (nickname: string) => {
+  const formData = new FormData();
+  formData.append('nickname', nickname);
+  return request.put<{ nickname: string }>('/user/', formData);
+};
+
+export default {
+  login,
+  getUserInfo,
+  refresh,
+  register,
+  getSmsCode,
+  getUserAnimeCollection,
+  getUserPlaceCollection,
+  checkAnimeCollection,
+  addAnimeCollection,
+  deleteAnimeCollection,
+  changeAvatar,
+  changeNickname,
+};

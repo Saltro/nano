@@ -2,14 +2,7 @@ import React from 'react';
 import style from './index.less';
 import { Link } from 'react-router-dom';
 
-export interface IWorkItem {
-  id: number;
-  title_cn: string;
-  cover_medium: string;
-  is_collected: boolean;
-}
-
-const WorkItem: React.FC<IWorkItem> = (props) => {
+const WorkItem: React.FC<IAnimeInfoBrief> = (props) => {
   const { id, cover_medium, title_cn } = props;
   return (
     <div id={style.container}>

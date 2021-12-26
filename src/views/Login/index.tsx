@@ -2,8 +2,10 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import style from './index.less';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedFunction, setSelectedFunction] = React.useState('login');
 
   const onFunctionBarLabelLogin = () => {
@@ -18,7 +20,7 @@ const Login: React.FC = () => {
   return (
     <div id={style.container}>
       <div id={style.card}>
-        <img id={style.logo} src="https://s2.loli.net/2021/12/09/yY73b1d5ZQWz2Up.png" />
+        <img id={style.logo} src="https://s2.loli.net/2021/12/09/yY73b1d5ZQWz2Up.png" onClick={() => navigate('/')} />
         <p id={style.subtitle}>圣地巡礼地点全收录</p>
         <div id={style.tabBar}>
           <p

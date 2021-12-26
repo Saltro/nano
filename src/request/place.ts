@@ -17,4 +17,23 @@ const getPlace = (id: string | undefined) => {
   return request.get<IPlaceInfo>(`/place/${id}`);
 };
 
-export default { getAnimePlaces, getPlacePage, getPlace };
+const checkPlaceCollection = (id: number | undefined) => {
+  return request.get(`/place/${id}/collection/`);
+};
+
+const addPlaceCollection = (id: number | undefined) => {
+  return request.post(`/place/${id}/collection/`);
+};
+
+const deletePlaceCollection = (id: number | undefined) => {
+  return request.delete(`/place/${id}/collection/`);
+};
+
+export default {
+  getAnimePlaces,
+  getPlacePage,
+  getPlace,
+  checkPlaceCollection,
+  addPlaceCollection,
+  deletePlaceCollection,
+};
