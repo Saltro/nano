@@ -85,12 +85,6 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        {/* <button className={style.collect} onClick={toggleCollected} style={ !collected ? {display: 'none'} : {}}>
-          <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F.png?raw=true" alt="取消收藏" />
-        </button>
-        <button className={style.collect} onClick={toggleCollected} style={ collected ? {display: 'none'} : {}}>
-          <img src="https://github.com/wzkMaster/nano/blob/master/%E6%94%B6%E8%97%8F%20(1).png?raw=true" alt="收藏" />
-        </button> */}
         <button 
           className={style.collect}
           onClick={toggleCollected}
