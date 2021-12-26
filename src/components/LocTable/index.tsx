@@ -1,6 +1,7 @@
 import React from 'react';
-import style from './index.less';
+import { Link } from 'react-router-dom';
 import NoData from '@/components/NoData';
+import style from './index.less';
 
 interface ILocTableProps {
   places: {
@@ -41,6 +42,11 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
                 <td>{place.address}</td>
                 {place.city && <td>{place.city}</td>}
                 {place.latitude && place.longitude && <td>{place.latitude + ', ' + place.longitude}</td>}
+                <td>
+                  <Link to={`/places/${place.id}`}>
+                    <span className={style.link}>详情</span>
+                  </Link>
+                </td>
               </tr>
             );
           })}
