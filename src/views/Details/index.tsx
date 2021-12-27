@@ -84,7 +84,7 @@ export default function Details() {
                 text="暂无数据"
               />
             ) : (
-              <Map places={places} styles={{ height: '300px' }} zoom={10} />
+              <Map places={places} styles={{ height: '40vh' }} zoom={10} />
             )}
           </div>
           <div className={style.locations}>
