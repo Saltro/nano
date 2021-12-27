@@ -1,6 +1,7 @@
 node_modules
 *.json
-webpack.config.js
+*.config.js
+*.conf.js
 *.css
 *.less
 *.html
