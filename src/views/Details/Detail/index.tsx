@@ -2,7 +2,7 @@ import request from '@/request';
 import React, { useEffect, useState } from 'react';
 import { message } from 'antd';
 import style from './index.less';
-import { StarOutlined, StarFilled } from '@ant-design/icons'
+import { StarOutlined, StarFilled } from '@ant-design/icons';
 export interface IDetailProps {
   id: string;
   title: string;
@@ -48,29 +48,32 @@ const Detail: React.FC<IDetailProps> = (props) => {
   useEffect(() => {
     request.checkAnimeCollection(id).then((res) => {
       setCollected(res.data.is_collected);
-    })
-  })
+    });
+  });
 
   const toggleCollected = () => {
-    if(collected){
-      request.deleteAnimeCollection(id).then(() => {
-        message.success('取消收藏成功');
-        setCollected((prev) => !prev);
-      })
-      .catch(() => {
-        message.error('请先登录')
-      })
+    if (collected) {
+      request
+        .deleteAnimeCollection(id)
+        .then(() => {
+          message.success('取消收藏成功');
+          setCollected((prev) => !prev);
+        })
+        .catch(() => {
+          message.error('请先登录');
+        });
+    } else {
+      request
+        .addAnimeCollection(id)
+        .then(() => {
+          message.success('收藏成功');
+          setCollected((prev) => !prev);
+        })
+        .catch(() => {
+          message.error('请先登录');
+        });
     }
-    else{
-      request.addAnimeCollection(id).then(() => {
-        message.success('收藏成功');
-        setCollected((prev) => !prev);
-      })
-      .catch(() => {
-        message.error('请先登录')
-      })
-    }
-  }
+  };
 
   return (
     <div className="container">
@@ -85,11 +88,12 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        <button 
-          className={style.collect}
-          onClick={toggleCollected}
-        >
-          {collected ? <StarFilled style={{color:'#f09199', fontSize: '25px'}}/> : <StarOutlined style={{color:'#f09199', fontSize: '25px'}}/>}
+        <button className={style.collect} onClick={toggleCollected}>
+          {collected ? (
+            <StarFilled style={{ color: '#f09199', fontSize: '25px' }} />
+          ) : (
+            <StarOutlined style={{ color: '#f09199', fontSize: '25px' }} />
+          )}
         </button>
       </div>
       <div className={style.details}>
@@ -133,7 +137,7 @@ const Detail: React.FC<IDetailProps> = (props) => {
               <span className={style.filed}>演员 : </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{actors.join(' / ')}
             </p>
           )}
-          {country.length > 0 && (
+          {country && (
             <p>
               <span className={style.filed}>制片国家 : </span>
               {country}
