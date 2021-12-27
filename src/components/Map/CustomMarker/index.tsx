@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { message, Image } from 'antd';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
 import Request from '@/request';
-import type { Popup as PopupType } from 'leaflet';
+import type { Marker as MarkerType, Popup as PopupType } from 'leaflet';
 import style from './index.less';
 
 interface ICustomMarkerProps {
@@ -13,6 +13,13 @@ interface ICustomMarkerProps {
 const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   const [isCollected, setIsCollected] = useState(place.isCollected);
   const popup = useRef<PopupType | null>(null);
+  const marker = useRef<MarkerType | null>(null);
+
+  useEffect(() => {
+    if (marker?.current && place.openPopup) {
+      marker.current.openPopup();
+    }
+  }, []);
 
   const toggleCollected = () => {
     if (isCollected) {
@@ -37,7 +44,7 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   };
 
   return (
-    <Marker position={[place.latitude, place.longitude]}>
+    <Marker position={[place.latitude, place.longitude]} ref={marker}>
       <Popup minWidth={150} ref={popup} onOpen={() => {}}>
         <span className={style.popupText}>{place.name}</span>
         <button className={style.like} onClick={() => toggleCollected()}>
