@@ -5,7 +5,6 @@ import Loading from './components/Loading';
 import Home from './views/Home';
 import './App.less';
 import './assets/iconfont/iconfont.css';
-import 'antd/dist/antd.css';
 
 const Work = React.lazy(() => import('./views/Work'));
 const Details = React.lazy(() => import('./views/Details'));

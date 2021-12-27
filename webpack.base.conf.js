@@ -1,5 +1,4 @@
 const path = require('path'); // 导入path模块
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // 导入html-webpack-plugin模块
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-css-extract-plugin模块
 
 module.exports = {
@@ -38,6 +37,17 @@ module.exports = {
       },
     ],
   },
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    antd: 'antd',
+    leaflet: 'leaflet',
+    'react-leaflet': 'ReactLeaflet',
+    axios: 'axios',
+    'react-router-dom': 'ReactRouterDOM',
+    'react-router': 'ReactRouter',
+    history: 'history',
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'], // 自动解析确定的扩展
     alias: {
@@ -48,11 +58,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './template/index.html'), // 模板位置
-      filename: 'index.html', // 输出后的文件名，路径是 output.path
-      title: 'Nano', // 传给模板的变量
     }),
   ],
   // 出口文件
