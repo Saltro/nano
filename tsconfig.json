@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "target": "es5", // 指定编译到的 es 版本 es5
-    "module": "es6", // 指定编译到的模块系统 es6
+    "module": "es2020", // 指定编译到的模块系统 es6
     "strict": true, // 使用严格类型检查
     "allowJs": true, // 允许使用 js 语法
     "jsx": "react", // 指定 jsx 语法 react
