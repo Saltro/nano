@@ -7,7 +7,7 @@ import Loading from '@/components/Loading';
 
 const Places: React.FC<{}> = () => {
   const { id } = useParams();
-  const [place, setPlace] = useState<IPlaceInfoBrief[]>([]);
+  const [place, setPlace] = useState<(IPlaceInfoBrief & { openPopup?: boolean })[]>([]);
   const [centerIdx, setCenterIdx] = useState(0);
   const [zoom, setZoom] = useState(17);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +26,7 @@ const Places: React.FC<{}> = () => {
             latitude: data.latitude,
             photos: data.photos,
             isCollected: data.is_collected,
+            openPopup: true,
           },
         ]);
         setIsLoading(false);
