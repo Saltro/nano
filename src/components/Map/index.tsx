@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import React, { CSSProperties } from 'react';
 import CustomMarker from './CustomMarker';
 import style from './index.less';
@@ -9,6 +9,16 @@ interface IMapProps {
   zoom: number;
   center?: [number, number];
 }
+
+interface IZoomProps {
+  zoom: number;
+}
+
+const Zoom: React.FC<IZoomProps> = ({ zoom }) => {
+  const map = useMap();
+  map.setZoom(zoom);
+  return <div />;
+};
 
 const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
   return (
@@ -23,6 +33,7 @@ const Map: React.FC<IMapProps> = ({ places, styles, zoom, center }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        <Zoom zoom={zoom} />
         {places.map((place, index) => {
           return <CustomMarker key={index} place={place} />;
         })}
