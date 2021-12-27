@@ -49,7 +49,12 @@ module.exports = merge(base, {
       },
     ],
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+  },
   optimization: {
+    minimize: true,
     minimizer: [new CssMinimizerPlugin()],
   },
   plugins: [

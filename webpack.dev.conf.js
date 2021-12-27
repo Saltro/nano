@@ -48,6 +48,10 @@ module.exports = merge(base, {
       },
     ],
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+  },
   plugins: [
     new StylelintWebpackPlugin({
       configFile: path.resolve(__dirname, './.stylelintrc.js'),
