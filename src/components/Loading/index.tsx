@@ -2,10 +2,10 @@ import React from 'react';
 import style from './index.less';
 
 interface ILoadingProps {
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
-const Loading: React.FC<ILoadingProps> = ({ isLoading, children }) => {
+const Loading: React.FC<ILoadingProps> = ({ isLoading = true, children }) => {
   return isLoading ? (
     <div style={{ display: isLoading ? 'flex' : 'none' }} id={style.loading}>
       <div />

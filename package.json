@@ -4,11 +4,12 @@
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
-    "dev": "webpack serve --mode=development",
-    "build": "webpack --mode=production",
+    "dev": "webpack serve --config webpack.dev.conf.js",
+    "build": "webpack --config webpack.prod.conf.js",
     "lint:js": "prettier --write . && eslint **/*",
     "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix",
-    "lint": "npm run lint:js && npm run lint:css"
+    "lint": "npm run lint:js && npm run lint:css",
+    "analyze": "webpack-bundle-analyzer --port 8888 ./dist/stats.json"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.3.1",
     "eslint": "^8.3.0",
     "eslint-config-alloy": "^4.4.0",
     "eslint-plugin-react": "^7.27.1",
@@ -28,6 +30,7 @@
     "husky": "^7.0.4",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
+    "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-less": "^5.0.0",
     "postcss-loader": "^6.2.1",
@@ -43,8 +46,10 @@
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
     "webpack": "^5.64.4",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.6.0"
+    "webpack-dev-server": "^4.6.0",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "antd": "^4.17.3",
