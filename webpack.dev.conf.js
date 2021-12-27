@@ -61,6 +61,9 @@ module.exports = merge(base, {
       lintDirtyModulesOnly: true, // 仅检查变化的代码
       threads: true, // 多线程
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './template/index.html'), // 模板位置
       filename: 'index.html', // 输出后的文件名，路径是 output.path

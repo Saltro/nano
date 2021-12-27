@@ -63,6 +63,9 @@ module.exports = merge(base, {
       generateStatsFile: true,
       statsFilename: 'stats.json',
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'template', 'index.html'),
       filename: 'index.html', // 输出后的文件名，路径是 output.path

@@ -6,12 +6,12 @@ import Home from './views/Home';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 
-const Work = React.lazy(() => import('./views/Work'));
-const Details = React.lazy(() => import('./views/Details'));
-const Login = React.lazy(() => import('./views/Login'));
-const Mine = React.lazy(() => import('./views/Mine'));
-const Places = React.lazy(() => import('./views/Places'));
-const Search = React.lazy(() => import('./views/Search'));
+const Work = React.lazy(() => import(/* webpackChunkName: "work" */ './views/Work'));
+const Details = React.lazy(() => import(/* webpackChunkName: "details" */ './views/Details'));
+const Login = React.lazy(() => import(/* webpackChunkName: "login" */ './views/Login'));
+const Mine = React.lazy(() => import(/* webpackChunkName: "mine" */ './views/Mine'));
+const Places = React.lazy(() => import(/* webpackChunkName: "places" */ './views/Places'));
+const Search = React.lazy(() => import(/* webpackChunkName: "search" */ './views/Search'));
 
 const App: React.FC = () => {
   return (
