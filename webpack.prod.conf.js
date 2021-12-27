@@ -3,6 +3,7 @@ const base = require('./webpack.base.conf'); // 导入webpack.base.conf.js配置
 const path = require('path'); // 导入path模块
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-css-extract-plugin模块
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // 导入css-minimizer-webpack-plugin模块
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 导入webpack-bundle-analyzer模块
 
 module.exports = merge(base, {
   mode: 'production',
@@ -50,4 +51,11 @@ module.exports = merge(base, {
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
   },
+  plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'disabled', // 不启用分析器
+      generateStatsFile: true,
+      statsFilename: 'stats.json',
+    }),
+  ],
 });
