@@ -52,7 +52,9 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   return (
     <Marker position={[place.latitude, place.longitude]} ref={marker}>
       <Popup minWidth={150} ref={popup} onOpen={() => {}}>
-        <span className={style.popupText}>{place.name}</span>
+        <span className={style.popupText} style={{ display: place.name.length > 6 ? 'block' : 'inline' }}>
+          {place.name}
+        </span>
         <button className={style.like} onClick={() => toggleCollected()}>
           {isCollected ? (
             <StarFilled style={{ color: '#f09199', fontSize: '17px' }} />
