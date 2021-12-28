@@ -9,7 +9,24 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                [
+                  'import',
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'es',
+                    style: true,
+                  },
+                ],
+              ],
+            },
+          },
+          'ts-loader',
+        ],
         exclude: /node_modules/, // 排除 node_modules 目录
       },
       {
@@ -20,6 +37,27 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+            },
+          },
+        ],
+        include: [path.resolve(__dirname, 'src', 'assets'), /node_modules/],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true
+              },
             },
           },
         ],
@@ -41,7 +79,6 @@ module.exports = {
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
-    antd: 'antd',
     leaflet: 'leaflet',
     'react-leaflet': 'ReactLeaflet',
     axios: 'axios',
@@ -55,9 +92,7 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'), // 设置@符号的路径
     },
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-  ],
+  plugins: [new CleanWebpackPlugin()],
   cache: {
     type: 'filesystem',
     buildDependencies: {

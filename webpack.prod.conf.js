@@ -75,7 +75,6 @@ module.exports = merge(base, {
         js: [
           'https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.production.min.js',
           'https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js',
-          'https://cdnjs.cloudflare.com/ajax/libs/antd/4.17.3/antd.min.js',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet-src.min.js',
           'https://cdn.jsdelivr.net/npm/react-leaflet@3.2.2/umd/react-leaflet.min.js',
           'https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js',
@@ -84,7 +83,6 @@ module.exports = merge(base, {
           'https://cdn.jsdelivr.net/npm/react-router-dom@6.0.2/umd/react-router-dom.production.min.js',
         ],
         css: [
-          'https://cdn.bootcdn.net/ajax/libs/antd/4.17.3/antd.min.css',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
         ],
       },

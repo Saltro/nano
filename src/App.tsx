@@ -2,10 +2,10 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthContainer from './context/AuthContainer';
 import Loading from './components/Loading';
-import Home from './views/Home';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 
+const Home = React.lazy(() => import(/* webpackChunkName: "home" */ './views/Home'));
 const Work = React.lazy(() => import(/* webpackChunkName: "work" */ './views/Work'));
 const Details = React.lazy(() => import(/* webpackChunkName: "details" */ './views/Details'));
 const Login = React.lazy(() => import(/* webpackChunkName: "login" */ './views/Login'));
@@ -18,7 +18,14 @@ const App: React.FC = () => {
     <div>
       <AuthContainer>
         <Routes>
-          <Route path="/:page" element={<Home />} />
+          <Route
+            path="/:page"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Home />
+              </Suspense>
+            }
+          />
           <Route path="/" element={<Navigate to="/1" />} />
           <Route
             path="/login"
