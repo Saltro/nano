@@ -9,6 +9,7 @@
     "lint:js": "prettier --write . && eslint **/*",
     "lint:css": "stylelint \"src/**/*.{less,css}\" --config ./.stylelintrc.js --custom-syntax postcss-less --fix",
     "lint": "npm run lint:js && npm run lint:css",
+    "lint:staged": "lint-staged",
     "analyze": "webpack-bundle-analyzer --port 8888 ./dist/stats.json"
   },
   "author": "",
@@ -35,6 +36,7 @@
     "husky": "^7.0.4",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
+    "lint-staged": "^12.1.4",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-less": "^5.0.0",

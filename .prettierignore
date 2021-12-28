@@ -4,5 +4,6 @@
 *.html
 *.ttf
 *.svg
+.husky
 dist
 node_modules

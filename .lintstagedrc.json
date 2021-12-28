@@ -1,0 +1,11 @@
+{
+    "**/*.(js|ts|tsx)": [
+        "prettier --write",
+        "eslint",
+        "git add"
+    ],
+    "src/**/*.{less,css}": [
+        "stylelint --config .stylelintrc.js --custom-syntax postcss-less --fix",
+        "git add"
+    ]
+}
