@@ -22,6 +22,7 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
         .then((res) => {
           localStorage.setItem('access', res.data.access);
           localStorage.setItem('refresh', res.data.refresh);
+          refreshInfo();
           resolve(res);
         })
         .catch((err) => {
@@ -36,6 +37,7 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
         .then((res) => {
           localStorage.setItem('access', res.data.access);
           localStorage.setItem('refresh', res.data.refresh);
+          refreshInfo();
           resolve(res);
         })
         .catch((err) => {
