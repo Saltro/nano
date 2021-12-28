@@ -48,6 +48,10 @@ module.exports = merge(base, {
       },
     ],
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+  },
   plugins: [
     new StylelintWebpackPlugin({
       configFile: path.resolve(__dirname, './.stylelintrc.js'),
@@ -56,6 +60,9 @@ module.exports = merge(base, {
       fix: true, // 自动格式化
       lintDirtyModulesOnly: true, // 仅检查变化的代码
       threads: true, // 多线程
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './template/index.html'), // 模板位置

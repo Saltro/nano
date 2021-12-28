@@ -1,5 +1,6 @@
 const path = require('path'); // 导入path模块
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-css-extract-plugin模块
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 导入clean-webpack-plugin模块
 
 module.exports = {
   // 入口文件
@@ -55,16 +56,8 @@ module.exports = {
     },
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
+    new CleanWebpackPlugin(),
   ],
-  // 出口文件
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
   cache: {
     type: 'filesystem',
     buildDependencies: {
