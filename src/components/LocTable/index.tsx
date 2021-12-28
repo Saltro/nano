@@ -41,7 +41,9 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
                 <td>{place.name}</td>
                 <td>{place.address}</td>
                 {place.city && <td>{place.city}</td>}
-                {place.latitude && place.longitude && <td>{place.latitude + ', ' + place.longitude}</td>}
+                {place.latitude && place.longitude && (
+                  <td>{place.latitude.toFixed(3) + ', ' + place.longitude.toFixed(3)}</td>
+                )}
                 <td>
                   <Link to={`/places/${place.id}`}>
                     <span className={style.link}>详情</span>
