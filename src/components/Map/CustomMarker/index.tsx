@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, useMap } from 'react-leaflet';
 import { message, Image } from 'antd';
-import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { StarOutlined, StarFilled, AimOutlined } from '@ant-design/icons';
 import Request from '@/request';
 import type { Marker as MarkerType, Popup as PopupType } from 'leaflet';
 import style from './index.less';
@@ -14,6 +14,7 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   const [isCollected, setIsCollected] = useState(place.isCollected);
   const popup = useRef<PopupType | null>(null);
   const marker = useRef<MarkerType | null>(null);
+  const map = useMap();
 
   useEffect(() => {
     if (marker?.current && place.openPopup) {
@@ -43,6 +44,11 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
     }
   };
 
+  const focus = () => {
+    map.setView([place.latitude, place.longitude], 17);
+    marker.current?.openPopup();
+  };
+
   return (
     <Marker position={[place.latitude, place.longitude]} ref={marker}>
       <Popup minWidth={150} ref={popup} onOpen={() => {}}>
@@ -53,6 +59,9 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
           ) : (
             <StarOutlined style={{ color: '#f09199', fontSize: '17px' }} />
           )}
+        </button>
+        <button className={style.like} onClick={focus}>
+          <AimOutlined style={{ color: '#f09199', fontSize: '17px' }} />
         </button>
         {place.photos.length > 0 && (
           <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
