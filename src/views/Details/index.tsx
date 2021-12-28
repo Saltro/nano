@@ -89,7 +89,7 @@ export default function Details() {
           </div>
           <div className={style.locations}>
             <Title text="地址详情" />
-            <LocTable places={places} />
+            <LocTable places={places} heads={['地点名称', '详细地址', '坐标位置']} />
           </div>
         </div>
       </Loading>

@@ -12,9 +12,10 @@ interface ILocTableProps {
     latitude?: number;
     longitude?: number;
   }[];
+  heads: string[];
 }
 
-const LocTable: React.FC<ILocTableProps> = ({ places }) => {
+const LocTable: React.FC<ILocTableProps> = ({ places, heads }) => {
   if (places.length === 0) {
     return (
       <NoData
@@ -28,9 +29,9 @@ const LocTable: React.FC<ILocTableProps> = ({ places }) => {
       <table className={style.table}>
         <thead>
           <tr className={style.head}>
-            <th>场景名称</th>
-            <th>详细地址</th>
-            <th>坐标位置</th>
+            {heads.map((head, index) => {
+              return <th key={index}>{head}</th>;
+            })}
             <th> </th>
           </tr>
         </thead>

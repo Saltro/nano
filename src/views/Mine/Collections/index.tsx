@@ -32,7 +32,7 @@ const Collections: React.FC = () => {
       </div>
       <p className={style.subtitle}>收藏的地点</p>
       <div className={style.table}>
-        <LocTable places={placeList} />
+        <LocTable places={placeList} heads={['地点名称', '详细地址', '所在城市']} />
       </div>
     </Loading>
   );
