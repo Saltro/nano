@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-c
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // 导入css-minimizer-webpack-plugin模块
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 导入webpack-bundle-analyzer模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 导入html-webpack-plugin模块
+const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 导入compression-webpack-plugin模块
 
 module.exports = merge(base, {
   mode: 'production',
@@ -87,6 +88,10 @@ module.exports = merge(base, {
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
         ],
       },
+    }),
+    new CompressionWebpackPlugin({
+      test: /\.(js|tff|css|html|svg)$/,
+      threshold: 10240, // 对超过10k的数据压缩
     }),
   ],
 });
