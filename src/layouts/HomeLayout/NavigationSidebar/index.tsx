@@ -6,6 +6,7 @@ import animeSelect from '@/assets/icons/anime_select.svg';
 import placeNormal from '@/assets/icons/place_normal.svg';
 import placeSelect from '@/assets/icons/place_select.svg';
 import { useAuth } from '@/context/AuthContainer';
+import { UserOutlined } from '@ant-design/icons';
 import style from './index.less';
 
 interface INavigationSidebarProps {
@@ -73,7 +74,8 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
           </div>
         ) : (
           <div id={style.userInfo} onClick={() => navigate('/login')}>
-            <p>登录</p>
+            <UserOutlined style={{ fontSize: '2.19vw', margin: '0.2vw' }} />
+            <p style={{letterSpacing: '0.15em'}}>登录</p>
           </div>
         )}
       </div>
