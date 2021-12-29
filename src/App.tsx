@@ -2,23 +2,30 @@ import React, { Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthContainer from './context/AuthContainer';
 import Loading from './components/Loading';
-import Home from './views/Home';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 
-const Work = React.lazy(() => import('./views/Work'));
-const Details = React.lazy(() => import('./views/Details'));
-const Login = React.lazy(() => import('./views/Login'));
-const Mine = React.lazy(() => import('./views/Mine'));
-const Places = React.lazy(() => import('./views/Places'));
-const Search = React.lazy(() => import('./views/Search'));
+const Home = React.lazy(() => import(/* webpackChunkName: "home" */ './views/Home'));
+const Work = React.lazy(() => import(/* webpackChunkName: "work" */ './views/Work'));
+const Details = React.lazy(() => import(/* webpackChunkName: "details" */ './views/Details'));
+const Login = React.lazy(() => import(/* webpackChunkName: "login" */ './views/Login'));
+const Mine = React.lazy(() => import(/* webpackChunkName: "mine" */ './views/Mine'));
+const Places = React.lazy(() => import(/* webpackChunkName: "places" */ './views/Places'));
+const Search = React.lazy(() => import(/* webpackChunkName: "search" */ './views/Search'));
 
 const App: React.FC = () => {
   return (
     <div>
       <AuthContainer>
         <Routes>
-          <Route path="/:page" element={<Home />} />
+          <Route
+            path="/:page"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Home />
+              </Suspense>
+            }
+          />
           <Route path="/" element={<Navigate to="/1" />} />
           <Route
             path="/login"

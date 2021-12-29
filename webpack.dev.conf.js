@@ -48,6 +48,10 @@ module.exports = merge(base, {
       },
     ],
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+  },
   plugins: [
     new StylelintWebpackPlugin({
       configFile: path.resolve(__dirname, './.stylelintrc.js'),
@@ -57,6 +61,9 @@ module.exports = merge(base, {
       lintDirtyModulesOnly: true, // 仅检查变化的代码
       threads: true, // 多线程
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './template/index.html'), // 模板位置
       filename: 'index.html', // 输出后的文件名，路径是 output.path
@@ -65,7 +72,6 @@ module.exports = merge(base, {
         js: [
           'https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.development.js',
           'https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.2/umd/react-dom.development.js',
-          'https://cdnjs.cloudflare.com/ajax/libs/antd/4.17.3/antd.js',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet-src.min.js',
           'https://cdn.jsdelivr.net/npm/react-leaflet@3.2.2/umd/react-leaflet.js',
           'https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js',
@@ -74,7 +80,6 @@ module.exports = merge(base, {
           'https://cdn.jsdelivr.net/npm/react-router-dom@6.0.2/umd/react-router-dom.development.js',
         ],
         css: [
-          'https://cdn.bootcdn.net/ajax/libs/antd/4.17.3/antd.css',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
         ],
       },

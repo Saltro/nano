@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-c
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // 导入css-minimizer-webpack-plugin模块
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 导入webpack-bundle-analyzer模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 导入html-webpack-plugin模块
+const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 导入compression-webpack-plugin模块
 
 module.exports = merge(base, {
   mode: 'production',
@@ -49,7 +50,12 @@ module.exports = merge(base, {
       },
     ],
   },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[contenthash].js',
+  },
   optimization: {
+    minimize: true,
     minimizer: [new CssMinimizerPlugin()],
   },
   plugins: [
@@ -57,6 +63,9 @@ module.exports = merge(base, {
       analyzerMode: 'disabled', // 不启用分析器
       generateStatsFile: true,
       statsFilename: 'stats.json',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'template', 'index.html'),
@@ -66,7 +75,6 @@ module.exports = merge(base, {
         js: [
           'https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.production.min.js',
           'https://cdn.bootcdn.net/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js',
-          'https://cdnjs.cloudflare.com/ajax/libs/antd/4.17.3/antd.min.js',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet-src.min.js',
           'https://cdn.jsdelivr.net/npm/react-leaflet@3.2.2/umd/react-leaflet.min.js',
           'https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js',
@@ -75,10 +83,13 @@ module.exports = merge(base, {
           'https://cdn.jsdelivr.net/npm/react-router-dom@6.0.2/umd/react-router-dom.production.min.js',
         ],
         css: [
-          'https://cdn.bootcdn.net/ajax/libs/antd/4.17.3/antd.min.css',
           'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
         ],
       },
+    }),
+    new CompressionWebpackPlugin({
+      test: /\.(js|tff|css|html|svg)$/,
+      threshold: 10240, // 对超过10k的数据压缩
     }),
   ],
 });

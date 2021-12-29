@@ -1,5 +1,6 @@
 const path = require('path'); // 导入path模块
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 导入mini-css-extract-plugin模块
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 导入clean-webpack-plugin模块
 
 module.exports = {
   // 入口文件
@@ -8,7 +9,24 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: [
+                [
+                  'import',
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'es',
+                    style: true,
+                  },
+                ],
+              ],
+            },
+          },
+          'ts-loader',
+        ],
         exclude: /node_modules/, // 排除 node_modules 目录
       },
       {
@@ -19,6 +37,27 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
+            },
+          },
+        ],
+        include: [path.resolve(__dirname, 'src', 'assets'), /node_modules/],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true
+              },
             },
           },
         ],
@@ -40,7 +79,6 @@ module.exports = {
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
-    antd: 'antd',
     leaflet: 'leaflet',
     'react-leaflet': 'ReactLeaflet',
     axios: 'axios',
@@ -54,17 +92,7 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'), // 设置@符号的路径
     },
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-    }),
-  ],
-  // 出口文件
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
+  plugins: [new CleanWebpackPlugin()],
   cache: {
     type: 'filesystem',
     buildDependencies: {
