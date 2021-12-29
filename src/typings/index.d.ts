@@ -101,6 +101,7 @@ declare interface IPlaceInfoBrief {
   longitude: number;
   photos: { id: number; name: string; image: string }[];
   isCollected?: boolean;
+  city?: string;
 }
 
 declare interface IPlaceInfo extends IPlaceInfoBrief {

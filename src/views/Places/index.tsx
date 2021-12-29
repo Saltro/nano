@@ -26,6 +26,7 @@ const Places: React.FC<{}> = () => {
             latitude: data.latitude,
             photos: data.photos,
             isCollected: data.is_collected,
+            city: data.city,
             openPopup: true,
           },
         ]);
@@ -47,6 +48,7 @@ const Places: React.FC<{}> = () => {
             longitude: item.longitude,
             latitude: item.latitude,
             photos: item.photos,
+            city: item.city,
             isCollected: item.is_collected,
           })),
         );

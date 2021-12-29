@@ -59,6 +59,7 @@ export default function Details() {
                   longitude: place.longitude,
                   latitude: place.latitude,
                   photos: place.photos,
+                  city: place.city,
                 };
               }),
             );
