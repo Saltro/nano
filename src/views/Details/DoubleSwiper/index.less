@@ -1,6 +1,33 @@
 .container {
   width: 707px;
   height: 300px;
+
+  .slide-bottom-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: .35em;
+
+    .slide-bottom {
+      display: inline-block;
+      width: .5em;
+      height: .5em;
+      margin-right: .4em;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #c4c4c4;
+      border-radius: 50%;
+      opacity: .75; //透明度
+      transition: all .3s ease;
+    }
+
+    .slide-bottom-active {
+      .slide-bottom;
+
+      background-color: #f09199;
+      opacity: 1;
+    }
+  }
 }
 
 .slide {
