@@ -62,9 +62,11 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
             <StarOutlined style={{ color: '#f09199', fontSize: '17px' }} />
           )}
         </button>
-        <button className={style.like} onClick={focus}>
-          <AimOutlined style={{ color: '#f09199', fontSize: '17px' }} />
-        </button>
+        {!place.openPopup && (
+          <button className={style.like} onClick={focus}>
+            <AimOutlined style={{ color: '#f09199', fontSize: '17px' }} />
+          </button>
+        )}
         {place.photos.length > 0 && (
           <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
         )}
