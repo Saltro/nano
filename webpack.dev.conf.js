@@ -68,6 +68,7 @@ module.exports = merge(base, {
       template: path.resolve(__dirname, './template/index.html'), // 模板位置
       filename: 'index.html', // 输出后的文件名，路径是 output.path
       title: 'Nano', // 传给模板的变量
+      icon: 'http://qiniu-picgo.saltroping.com/nanologo.ico',
       cdn: {
         js: [
           'https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.development.js',
@@ -79,9 +80,7 @@ module.exports = merge(base, {
           'https://cdn.jsdelivr.net/npm/react-router@6.0.2/umd/react-router.development.js',
           'https://cdn.jsdelivr.net/npm/react-router-dom@6.0.2/umd/react-router-dom.development.js',
         ],
-        css: [
-          'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
-        ],
+        css: ['https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css'],
       },
     }),
   ],

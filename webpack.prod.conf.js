@@ -71,6 +71,7 @@ module.exports = merge(base, {
       template: path.resolve(__dirname, 'template', 'index.html'),
       filename: 'index.html', // 输出后的文件名，路径是 output.path
       title: 'Nano',
+      icon: 'http://qiniu-picgo.saltroping.com/nanologo.ico',
       cdn: {
         js: [
           'https://cdn.bootcdn.net/ajax/libs/react/17.0.2/umd/react.production.min.js',
@@ -82,9 +83,7 @@ module.exports = merge(base, {
           'https://cdn.jsdelivr.net/npm/react-router@6.0.2/umd/react-router.production.min.js',
           'https://cdn.jsdelivr.net/npm/react-router-dom@6.0.2/umd/react-router-dom.production.min.js',
         ],
-        css: [
-          'https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css',
-        ],
+        css: ['https://cdn.bootcdn.net/ajax/libs/leaflet/1.7.1/leaflet.min.css'],
       },
     }),
     new CompressionWebpackPlugin({
