@@ -52,24 +52,25 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   return (
     <Marker position={[place.latitude, place.longitude]} ref={marker}>
       <Popup minWidth={150} ref={popup} onOpen={() => {}}>
-        <span className={style.popupText} style={{ display: place.name.length > 6 ? 'block' : 'inline' }}>
-          {place.name}
-        </span>
-        <button className={style.like} onClick={() => toggleCollected()}>
-          {isCollected ? (
-            <StarFilled style={{ color: '#f09199', fontSize: '17px' }} />
-          ) : (
-            <StarOutlined style={{ color: '#f09199', fontSize: '17px' }} />
-          )}
-        </button>
-        {!place.openPopup && (
-          <button className={style.like} onClick={focus}>
-            <AimOutlined style={{ color: '#f09199', fontSize: '17px' }} />
-          </button>
-        )}
         {place.photos.length > 0 && (
           <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
         )}
+        <span className={style.city}>{place.city}</span>
+        <span className={style.name}>{place.name}</span>
+        <div className={style.buttons}>
+          {!place.openPopup && (
+            <button className={style.like} onClick={focus}>
+              <AimOutlined style={{ color: '#f09199', fontSize: '17px' }} />
+            </button>
+          )}
+          <button className={style.like} onClick={() => toggleCollected()}>
+            {isCollected ? (
+              <StarFilled style={{ color: '#f09199', fontSize: '17px' }} />
+            ) : (
+              <StarOutlined style={{ color: '#f09199', fontSize: '17px' }} />
+            )}
+          </button>
+        </div>
       </Popup>
     </Marker>
   );
