@@ -41,7 +41,7 @@ const LocTable: React.FC<ILocTableProps> = ({ places, heads }) => {
               <tr key={index}>
                 <td>{place.name}</td>
                 <td>{place.address}</td>
-                {place.city && <td>{place.city}</td>}
+                {!place.latitude && <td>{place.city}</td>}
                 {place.latitude && place.longitude && (
                   <td>{place.latitude.toFixed(3) + ', ' + place.longitude.toFixed(3)}</td>
                 )}
