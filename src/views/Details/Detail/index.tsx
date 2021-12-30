@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { message } from 'antd';
 import style from './index.less';
 import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { useImagesLoaded } from 'use-images-loaded';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 export interface IDetailProps {
   id: string;
   title: string;
@@ -44,6 +48,7 @@ const Detail: React.FC<IDetailProps> = (props) => {
   } = props;
 
   const [collected, setCollected] = useState(false);
+  const [refImages, loadedImage] = useImagesLoaded();
 
   useEffect(() => {
     request.checkAnimeCollection(id).then((res) => {
@@ -96,8 +101,9 @@ const Detail: React.FC<IDetailProps> = (props) => {
           )}
         </button>
       </div>
-      <div className={style.details}>
-        <img src={image} className={style.image} />
+      <div className={style.details} ref={refImages}>
+        {!loadedImage && <Skeleton height="16.33vw" width="11.78vw" borderRadius="15px" />}
+        <img src={image} className={style.image} style={{ display: loadedImage ? 'block' : 'none' }}/>
         <div className={style.info}>
           {director.length > 0 && (
             <p>

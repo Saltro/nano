@@ -62,6 +62,7 @@ declare interface IAnimeInfoBrief {
   title_cn: string;
   cover_medium: string;
   is_collected: boolean;
+  loaded?: boolean;
 }
 
 declare interface IAnimeInfo extends IAnimeInfoBrief {
@@ -133,6 +134,7 @@ declare interface IRecommendInfo {
     id: number;
     name: string;
   }[];
+  loaded?: boolean;
 }
 
 declare interface ILoginRequest {
@@ -150,3 +152,5 @@ declare interface IRegisterRequest {
 }
 
 declare type GetPromiseValueType<T> = T extends Promise<infer R> ? R : never;
+
+declare module 'use-images-loaded';
