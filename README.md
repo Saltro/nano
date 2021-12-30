@@ -70,7 +70,7 @@ UI 由团队成员 *kinokosi* 使用 `Figma` 软件，结合作品主题，选�
 
 ### 前端
 
-- 部署地址：[nano.saltroping.com](http://nano.saltroping.com)
+- 部署地址：[nano.saltroping.com](https://nano.saltroping.com)
 - 仓库地址：[Saltro/nano](https://github.com/Saltro/nano)
 
 前端由团队共同开发，主要使用 `React` 框架进行开发，自行搭建项目并完成项目格式规范配置。
