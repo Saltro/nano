@@ -3,6 +3,9 @@ import style from './index.less';
 import { Carousel, Image } from 'antd';
 import NoData from '@/components/NoData';
 import { CarouselRef } from 'antd/es/carousel';
+import { useImagesLoaded } from 'use-images-loaded';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 interface IDoubleSwiperProps {
   pictures: string[];
@@ -12,6 +15,8 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   const ref = createRef<CarouselRef>();
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const imageGroups = toGroup(pictures);
+  const [refImages, loadedImage] = useImagesLoaded();
+  const [refOther, _loadedOther] = useImagesLoaded();
 
   const goTo = (slide: number) => {
     ref.current?.goTo(slide, false);
@@ -32,11 +37,12 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   }
   return (
     <div className={style.container}>
+      {!loadedImage && <Skeleton height="12.75vw" borderRadius="15px" />}
       <Image.PreviewGroup>
         <Carousel autoplay dots={false} ref={ref} beforeChange={handleSlideChange}>
           {toGroup(pictures).map((group, index) => {
             return (
-              <div key={index} className={style.slide}>
+              <div key={index} className={style.slide} ref={index === 0 ? refImages : refOther}>
                 <div className={style.imgContainer}>
                   <Image
                     src={group[0]}
@@ -44,10 +50,11 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
                     width="100%"
                     height="100%"
                     preview={{ visible: false }}
+                    style={{ display: loadedImage ? 'block' : 'none' }}
                   />
                 </div>
                 <div className={style.imgContainer}>
-                  <Image src={group[1]} className={style.secondImg} width="100%" height="100%" />
+                  <Image src={group[1]} className={style.secondImg} width="100%" height="100%" style={{ display: loadedImage ? 'block' : 'none' }}/>
                 </div>
               </div>
             );
