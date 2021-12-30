@@ -7,6 +7,9 @@ import placeNormal from '@/assets/icons/place_normal.svg';
 import placeSelect from '@/assets/icons/place_select.svg';
 import { useAuth } from '@/context/AuthContainer';
 import { UserOutlined } from '@ant-design/icons';
+import { useImagesLoaded } from 'use-images-loaded';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import style from './index.less';
 
 interface INavigationSidebarProps {
@@ -16,6 +19,7 @@ interface INavigationSidebarProps {
 const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const [refImages, loadedImage] = useImagesLoaded();
 
   const navItems = [
     {
@@ -68,8 +72,9 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
           ))}
         </div>
         {auth?.userInfo ? (
-          <div id={style.userInfo} onClick={() => navigate('/mine')}>
-            <img src={auth?.userInfo?.avatar} />
+          <div id={style.userInfo} onClick={() => navigate('/mine')} ref={refImages}>
+            {!loadedImage && <Skeleton circle height="2.1vw" width="2.1vw" />}
+            <img src={auth?.userInfo?.avatar} style={{ display: loadedImage ? 'block' : 'none' }}/>
             <p>{auth?.userInfo?.nickname}</p>
           </div>
         ) : (

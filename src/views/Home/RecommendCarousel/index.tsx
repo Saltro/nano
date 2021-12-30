@@ -3,11 +3,16 @@ import { Link } from 'react-router-dom';
 import style from './index.less';
 import { Carousel } from 'antd';
 import { CarouselRef } from 'antd/es/carousel';
+import { useImagesLoaded } from 'use-images-loaded';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const RecommendCarousel: React.FC<{ recommendList: IRecommendInfo[] }> = ({ recommendList }) => {
   const pageNum = recommendList.length;
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const ref = createRef<CarouselRef>();
+  const [refImages, loadedImage] = useImagesLoaded();
+  const [refOther, _loadedOther] = useImagesLoaded();
 
   const goTo = (slide: number) => {
     ref.current?.goTo(slide, false);
@@ -20,14 +25,15 @@ const RecommendCarousel: React.FC<{ recommendList: IRecommendInfo[] }> = ({ reco
 
   return (
     <div id={style.container}>
-      <Carousel autoplay autoplaySpeed={5000} ref={ref} beforeChange={handleSlideChange} dots={false}>
+      {!loadedImage && <Skeleton height="19.75vw" borderRadius="15px" />}
+      <Carousel autoplay autoplaySpeed={5000} ref={ref} beforeChange={handleSlideChange} dots={false} style={{height: loadedImage ? 'auto' : '0'}}>
         {recommendList.map((info, index) => {
           return (
-            <div className={style.slide} key={index}>
+            <div className={style.slide} key={index} ref={index === 0 ? refImages : refOther}>
               <Link to={`/detail/${info?.anime}`}>
                 <div className={style.description}>{info?.description}</div>
                 <div className={style.imgContainer}>
-                  <img src={info?.image} alt={info?.title} />
+                  <img src={info?.image} alt={info?.title} style={{ display: loadedImage ? 'block' : 'none' }} />
                 </div>
               </Link>
             </div>
