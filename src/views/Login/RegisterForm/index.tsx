@@ -147,9 +147,9 @@ const RegisterForm: React.FC = () => {
   };
 
   const checkMobileCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '')
+    if (e.target.value === "")
       // 无内容
-      setUsernameCheck(0);
+      setMobileCheck(0);
     else if (mobilePattern.test(e.target.value))
       // 检测
       Request.getMobileCount(e.target.value).then((res) => {
@@ -160,7 +160,11 @@ const RegisterForm: React.FC = () => {
     else setMobileCheck(-2); // 不规范
   };
 
-  const checkWithRegExp = (setFunction: React.Dispatch<React.SetStateAction<number>>, pattern: RegExp, e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkWithRegExp = (
+    setFunction: React.Dispatch<React.SetStateAction<number>>,
+    pattern: RegExp,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     if (e.target.value === '')
       // 无内容
       setFunction(0);
@@ -170,17 +174,14 @@ const RegisterForm: React.FC = () => {
     else setFunction(-2); // 不符合
   };
 
-  const msgWithRegExpCheck = (valueCheck: number, name: string) =>
-  {
-      return (
-    <div>
-      <div className={formStyle.iconBox}>
-        {valueCheck < 0 ? falseIcon : valueCheck > 0 ? trueIcon : <span />}
+  const msgWithRegExpCheck = (valueCheck: number, name: string) => {
+    return (
+      <div>
+        <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : valueCheck > 0 ? trueIcon : <span />}</div>
+        {valueCheck === -2 && <div className={formStyle.msgBox}>{name}不规范</div>}
       </div>
-      {valueCheck === -2 && <div className={formStyle.msgBox}>{name}不规范</div>}
-    </div>
-      );
-  }
+    );
+  };
 
   useEffect(() => {
     console.log({ usernameCheck, mobileCheck, passwordUniformityCheck });
