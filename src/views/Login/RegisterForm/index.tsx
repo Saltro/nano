@@ -61,7 +61,7 @@ const RegisterForm: React.FC = () => {
   const usernamePattern = /^[a-zA-Z0-9_]{6,16}$/;
   const nicknamePattern = /^[a-zA-Z0-9_]{6,16}$/;
   const mobilePattern = /^1[3456789]\d{9}$/;
-  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+  const passwordPattern = /^[a-zA-Z0-9_]{6,24}$/;
 
   const onSmsClick = () => {
     if (mobile.length === 11) {
@@ -174,12 +174,14 @@ const RegisterForm: React.FC = () => {
     else setFunction(-2); // 不符合
   };
 
+  const iconWithRegExpCheck = (valueCheck: number) => {
+    return (
+      <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : valueCheck > 0 ? trueIcon : <span />}</div>
+    );
+  };
   const msgWithRegExpCheck = (valueCheck: number, name: string) => {
     return (
-      <div>
-        <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : valueCheck > 0 ? trueIcon : <span />}</div>
-        {valueCheck === -2 && <div className={formStyle.msgBox}>{name}不规范</div>}
-      </div>
+      <div className={formStyle.msgBox}>{valueCheck === -2 && name + "不规范"}</div>
     );
   };
 
@@ -199,7 +201,7 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
             onBlur={checkUsernameCount}
           />
-          <div className={formStyle.iconBox}>{usernameCheck < 0 ? falseIcon : usernameCheck > 0 ? trueIcon : ''}</div>
+          {iconWithRegExpCheck(usernameCheck)}
           <div className={formStyle.msgBox}>
             {usernameCheck === -1 ? '用户名已存在' : usernameCheck === -2 ? '用户名不规范' : ''}
           </div>
@@ -213,6 +215,7 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
             onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e)}
           />
+          {iconWithRegExpCheck(nicknameCheck)}
           {msgWithRegExpCheck(nicknameCheck, '昵称')}
         </div>
         <div className={formStyle.barContainer}>
@@ -224,6 +227,7 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => e.target.value.length <= 24 && setPassword(e.target.value)}
             onBlur={(e) => checkWithRegExp(setPasswordCheck, passwordPattern, e)}
           />
+          {iconWithRegExpCheck(passwordCheck)}
           {msgWithRegExpCheck(passwordCheck, '密码')}
         </div>
         <div className={formStyle.barContainer}>
@@ -235,9 +239,7 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             onBlur={checkPasswordUniformity}
           />
-          <div className={formStyle.iconBox}>
-            {passwordUniformityCheck < 0 ? falseIcon : passwordUniformityCheck > 0 ? trueIcon : <span />}
-          </div>
+          {iconWithRegExpCheck(passwordUniformityCheck)}
           {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
         </div>
         <div className={formStyle.barContainer}>
@@ -249,7 +251,7 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => e.target.value.length <= 11 && setMobile(Utils.filterNumber(e.target.value))}
             onBlur={checkMobileCount}
           />
-          <div className={formStyle.iconBox}>{mobileCheck < 0 ? falseIcon : mobileCheck > 0 ? trueIcon : ''}</div>
+          {iconWithRegExpCheck(mobileCheck)}
           <div className={formStyle.msgBox}>
             {mobileCheck === -1 ? '手机号已存在' : mobileCheck === -2 ? '手机号不规范' : ''}
           </div>
