@@ -13,6 +13,7 @@ const register = (form: IRegisterRequest) => {
     '/user/register/',
     {
       username: form.username,
+      nickname: form.nickname,
       password: md5(form.password),
       password2: md5(form.confirmPassword),
       mobile: form.mobile,

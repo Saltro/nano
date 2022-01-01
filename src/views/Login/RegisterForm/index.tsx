@@ -9,6 +9,7 @@ import style from './index.less';
 const RegisterForm: React.FC = () => {
   const auth = useAuth();
   const [username, setUsername] = React.useState('');
+  const [nickname, setNickname] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [mobile, setMobile] = React.useState('');
@@ -37,6 +38,10 @@ const RegisterForm: React.FC = () => {
       {
         validator: () => username.length >= 6 && username.length <= 16,
         message: '用户名长度不能小于6位且不能长于16位',
+      },
+      {
+        validator: () => nickname.length >= 6 && nickname.length <= 16,
+        message: '昵称长度不能小于6位且不能长于16位',
       },
       {
         validator: () => password.length >= 6 && password.length <= 24,
@@ -70,6 +75,7 @@ const RegisterForm: React.FC = () => {
     auth
       ?.register({
         username,
+        nickname,
         password,
         confirmPassword,
         mobile,
@@ -86,8 +92,7 @@ const RegisterForm: React.FC = () => {
         if (res.data.count === 0) setUsernameCheck(1);
         else setUsernameCheck(-1);
       });
-    else
-      setUsernameCheck(0);
+    else setUsernameCheck(0);
   };
 
   const checkPasswordUniformity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,8 +107,7 @@ const RegisterForm: React.FC = () => {
         if (res.data.count === 0) setMobileCheck(1);
         else setMobileCheck(-1);
       });
-    else
-      setMobileCheck(0);
+    else setMobileCheck(0);
   };
 
   useEffect(() => {
@@ -121,6 +125,15 @@ const RegisterForm: React.FC = () => {
             value={username}
             onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
             onBlur={checkUsernameCount}
+          />
+        </div>
+        <div className={formStyle.barContainer}>
+          <i className="iconfont icon-user" />
+          <input
+            type="text"
+            placeholder="昵称"
+            value={nickname}
+            onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
           />
         </div>
         <div className={formStyle.barContainer}>
@@ -162,7 +175,7 @@ const RegisterForm: React.FC = () => {
               onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
             />
           </div>
-          <button onClick={onSmsClick}>获取验证码</button>
+          <button onClick={onSmsClick}>点击获取</button>
         </div>
       </div>
       <div className={formStyle.functionBar}>
