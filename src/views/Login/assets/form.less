@@ -6,6 +6,7 @@
   margin: 0 0 14px;
 
   .bar-container {
+    position: relative;
     display: flex;
     flex: 1;
     width: 360px;
@@ -19,9 +20,21 @@
     gap: 12px;
     align-items: center;
 
-    &::after {
-      color: red;
-      content: '*';
+    .icon-box {
+      position: absolute;
+      top: 10px;
+      left: 17vw;
+      padding-top: 2px;
+    }
+
+    .msg-box {
+      position: absolute;
+      left: 19.2vw;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #d81e06;
+      text-align: left;
+      white-space: nowrap;
     }
 
     input {
