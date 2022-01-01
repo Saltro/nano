@@ -22,8 +22,16 @@ const register = (form: IRegisterRequest) => {
   );
 };
 
+const getUsernameCount = (username: string) => {
+  return request.get<{ username: string; count: number; }>(`/user/users/${username}/count/`);
+};
+
+const getMobileCount = (mobile: string) => {
+  return request.get<{ mobile: string; count: number; }>(`/user/mobiles/${mobile}/count/`);
+};
+
 const getSmsCode = (mobile: string) => {
-  return request.get<{ message: string }>(`/smscodes/${mobile}`);
+  return request.get<{ message: string }>(`/smscodes/${mobile}/`);
 };
 
 const getUserInfo = () => {
@@ -81,6 +89,8 @@ export default {
   getUserInfo,
   refresh,
   register,
+  getUsernameCount,
+  getMobileCount,
   getSmsCode,
   getUserAnimeCollection,
   getUserPlaceCollection,

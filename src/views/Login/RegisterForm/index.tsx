@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { message } from 'antd';
 import Utils from '@/utils';
 import Request from '@/request';
@@ -14,6 +14,13 @@ const RegisterForm: React.FC = () => {
   const [mobile, setMobile] = React.useState('');
   const [sms, setSms] = React.useState('');
   const [isAllowed, setIsAllowed] = React.useState(false);
+  const [usernameCheck, setUsernameCheck] = React.useState(0);
+  const [mobileCheck, setMobileCheck] = React.useState(0);
+  const [passwordUniformityCheck, setPasswordUniformityCheck] = React.useState(0);
+
+  const usernamePattern = /^[a-zA-Z0-9_]{6,16}$/;
+  const mobilePattern = /^1[3456789]\d{9}$/;
+  // const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
 
   const onSmsClick = () => {
     if (mobile.length === 11) {
@@ -73,6 +80,36 @@ const RegisterForm: React.FC = () => {
       .catch((err) => message.error(err.response.data.detail));
   };
 
+  const checkUsernameCount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (usernamePattern.test(e.target.value))
+      Request.getUsernameCount(e.target.value).then((res) => {
+        if (res.data.count === 0) setUsernameCheck(1);
+        else setUsernameCheck(-1);
+      });
+    else
+      setUsernameCheck(0);
+  };
+
+  const checkPasswordUniformity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') setPasswordUniformityCheck(0);
+    else if (e.target.value === password) setPasswordUniformityCheck(1);
+    else setPasswordUniformityCheck(-1);
+  };
+
+  const checkMobileCount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (mobilePattern.test(e.target.value))
+      Request.getMobileCount(e.target.value).then((res) => {
+        if (res.data.count === 0) setMobileCheck(1);
+        else setMobileCheck(-1);
+      });
+    else
+      setMobileCheck(0);
+  };
+
+  useEffect(() => {
+    console.log({ usernameCheck, mobileCheck, passwordUniformityCheck });
+  }, [usernameCheck, mobileCheck, passwordUniformityCheck]);
+
   return (
     <>
       <div className={formStyle.inputContainer}>
@@ -83,6 +120,7 @@ const RegisterForm: React.FC = () => {
             placeholder="用户名"
             value={username}
             onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
+            onBlur={checkUsernameCount}
           />
         </div>
         <div className={formStyle.barContainer}>
@@ -101,6 +139,7 @@ const RegisterForm: React.FC = () => {
             placeholder="确认密码"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            onBlur={checkPasswordUniformity}
           />
         </div>
         <div className={formStyle.barContainer}>
@@ -110,6 +149,7 @@ const RegisterForm: React.FC = () => {
             placeholder="手机号"
             value={mobile}
             onChange={(e) => e.target.value.length <= 11 && setMobile(Utils.filterNumber(e.target.value))}
+            onBlur={checkMobileCount}
           />
         </div>
         <div id={style.smsBar}>
