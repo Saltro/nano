@@ -21,24 +21,6 @@ const RegisterForm: React.FC = () => {
   const [mobileCheck, setMobileCheck] = React.useState(0);
   const [passwordUniformityCheck, setPasswordUniformityCheck] = React.useState(0);
 
-  const trueIcon = (
-    <svg
-      d="1641047730020"
-      viewBox="0 0 1024 1024"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      p-id="7090"
-      width="20"
-      height="20"
-    >
-      <path
-        d="M529.523831 48.306192c-248.375025 0-449.722041 201.338564-449.722041 449.703165s201.347015 449.703165 449.722041 449.703165 449.722041-201.338564 449.722041-449.703165S777.898856 48.306192 529.523831 48.306192zM747.172798 477.358015 525.78349 698.738032c-11.277308 11.276834-26.081076 16.841573-40.862332 16.758686-14.781255 0.083911-29.586047-5.481851-40.863355-16.758686L327.279338 581.964468c-22.387809-22.387893-22.387809-58.685587 0-81.072457 22.388833-22.388916 58.68805-22.388916 81.07586 0l76.56596 76.561723L666.095915 396.285558c22.388833-22.388916 58.68805-22.388916 81.07586 0C769.561631 418.673451 769.561631 454.971146 747.172798 477.358015z"
-        p-id="7091"
-        fill="#ABC45A"
-      />
-    </svg>
-  );
-
   const falseIcon = (
     <svg
       d="1641048570555"
@@ -176,7 +158,7 @@ const RegisterForm: React.FC = () => {
 
   const iconWithRegExpCheck = (valueCheck: number) => {
     return (
-      <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : valueCheck > 0 ? trueIcon : <span />}</div>
+      <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : <span />}</div>
     );
   };
   const msgWithRegExpCheck = (valueCheck: number, name: string) => {
