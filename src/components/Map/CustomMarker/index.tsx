@@ -54,7 +54,7 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
 
   return (
     <Marker position={[place.latitude, place.longitude]} ref={marker}>
-      <Popup minWidth={150} ref={popup} onOpen={() => {}}>
+      <Popup minWidth={150} ref={popup}>
         {place.photos.length > 0 && (
           <div className={style.image} ref={refImages}>
             {!loadedImage && <Skeleton height="13.5vh" width="100%" />}
