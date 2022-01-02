@@ -5,6 +5,8 @@ import { StarOutlined, StarFilled, AimOutlined } from '@ant-design/icons';
 import Request from '@/request';
 import type { Marker as MarkerType, Popup as PopupType } from 'leaflet';
 import style from './index.less';
+import { useImagesLoaded } from 'use-images-loaded';
+import Skeleton from 'react-loading-skeleton';
 
 interface ICustomMarkerProps {
   place: IPlaceInfoBrief & { openPopup?: boolean };
@@ -12,6 +14,7 @@ interface ICustomMarkerProps {
 
 const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
   const [isCollected, setIsCollected] = useState(place.isCollected);
+  const [refImages, loadedImage] = useImagesLoaded();
   const popup = useRef<PopupType | null>(null);
   const marker = useRef<MarkerType | null>(null);
   const map = useMap();
@@ -53,7 +56,15 @@ const CustomMarker: React.FC<ICustomMarkerProps> = ({ place }) => {
     <Marker position={[place.latitude, place.longitude]} ref={marker}>
       <Popup minWidth={150} ref={popup} onOpen={() => {}}>
         {place.photos.length > 0 && (
-          <Image src={place.photos[0].image} alt={place.photos[0].name} className={style.popupImg} />
+          <div className={style.image} ref={refImages}>
+            {!loadedImage && <Skeleton height="13.5vh" width="100%" />}
+            <Image
+              src={place.photos[0].image}
+              alt={place.photos[0].name}
+              className={style.popupImg}
+              style={{ display: loadedImage ? 'block' : 'none' }}
+            />
+          </div>
         )}
         <span className={style.city}>{place.city}</span>
         <span className={style.name}>{place.name}</span>
