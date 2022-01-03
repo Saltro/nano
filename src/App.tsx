@@ -1,5 +1,9 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import useRoutingInstrumentation from 'react-router-v6-instrumentation';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
+import { sentryDsn } from './secret';
 import AuthContainer from './context/AuthContainer';
 import Loading from './components/Loading';
 import './App.less';
@@ -14,6 +18,23 @@ const Places = React.lazy(() => import(/* webpackChunkName: "places" */ './views
 const Search = React.lazy(() => import(/* webpackChunkName: "search" */ './views/Search'));
 
 const App: React.FC = () => {
+  const routingInstrumentation = useRoutingInstrumentation();
+  useEffect(() => {
+    Sentry.init({
+      dsn: sentryDsn,
+      integrations: [
+        new Integrations.BrowserTracing({
+          routingInstrumentation,
+        }),
+      ],
+
+      // Set tracesSampleRate to 1.0 to capture 100%
+      // of transactions for performance monitoring.
+      // We recommend adjusting this value in production
+      tracesSampleRate: 0.6,
+    });
+  }, [routingInstrumentation]);
+
   return (
     <div>
       <AuthContainer>

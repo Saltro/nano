@@ -71,6 +71,7 @@
     "react-leaflet": "^3.2.2",
     "react-loading-skeleton": "^3.0.2",
     "react-router-dom": "^6.0.2",
+    "react-router-v6-instrumentation": "^2.0.1",
     "use-images-loaded": "^1.0.3"
   }
 }
