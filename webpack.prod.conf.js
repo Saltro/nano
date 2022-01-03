@@ -6,9 +6,11 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // 导入css
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 导入webpack-bundle-analyzer模块
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // 导入html-webpack-plugin模块
 const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 导入compression-webpack-plugin模块
+const TerserPlugin = require('terser-webpack-plugin'); // 导入terser-webpack-plugin模块
 
 module.exports = merge(base, {
   mode: 'production',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -53,10 +55,20 @@ module.exports = merge(base, {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
+    sourceMapFilename: 'sourcemap/[name].[contenthash].js.map',
   },
   optimization: {
     minimize: true,
-    minimizer: [new CssMinimizerPlugin()],
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            pure_funcs: ['console.log'],
+          },
+        },
+      }),
+    ],
   },
   plugins: [
     new BundleAnalyzerPlugin({

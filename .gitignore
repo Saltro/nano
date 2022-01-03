@@ -129,3 +129,5 @@ fabric.properties
 .idea/codestream.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/webstorm,react
+
+git-crypt.key

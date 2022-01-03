@@ -1,13 +1,10 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Nano-frontend CI
+name: Nano-frontend CICD
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
 
@@ -29,6 +26,10 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
+      - name: Unlock secrets
+        uses: sliteteam/github-action-git-crypt-unlock@1.2.0
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
       - name: Build
         run: npm run build --if-present
       - name: Build the Docker image and Push
