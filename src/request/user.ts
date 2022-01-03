@@ -23,7 +23,7 @@ const register = (form: IRegisterRequest) => {
 };
 
 const getSmsCode = (mobile: string) => {
-  return request.get<{ message: string }>(`/smscodes/${mobile}`);
+  return request.get<{ message: string }>(`/smscodes/${mobile}/`);
 };
 
 const getUserInfo = () => {

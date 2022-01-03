@@ -8,7 +8,7 @@ const getRecommendPage = (
   ascending = true,
   // eslint-disable-next-line max-params
 ) => {
-  return request.get<IPageInfo<IRecommendInfo>>('/recommendation', {
+  return request.get<IPageInfo<IRecommendInfo>>('/recommendation/', {
     params: {
       page,
       page_size: pageSize,

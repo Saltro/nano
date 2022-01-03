@@ -8,7 +8,7 @@ const getAnimePage = (
   ascending = true,
   // eslint-disable-next-line max-params
 ) => {
-  return request.get<IPageInfo<IAnimeInfoBrief>>('/anime', {
+  return request.get<IPageInfo<IAnimeInfoBrief>>('/anime/', {
     params: {
       page,
       page_size: pageSize,
