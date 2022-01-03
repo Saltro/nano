@@ -1,2 +1,4 @@
 dist/stats.json
 dist/sourcemap
+.git
+.git-crypt
