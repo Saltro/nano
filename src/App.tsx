@@ -17,22 +17,32 @@ const Mine = React.lazy(() => import(/* webpackChunkName: "mine" */ './views/Min
 const Places = React.lazy(() => import(/* webpackChunkName: "places" */ './views/Places'));
 const Search = React.lazy(() => import(/* webpackChunkName: "search" */ './views/Search'));
 
+const PageLoading = () => {
+  return (
+    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Loading />
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const routingInstrumentation = useRoutingInstrumentation();
   useEffect(() => {
-    Sentry.init({
-      dsn: sentryDsn,
-      integrations: [
-        new Integrations.BrowserTracing({
-          routingInstrumentation,
-        }),
-      ],
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.init({
+        dsn: sentryDsn,
+        integrations: [
+          new Integrations.BrowserTracing({
+            routingInstrumentation,
+          }),
+        ],
 
-      // Set tracesSampleRate to 1.0 to capture 100%
-      // of transactions for performance monitoring.
-      // We recommend adjusting this value in production
-      tracesSampleRate: 0.6,
-    });
+        // Set tracesSampleRate to 1.0 to capture 100%
+        // of transactions for performance monitoring.
+        // We recommend adjusting this value in production
+        tracesSampleRate: 0.6,
+      });
+    }
   }, [routingInstrumentation]);
 
   return (
@@ -42,7 +52,7 @@ const App: React.FC = () => {
           <Route
             path="/:page"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Home />
               </Suspense>
             }
@@ -51,7 +61,7 @@ const App: React.FC = () => {
           <Route
             path="/login"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Login />
               </Suspense>
             }
@@ -59,7 +69,7 @@ const App: React.FC = () => {
           <Route
             path="/mine/*"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Mine />
               </Suspense>
             }
@@ -67,7 +77,7 @@ const App: React.FC = () => {
           <Route
             path="/work/:page/:ordering/:ascending"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Work />
               </Suspense>
             }
@@ -76,7 +86,7 @@ const App: React.FC = () => {
           <Route
             path="/detail/:id"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Details />
               </Suspense>
             }
@@ -84,7 +94,7 @@ const App: React.FC = () => {
           <Route
             path="/search/:key/:page"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Search />
               </Suspense>
             }
@@ -92,7 +102,7 @@ const App: React.FC = () => {
           <Route
             path="/search/:key"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Search />
               </Suspense>
             }
@@ -100,7 +110,7 @@ const App: React.FC = () => {
           <Route
             path="/places"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Places />
               </Suspense>
             }
@@ -108,7 +118,7 @@ const App: React.FC = () => {
           <Route
             path="/places/:id"
             element={
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<PageLoading />}>
                 <Places />
               </Suspense>
             }

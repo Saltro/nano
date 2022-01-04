@@ -7,11 +7,14 @@ import RecommendSidebar from './RecommendSidebar';
 const HomeLayout: React.FC = ({ children }) => {
   const location = useLocation();
   let navSelected: NavItemsName = '';
-  switch (location.pathname) {
-    case '/work':
-    case '/detail':
-      navSelected = 'Work';
-      break;
+  if (
+    /\/work.*/.test(location.pathname) ||
+    /\/detail.*/.test(location.pathname) ||
+    /\/search.*/.test(location.pathname)
+  ) {
+    navSelected = 'Work';
+  } else if (/\/places.*/.test(location.pathname)) {
+    navSelected = 'Place';
   }
 
   return (
