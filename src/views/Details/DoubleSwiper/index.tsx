@@ -28,12 +28,7 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   };
 
   if (pictures.length === 0) {
-    return (
-      <NoData
-        img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/pic.png?raw=true"
-        text="暂无数据"
-      />
-    );
+    return <NoData icon="image" />;
   }
   return (
     <div className={style.container}>
@@ -54,7 +49,13 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
                   />
                 </div>
                 <div className={style.imgContainer}>
-                  <Image src={group[1]} className={style.secondImg} width="100%" height="100%" style={{ display: loadedImage ? 'block' : 'none' }}/>
+                  <Image
+                    src={group[1]}
+                    className={style.secondImg}
+                    width="100%"
+                    height="100%"
+                    style={{ display: loadedImage ? 'block' : 'none' }}
+                  />
                 </div>
               </div>
             );
