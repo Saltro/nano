@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { message } from 'antd';
+import { message, Popover } from 'antd';
 import Utils from '@/utils';
 import Request from '@/request';
 import { useAuth } from '@/context/AuthContainer';
 import formStyle from '../assets/form.less';
 import style from './index.less';
+import { AxiosResponse } from 'axios';
 
 const RegisterForm: React.FC = () => {
   const auth = useAuth();
@@ -108,63 +109,63 @@ const RegisterForm: React.FC = () => {
       .catch((err) => message.error(err.response.data.detail));
   };
 
-  const checkUsernameCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '')
-      // 无内容
-      setUsernameCheck(0);
-    else if (usernamePattern.test(e.target.value))
-      // 通过检测
-      Request.getUsernameCount(e.target.value).then((res) => {
-        if (res.data.count === 0) setUsernameCheck(1);
-        // 可用
-        else setUsernameCheck(-1); // 不可用
-      });
-    else setUsernameCheck(-2); // 不符合
-  };
-
-  const checkPasswordUniformity = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === '') setPasswordUniformityCheck(0);
-    else if (e.target.value === password) setPasswordUniformityCheck(1);
+  const checkPasswordUniformity = (value1: string, value2: string) => {
+    if (value2 === '') setPasswordUniformityCheck(0);
+    else if (value1 === value2) setPasswordUniformityCheck(1);
     else setPasswordUniformityCheck(-1);
   };
 
-  const checkMobileCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "")
+  const checkWithAPICount = (
+    setFunction: React.Dispatch<React.SetStateAction<number>>,
+    pattern: RegExp,
+    apiCall: (_: string) => Promise<AxiosResponse<{ count: number }>>,
+    value: string,
+    // eslint-disable-next-line max-params
+  ) => {
+    if (value === '')
       // 无内容
-      setMobileCheck(0);
-    else if (mobilePattern.test(e.target.value))
+      setFunction(0);
+    else if (pattern.test(value))
       // 检测
-      Request.getMobileCount(e.target.value).then((res) => {
-        if (res.data.count === 0) setMobileCheck(1);
+      apiCall(value).then((res) => {
+        if (res.data.count === 0) setFunction(1);
         // 可用
-        else setMobileCheck(-1); // 重复
+        else setFunction(-1); // 重复
       });
-    else setMobileCheck(-2); // 不规范
+    else setFunction(-2); // 不规范
   };
 
   const checkWithRegExp = (
     setFunction: React.Dispatch<React.SetStateAction<number>>,
     pattern: RegExp,
-    e: React.ChangeEvent<HTMLInputElement>,
+    value: string,
   ) => {
-    if (e.target.value === '')
+    if (value === '')
       // 无内容
       setFunction(0);
-    else if (pattern.test(e.target.value))
+    else if (pattern.test(value))
       // 通过检测
       setFunction(1);
     else setFunction(-2); // 不符合
   };
 
-  const iconWithRegExpCheck = (valueCheck: number) => {
+  const iconWithRegExpCheck = (valueCheck: number, msg: string) => {
+    if (valueCheck === -2)
+      return (
+        <div>
+          <Popover content={msg}>
+            <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : <span />}</div>
+          </Popover>
+        </div>
+      );
     return (
-      <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : <span />}</div>
+      <div>
+        <div className={formStyle.iconBox}>{valueCheck < 0 ? falseIcon : <span />}</div>
+      </div>
     );
   };
   const msgWithRegExpCheck = (valueCheck: number, name: string) => {
-    return (
-      <div className={formStyle.msgBox}>{valueCheck === -2 && name + "不规范"}</div>
-    );
+    return <div className={formStyle.msgBox}>{valueCheck === -2 && name + '不规范'}</div>;
   };
 
   useEffect(() => {
@@ -181,9 +182,11 @@ const RegisterForm: React.FC = () => {
             placeholder="用户名"
             value={username}
             onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
-            onBlur={checkUsernameCount}
+            onBlur={(e) =>
+              checkWithAPICount(setUsernameCheck, usernamePattern, Request.getUsernameCount, e.target.value)
+            }
           />
-          {iconWithRegExpCheck(usernameCheck)}
+          {iconWithRegExpCheck(usernameCheck, '用户名仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
           <div className={formStyle.msgBox}>
             {usernameCheck === -1 ? '用户名已存在' : usernameCheck === -2 ? '用户名不规范' : ''}
           </div>
@@ -195,9 +198,9 @@ const RegisterForm: React.FC = () => {
             placeholder="昵称"
             value={nickname}
             onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
-            onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e)}
+            onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e.target.value)}
           />
-          {iconWithRegExpCheck(nicknameCheck)}
+          {iconWithRegExpCheck(nicknameCheck, '昵称仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
           {msgWithRegExpCheck(nicknameCheck, '昵称')}
         </div>
         <div className={formStyle.barContainer}>
@@ -207,9 +210,12 @@ const RegisterForm: React.FC = () => {
             placeholder="密码"
             value={password}
             onChange={(e) => e.target.value.length <= 24 && setPassword(e.target.value)}
-            onBlur={(e) => checkWithRegExp(setPasswordCheck, passwordPattern, e)}
+            onBlur={(e) => {
+              checkWithRegExp(setPasswordCheck, passwordPattern, e.target.value);
+              checkPasswordUniformity(e.target.value, confirmPassword);
+            }}
           />
-          {iconWithRegExpCheck(passwordCheck)}
+          {iconWithRegExpCheck(passwordCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
           {msgWithRegExpCheck(passwordCheck, '密码')}
         </div>
         <div className={formStyle.barContainer}>
@@ -219,9 +225,9 @@ const RegisterForm: React.FC = () => {
             placeholder="确认密码"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            onBlur={checkPasswordUniformity}
+            onBlur={(e) => checkPasswordUniformity(password, e.target.value)}
           />
-          {iconWithRegExpCheck(passwordUniformityCheck)}
+          {iconWithRegExpCheck(passwordUniformityCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
           {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
         </div>
         <div className={formStyle.barContainer}>
@@ -231,9 +237,9 @@ const RegisterForm: React.FC = () => {
             placeholder="手机号"
             value={mobile}
             onChange={(e) => e.target.value.length <= 11 && setMobile(Utils.filterNumber(e.target.value))}
-            onBlur={checkMobileCount}
+            onBlur={(e) => checkWithAPICount(setMobileCheck, mobilePattern, Request.getMobileCount, e.target.value)}
           />
-          {iconWithRegExpCheck(mobileCheck)}
+          {iconWithRegExpCheck(mobileCheck, '请输入正确的手机号')}
           <div className={formStyle.msgBox}>
             {mobileCheck === -1 ? '手机号已存在' : mobileCheck === -2 ? '手机号不规范' : ''}
           </div>
