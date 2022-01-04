@@ -20,6 +20,8 @@ const RegisterForm: React.FC = () => {
   const [nicknameCheck, setNicknameCheck] = React.useState(0);
   const [passwordCheck, setPasswordCheck] = React.useState(0);
   const [mobileCheck, setMobileCheck] = React.useState(0);
+  const [smsState, setSmsState] = React.useState(true);
+  const [smsMsg, setSmsMsg] = React.useState('点击获取');
   const [passwordUniformityCheck, setPasswordUniformityCheck] = React.useState(0);
 
   const falseIcon = (
@@ -46,12 +48,36 @@ const RegisterForm: React.FC = () => {
   const mobilePattern = /^1[3456789]\d{9}$/;
   const passwordPattern = /^[a-zA-Z0-9_]{6,24}$/;
 
+  const handleCountDown = (seconds = 60) => {
+    let second = seconds;
+    const countDown = () => {
+      if (second > 0) {
+        second--;
+        setSmsMsg(`${second}秒后重试`);
+        setSmsState(false);
+      }
+      if (second === 0) {
+        second = 60;
+        setSmsMsg('点击获取');
+        setSmsState(true);
+        return;
+      }
+      setTimeout(countDown, 1000);
+    };
+    setTimeout(countDown, 1000);
+  };
+
   const onSmsClick = () => {
-    if (mobile.length === 11) {
+    if (mobileCheck > 0) {
       Request.getSmsCode(mobile)
-        .then(() => message.success('发送成功'))
+        .then(() => {
+          message.success('发送成功');
+          handleCountDown(60);
+        })
         .catch((err) => message.error(err.response.data.message));
-    } else {
+    } else if (mobileCheck === -1) {
+      message.error('手机号已存在');
+    }else {
       message.error('请输入正确的手机号');
     }
   };
@@ -227,7 +253,10 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             onBlur={(e) => checkPasswordUniformity(password, e.target.value)}
           />
-          {iconWithRegExpCheck(passwordUniformityCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
+          {iconWithRegExpCheck(
+            passwordUniformityCheck,
+            '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位',
+          )}
           {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
         </div>
         <div className={formStyle.barContainer}>
@@ -254,7 +283,9 @@ const RegisterForm: React.FC = () => {
               onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
             />
           </div>
-          <button onClick={onSmsClick}>点击获取</button>
+          <button onClick={onSmsClick} disabled={!smsState}>
+            {smsMsg}
+          </button>
         </div>
       </div>
       <div className={formStyle.functionBar}>
