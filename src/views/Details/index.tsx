@@ -80,10 +80,7 @@ export default function Details() {
           <div className={style.map}>
             <Title text="朝圣地图" />
             {places.length === 0 ? (
-              <NoData
-                img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/map.png?raw=true"
-                text="暂无数据"
-              />
+              <NoData icon="map" />
             ) : (
               <Map places={places} styles={{ height: '40vh' }} zoom={10} />
             )}
