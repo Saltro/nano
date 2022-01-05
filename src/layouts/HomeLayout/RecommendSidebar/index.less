@@ -11,24 +11,59 @@
   flex-direction: column;
   gap: 30px;
   box-shadow: 0 6px 16px -8px rgb(0 0 0 / 8%), 0 12px 40px 14px rgb(0 0 0 / 3%);
+
+  .arrow {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 31px;
+    color: #f09199;
+    user-select: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  :hover + .arrow {
+    cursor: pointer;
+  }
 }
 
-.title {
-  display: inline-block;
-  margin: 0 7px 20px 0;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 31px;
-  user-select: none;
-}
+.header {
+  position: relative;
+  display: inline;
 
-.arrow {
-  font-size: 24px;
-  font-weight: bolder;
-  line-height: 31px;
-  color: #f09199;
-  user-select: none;
+  .title {
+    display: inline-block;
+    padding: 0 7px 20px 0;
+    margin: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 31px;
+    user-select: none;
+    transition: .5s;
+  }
+
+  :hover {
+    margin-right: 5px;
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+    transition: .5s;
+
+    &::before {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      display: inline-block;
+      width: 95%;
+      height: 5px;
+      background-color: #f8c8cc;
+      transition: .5s;
+      content: '';
+    }
+  }
 }
 
 .hot-spot .recommend {
