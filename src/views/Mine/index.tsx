@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Modal, message } from 'antd';
 import Request from '@/request';
+import logo from '@/assets/icons/logo.svg';
 import MineLayout from '@/layouts/MineLayout';
 import { useAuth } from '@/context/AuthContainer';
 import RequireAuth from '@/components/RequireAuth';
@@ -70,6 +71,17 @@ const Mine: React.FC = () => {
         {{
           sidebar: (
             <>
+              <div id={style.logoContainer}>
+                <div id={style.logo}>
+                  <svg onClick={() => navigate('/')} viewBox={logo.viewBox}>
+                    <use xlinkHref={`#${logo.id}`} />
+                  </svg>
+                </div>
+                <p className={style.title} onClick={() => navigate('/')}>
+                  Nano
+                </p>
+                <p className={style.subtitle}>圣地巡礼地点全收录</p>
+              </div>
               <div id={style.avatar}>
                 <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
               </div>

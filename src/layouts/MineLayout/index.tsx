@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import React from 'react';
 import style from './index.less';
 
@@ -10,12 +11,15 @@ interface IMineLayoutProps {
 
 const MineLayout: React.FC<IMineLayoutProps> = ({ children }) => {
   return (
-    <div id={style.container}>
-      <div id={style.sidebar}>{children?.sidebar}</div>
-      <div id={style.content}>
-        <div id={style.innerContent}>{children?.content}</div>
+    <>
+      <div id={style.container}>
+        <div id={style.sidebar}>{children?.sidebar}</div>
+        <div id={style.content}>
+          <div id={style.innerContent}>{children?.content}</div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
