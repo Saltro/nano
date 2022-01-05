@@ -7,11 +7,13 @@ interface IImageProps {
   loaded?: boolean;
 }
 
-const Image: React.FC<IImageProps> = ({ src, title,loaded }) => {
+const Image: React.FC<IImageProps> = ({ src, title, loaded }) => {
   return (
     <div className={style.container}>
-      <img src={src} alt={title} style={{display: loaded ? 'block' : 'none'}}/>
-      {loaded && title && <span className={style.title}>{title}</span>}
+      <div className={style.image}>
+        <img src={src} alt={title} style={{ display: loaded ? 'block' : 'none' }} />
+        {loaded && title && <span className={style.title}>{title}</span>}
+      </div>
     </div>
   );
 };
