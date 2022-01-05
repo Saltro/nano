@@ -12,7 +12,9 @@ const MineLayout: React.FC<IMineLayoutProps> = ({ children }) => {
   return (
     <div id={style.container}>
       <div id={style.sidebar}>{children?.sidebar}</div>
-      <div id={style.content}>{children?.content}</div>
+      <div id={style.content}>
+        <div id={style.innerContent}>{children?.content}</div>
+      </div>
     </div>
   );
 };

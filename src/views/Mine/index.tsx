@@ -21,19 +21,12 @@ const Mine: React.FC = () => {
 
   const navItems = [
     {
-      name: '收藏',
+      name: '设置',
       path: '/mine',
     },
     {
-      name: '设置',
-      path: '/mine/settings',
-    },
-  ];
-
-  const statisticsItems = [
-    {
-      name: '收藏数',
-      value: 4,
+      name: '收藏',
+      path: '/mine/collections',
     },
   ];
 
@@ -80,20 +73,9 @@ const Mine: React.FC = () => {
               <div id={style.avatar}>
                 <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
               </div>
-              <div id={style.usernameContainer}>
-                <p id={style.nickname} onClick={() => setIsChangingNickname(true)}>
-                  {auth?.userInfo?.nickname}
-                </p>
-                <p id={style.username}>{auth?.userInfo?.username}</p>
-              </div>
-              <div id={style.statisticsContainer}>
-                {statisticsItems.map((item) => (
-                  <div key={item.name} className={style.statistics}>
-                    <span className={style.value}>{item.value}</span>
-                    <span className={style.name}>{item.name}</span>
-                  </div>
-                ))}
-              </div>
+              <p id={style.nickname} onClick={() => setIsChangingNickname(true)}>
+                {auth?.userInfo?.nickname}
+              </p>
               <div id={style.navContainer}>
                 {navItems.map((item, index) => (
                   <div
@@ -131,8 +113,8 @@ const Mine: React.FC = () => {
           ),
           content: (
             <Routes>
-              <Route path="/" element={<Collections />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/" element={<Settings />} />
+              <Route path="/collections" element={<Collections />} />
             </Routes>
           ),
         }}
