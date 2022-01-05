@@ -222,6 +222,12 @@ const RegisterForm: React.FC = () => {
     console.log({ usernameCheck, passwordStrength, mobileCheck, passwordUniformityCheck });
   }, [usernameCheck, mobileCheck, passwordUniformityCheck, passwordStrength]);
 
+  useEffect(() => {
+    if (mobile.length === 11) {
+      checkWithAPICount(setMobileCheck, mobilePattern, Request.getMobileCount, mobile);
+    }
+  }, [mobile]);
+
   const usernameBox = (
     <div className={formStyle.barContainer}>
       <i className="iconfont icon-user" />
