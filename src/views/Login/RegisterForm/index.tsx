@@ -109,23 +109,23 @@ const RegisterForm: React.FC = () => {
   const onSubmitClick = () => {
     const validations = [
       {
-        validator: () => username.length >= 6 && username.length <= 16,
-        message: '用户名长度不能小于6位且不能长于16位',
+        validator: () => usernamePattern.test(username),
+        message: '用户名仅能包含字母、数字、下划线，长度不能小于6位且不能长于16位',
       },
       {
-        validator: () => nickname.length >= 6 && nickname.length <= 16,
-        message: '昵称长度不能小于6位且不能长于16位',
+        validator: () => nicknamePattern.test(nickname),
+        message: '昵称用户名仅能包含字母、数字、下划线，长度不能小于6位且不能长于16位',
       },
       {
-        validator: () => password.length >= 6 && password.length <= 24,
-        message: '密码长度不能小于6位且不能长于24位',
+        validator: () => passwordPattern.test(password),
+        message: '密码必须包含字母、数字，长度不能小于6位且不能长于24位',
       },
       {
         validator: () => confirmPassword === password,
         message: '两次密码不一致',
       },
       {
-        validator: () => mobile.length === 11,
+        validator: () => mobilePattern.test(mobile),
         message: '请输入正确的手机号',
       },
       {
@@ -240,7 +240,7 @@ const RegisterForm: React.FC = () => {
           checkWithAPICount(setUsernameCheck, usernamePattern, Request.getUsernameCount, e.target.value)
         }
       />
-      {iconWithRegExpCheck(usernameCheck, '用户名仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
+      {iconWithRegExpCheck(usernameCheck, '用户名仅能包含字母、数字、下划线，长度不能小于6位且不能长于16位')}
       <div className={formStyle.msgBox}>
         {usernameCheck === -1 ? '用户名已存在' : usernameCheck === -2 ? '用户名不规范' : ''}
       </div>
@@ -257,7 +257,7 @@ const RegisterForm: React.FC = () => {
         onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
         onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e.target.value)}
       />
-      {iconWithRegExpCheck(nicknameCheck, '昵称仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
+      {iconWithRegExpCheck(nicknameCheck, '昵称仅能包含字母、数字、下划线，长度不能小于6位且不能长于16位')}
       {msgWithRegExpCheck(nicknameCheck, '昵称')}
     </div>
   );
@@ -283,7 +283,7 @@ const RegisterForm: React.FC = () => {
             <div className={style.divRight} />
           </div>
         </div>
-        {iconWithRegExpCheck(passwordCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
+        {iconWithRegExpCheck(passwordCheck, '密码必须包含字母、数字，长度不能小于6位且不能长于24位')}
         {msgWithRegExpCheck(passwordCheck, '密码')}
       </div>
     </div>
@@ -301,7 +301,7 @@ const RegisterForm: React.FC = () => {
       />
       {iconWithRegExpCheck(
         passwordUniformityCheck,
-        '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位',
+        '密码必须包含字母、数字，长度不能小于6位且不能长于24位',
       )}
       {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
     </div>
