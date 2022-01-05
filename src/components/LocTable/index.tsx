@@ -17,12 +17,7 @@ interface ILocTableProps {
 
 const LocTable: React.FC<ILocTableProps> = ({ places, heads }) => {
   if (places.length === 0) {
-    return (
-      <NoData
-        img="https://github.com/Saltro/nano/blob/dev_details/src/assets/images/loc.png?raw=true"
-        text="暂无数据"
-      />
-    );
+    return <NoData icon="place" />;
   }
   return (
     <div>
