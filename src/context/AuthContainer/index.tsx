@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo } from 'react';
-import AuthContext from './context';
 import Request from '@/request';
+import PageLoading from '@/components/PageLoading';
+import AuthContext from './context';
 
 const AuthContainer: React.FC<{}> = ({ children }) => {
   const [userInfo, setUserInfo] = React.useState<IUserInfo | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const refreshInfo = () => {
     Request.getUserInfo()
@@ -13,6 +15,9 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
       })
       .catch((err) => {
         console.log('首次加载失败', err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -69,7 +74,7 @@ const AuthContainer: React.FC<{}> = ({ children }) => {
     };
   }, [userInfo]);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return isLoading ? <PageLoading /> : <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 const useAuth = () => {
