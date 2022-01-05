@@ -23,6 +23,7 @@ const RegisterForm: React.FC = () => {
   const [smsState, setSmsState] = React.useState(true);
   const [smsMsg, setSmsMsg] = React.useState('点击获取');
   const [passwordUniformityCheck, setPasswordUniformityCheck] = React.useState(0);
+  const [passwordStrength, setPasswordStrength] = React.useState(style.passwordStrengthBarDisable);
 
   const falseIcon = (
     <svg
@@ -46,7 +47,25 @@ const RegisterForm: React.FC = () => {
   const usernamePattern = /^[a-zA-Z0-9_]{6,16}$/;
   const nicknamePattern = /^[a-zA-Z0-9_]{6,16}$/;
   const mobilePattern = /^1[3456789]\d{9}$/;
-  const passwordPattern = /^[a-zA-Z0-9_]{6,24}$/;
+  const passwordPattern = /^[A-Za-z\d.,/;:"'\[\]\\<>|()\-=+`~@$!%*#?&]{8,24}$/;
+  const passwordNormalPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d.,/;:"'\[\]\\<>|()\-=+`~@$!%*#?&]{8,24}$/;
+  const passwordStrongPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.,/;:"'\[\]\\<>|()\-=+`~@$!%*#?&])[A-Za-z\d.,/;:"'\[\]\\<>|()\-=+`~@$!%*#?&]{8,24}$/;
+
+
+  const checkPasswordStrength = (password: string) => {
+    if (password === "") {
+      setPasswordStrength(style.passwordStrengthBarDisable);
+      return;
+    }
+    if (passwordStrongPattern.test(password))
+      setPasswordStrength(style.passwordStrengthBarStrong);
+    else if (passwordNormalPattern.test(password))
+      setPasswordStrength(style.passwordStrengthBarMedium);
+    else if (passwordPattern.test(password))
+      setPasswordStrength(style.passwordStrengthBarWeak);
+    else
+      setPasswordStrength(style.passwordStrengthBarForbidden);
+  };
 
   const handleCountDown = (seconds = 60) => {
     let second = seconds;
@@ -65,6 +84,11 @@ const RegisterForm: React.FC = () => {
       setTimeout(countDown, 1000);
     };
     setTimeout(countDown, 1000);
+  };
+
+  const handlePasswordChange = (password: string) => {
+    setPassword(password);
+    checkPasswordStrength(password);
   };
 
   const onSmsClick = () => {
@@ -195,111 +219,148 @@ const RegisterForm: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log({ usernameCheck, mobileCheck, passwordUniformityCheck });
-  }, [usernameCheck, mobileCheck, passwordUniformityCheck]);
+    console.log({ usernameCheck, passwordStrength, mobileCheck, passwordUniformityCheck });
+  }, [usernameCheck, mobileCheck, passwordUniformityCheck, passwordStrength]);
+
+  const usernameBox = (
+    <div className={formStyle.barContainer}>
+      <i className="iconfont icon-user" />
+      <input
+        type="text"
+        placeholder="用户名"
+        value={username}
+        onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
+        onBlur={(e) =>
+          checkWithAPICount(setUsernameCheck, usernamePattern, Request.getUsernameCount, e.target.value)
+        }
+      />
+      {iconWithRegExpCheck(usernameCheck, '用户名仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
+      <div className={formStyle.msgBox}>
+        {usernameCheck === -1 ? '用户名已存在' : usernameCheck === -2 ? '用户名不规范' : ''}
+      </div>
+    </div>
+  );
+
+  const nicknameBox = (
+    <div className={formStyle.barContainer}>
+      <i className="iconfont icon-user" />
+      <input
+        type="text"
+        placeholder="昵称"
+        value={nickname}
+        onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
+        onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e.target.value)}
+      />
+      {iconWithRegExpCheck(nicknameCheck, '昵称仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
+      {msgWithRegExpCheck(nicknameCheck, '昵称')}
+    </div>
+  );
+
+  const passwordBox = (
+    <div id={style.passwordBar}>
+      <div className={formStyle.barContainer}>
+        <i className="iconfont icon-lock" />
+        <input
+          type="password"
+          placeholder="密码"
+          value={password}
+          onChange={(e) => e.target.value.length <= 24 && handlePasswordChange(e.target.value)}
+          onBlur={(e) => {
+            checkWithRegExp(setPasswordCheck, passwordPattern, e.target.value);
+            checkPasswordUniformity(e.target.value, confirmPassword);
+          }}
+        />
+        <div className={style.passwordStrength}>
+          <div className={passwordStrength}>
+            <div className={style.divLeft} />
+            <div className={style.divCenter} />
+            <div className={style.divRight} />
+          </div>
+        </div>
+        {iconWithRegExpCheck(passwordCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
+        {msgWithRegExpCheck(passwordCheck, '密码')}
+      </div>
+    </div>
+  );
+
+  const confirmPasswordBox = (
+    <div className={formStyle.barContainer}>
+      <i className="iconfont icon-lock" />
+      <input
+        type="password"
+        placeholder="确认密码"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        onBlur={(e) => checkPasswordUniformity(password, e.target.value)}
+      />
+      {iconWithRegExpCheck(
+        passwordUniformityCheck,
+        '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位',
+      )}
+      {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
+    </div>
+  );
+
+  const mobileBox = (
+    <div className={formStyle.barContainer}>
+      <i className="iconfont icon-mobile" />
+      <input
+        type="text"
+        placeholder="手机号"
+        value={mobile}
+        onChange={(e) => e.target.value.length <= 11 && setMobile(Utils.filterNumber(e.target.value))}
+        onBlur={(e) => checkWithAPICount(setMobileCheck, mobilePattern, Request.getMobileCount, e.target.value)}
+      />
+      {iconWithRegExpCheck(mobileCheck, '请输入正确的手机号')}
+      <div className={formStyle.msgBox}>
+        {mobileCheck === -1 ? '手机号已存在' : mobileCheck === -2 ? '手机号不规范' : ''}
+      </div>
+    </div>
+  );
+
+  const smsBox = (
+    <div id={style.smsBar}>
+      <div className={formStyle.barContainer}>
+        <i className="iconfont icon-warning-circle" />
+        <input
+          type="text"
+          placeholder="短信验证码"
+          value={sms}
+          onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
+        />
+      </div>
+      <button onClick={onSmsClick} disabled={!smsState}>
+        {smsMsg}
+      </button>
+    </div>
+  );
+
+  const acceptBox = (
+    <div className={formStyle.functionBar}>
+      <div id={style.accept}>
+        <input
+          className={formStyle.checkbox}
+          type="checkbox"
+          checked={isAllowed}
+          id="accept-checkbox"
+          onChange={() => setIsAllowed(!isAllowed)}
+        />
+        <label htmlFor="accept-checkbox">我已阅读并同意《Nano服务协议》</label>
+      </div>
+    </div>
+  );
 
   return (
     <>
       <div className={formStyle.inputContainer}>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-user" />
-          <input
-            type="text"
-            placeholder="用户名"
-            value={username}
-            onChange={(e) => e.target.value.length <= 16 && setUsername(e.target.value)}
-            onBlur={(e) =>
-              checkWithAPICount(setUsernameCheck, usernamePattern, Request.getUsernameCount, e.target.value)
-            }
-          />
-          {iconWithRegExpCheck(usernameCheck, '用户名仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
-          <div className={formStyle.msgBox}>
-            {usernameCheck === -1 ? '用户名已存在' : usernameCheck === -2 ? '用户名不规范' : ''}
-          </div>
-        </div>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-user" />
-          <input
-            type="text"
-            placeholder="昵称"
-            value={nickname}
-            onChange={(e) => e.target.value.length <= 16 && setNickname(e.target.value)}
-            onBlur={(e) => checkWithRegExp(setNicknameCheck, nicknamePattern, e.target.value)}
-          />
-          {iconWithRegExpCheck(nicknameCheck, '昵称仅能包含字母、数字、下划线，且长度不能小于6位且不能长于16位')}
-          {msgWithRegExpCheck(nicknameCheck, '昵称')}
-        </div>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-lock" />
-          <input
-            type="password"
-            placeholder="密码"
-            value={password}
-            onChange={(e) => e.target.value.length <= 24 && setPassword(e.target.value)}
-            onBlur={(e) => {
-              checkWithRegExp(setPasswordCheck, passwordPattern, e.target.value);
-              checkPasswordUniformity(e.target.value, confirmPassword);
-            }}
-          />
-          {iconWithRegExpCheck(passwordCheck, '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位')}
-          {msgWithRegExpCheck(passwordCheck, '密码')}
-        </div>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-lock" />
-          <input
-            type="password"
-            placeholder="确认密码"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            onBlur={(e) => checkPasswordUniformity(password, e.target.value)}
-          />
-          {iconWithRegExpCheck(
-            passwordUniformityCheck,
-            '密码仅能包含字母、数字、下划线，且长度不能小于6位且不能长于24位',
-          )}
-          {passwordUniformityCheck === -1 && <div className={formStyle.msgBox}>密码不一致</div>}
-        </div>
-        <div className={formStyle.barContainer}>
-          <i className="iconfont icon-mobile" />
-          <input
-            type="text"
-            placeholder="手机号"
-            value={mobile}
-            onChange={(e) => e.target.value.length <= 11 && setMobile(Utils.filterNumber(e.target.value))}
-            onBlur={(e) => checkWithAPICount(setMobileCheck, mobilePattern, Request.getMobileCount, e.target.value)}
-          />
-          {iconWithRegExpCheck(mobileCheck, '请输入正确的手机号')}
-          <div className={formStyle.msgBox}>
-            {mobileCheck === -1 ? '手机号已存在' : mobileCheck === -2 ? '手机号不规范' : ''}
-          </div>
-        </div>
-        <div id={style.smsBar}>
-          <div className={formStyle.barContainer}>
-            <i className="iconfont icon-warning-circle" />
-            <input
-              type="text"
-              placeholder="短信验证码"
-              value={sms}
-              onChange={(e) => e.target.value.length <= 6 && setSms(Utils.filterNumber(e.target.value))}
-            />
-          </div>
-          <button onClick={onSmsClick} disabled={!smsState}>
-            {smsMsg}
-          </button>
-        </div>
+        {usernameBox}
+        {nicknameBox}
+        {passwordBox}
+        {confirmPasswordBox}
+        {mobileBox}
+        {smsBox}
       </div>
-      <div className={formStyle.functionBar}>
-        <div id={style.accept}>
-          <input
-            className={formStyle.checkbox}
-            type="checkbox"
-            checked={isAllowed}
-            id="accept-checkbox"
-            onChange={() => setIsAllowed(!isAllowed)}
-          />
-          <label htmlFor="accept-checkbox">我已阅读并同意《Nano服务协议》</label>
-        </div>
-      </div>
+      {acceptBox}
       <button className={formStyle.button} onClick={onSubmitClick}>
         注册
       </button>
