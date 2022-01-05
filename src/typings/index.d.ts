@@ -144,6 +144,7 @@ declare interface ILoginRequest {
 
 declare interface IRegisterRequest {
   username: string;
+  nickname: string;
   password: string;
   confirmPassword: string;
   mobile: string;

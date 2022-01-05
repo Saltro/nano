@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { sentryDsn } from './secret';
 import AuthContainer from './context/AuthContainer';
-import Loading from './components/Loading';
+import PageLoading from './components/PageLoading';
 import './App.less';
 import './assets/iconfont/iconfont.css';
 
@@ -16,14 +16,6 @@ const Login = React.lazy(() => import(/* webpackChunkName: "login" */ './views/L
 const Mine = React.lazy(() => import(/* webpackChunkName: "mine" */ './views/Mine'));
 const Places = React.lazy(() => import(/* webpackChunkName: "places" */ './views/Places'));
 const Search = React.lazy(() => import(/* webpackChunkName: "search" */ './views/Search'));
-
-const PageLoading = () => {
-  return (
-    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Loading />
-    </div>
-  );
-};
 
 const App: React.FC = () => {
   const routingInstrumentation = useRoutingInstrumentation();

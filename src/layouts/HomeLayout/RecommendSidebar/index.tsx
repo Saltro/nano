@@ -13,7 +13,9 @@ const RecommendSidebar: React.FC<{}> = () => {
   return (
     <div id={style.container}>
       <div className={style.hotSpot} ref={refHotSpot}>
-        <span className={style.title}>热门路线推荐</span>
+        <div className={style.header}>
+          <span className={style.title}>热门路线推荐</span>
+        </div>
         <span className={style.arrow}>→</span>
         {!loadedHotSpot && <Skeleton height="12.08vw" borderRadius="15px" />}
         <div className={style.recommend}>
@@ -27,7 +29,9 @@ const RecommendSidebar: React.FC<{}> = () => {
         </div>
       </div>
       <div className={style.cityRec} ref={refCityRec}>
-        <span className={style.title}>城市推荐</span>
+        <div className={style.header}>
+          <span className={style.title}>城市推荐</span>
+        </div>
         <span className={style.arrow}>→</span>
         {!loadedCityRec && <Skeleton height="4.60vw" borderRadius="15px" />}
         <div className={style.cityImages}>
@@ -37,7 +41,9 @@ const RecommendSidebar: React.FC<{}> = () => {
         </div>
       </div>
       <div className={style.strategy} ref={refStrategy}>
-        <span className={style.title}>圣地巡礼攻略</span>
+        <div className={style.header}>
+          <span className={style.title}>圣地巡礼攻略</span>
+        </div>
         <span className={style.arrow}>→</span>
         {!loadedStrategy && <Skeleton height="8vw" borderRadius="15px" />}
         <div className={style.images}>
