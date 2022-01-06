@@ -79,11 +79,7 @@ export default function Details() {
           </div>
           <div className={style.map}>
             <Title text="朝圣地图" />
-            {places.length === 0 ? (
-              <NoData icon="map" />
-            ) : (
-              <Map places={places} styles={{ height: '40vh' }} zoom={10} />
-            )}
+            {places.length === 0 ? <NoData /> : <Map places={places} styles={{ height: '40vh' }} zoom={10} />}
           </div>
           <div className={style.locations}>
             <Title text="地址详情" />

@@ -17,7 +17,7 @@ interface ILocTableProps {
 
 const LocTable: React.FC<ILocTableProps> = ({ places, heads }) => {
   if (places.length === 0) {
-    return <NoData icon="place" />;
+    return <NoData />;
   }
   return (
     <div>

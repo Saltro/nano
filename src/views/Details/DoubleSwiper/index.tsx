@@ -28,7 +28,7 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   };
 
   if (pictures.length === 0) {
-    return <NoData icon="image" />;
+    return <NoData />;
   }
   return (
     <div className={style.container}>
