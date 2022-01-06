@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Tag } from 'antd';
+import { SmileOutlined, PoweroffOutlined, FormOutlined } from '@ant-design/icons';
 import { useAuth } from '@/context/AuthContainer';
 import InfoItem, { IInfoItemProps } from './InfoItem';
 import style from './index.less';
@@ -37,10 +39,32 @@ const Settings: React.FC = () => {
     },
   ];
 
+  const tags = [
+    {
+      title: '新番',
+      closeable: false,
+    },
+    {
+      title: '历史文化',
+      closeable: false,
+    },
+    {
+      title: '动画电影',
+      closeable: false,
+    },
+    {
+      title: '京阿尼',
+      closeable: true,
+    },
+  ];
+
   return (
     <div id={style.container}>
       <div id={style.infoContainer}>
-        <p className={style.title}>基本信息</p>
+        <p className={style.title}>
+          <FormOutlined style={{ color: '#f09199' }} />
+          基本信息
+        </p>
         <div>
           {infoItems.map((item, index) => (
             <InfoItem key={index} {...item} />
@@ -48,10 +72,21 @@ const Settings: React.FC = () => {
         </div>
       </div>
       <div id={style.interestContainer}>
-        <p className={style.title}>兴趣标签</p>
+        <p className={style.title}>
+          <SmileOutlined style={{ color: '#f09199' }} />
+          兴趣标签
+        </p>
+        {tags.map((item, index) => (
+          <Tag key={index} className={style.tag} closable={item.closeable} color="#fff2f2">
+            {item.title}
+          </Tag>
+        ))}
       </div>
       <div id={style.authContainer}>
-        <p className={style.title}>登录状态</p>
+        <p className={style.title}>
+          <PoweroffOutlined style={{ color: '#f09199' }} />
+          登录状态
+        </p>
         <button
           className={style.warnBtn}
           onClick={() => {

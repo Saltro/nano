@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
 import style from './index.less';
 
 export interface IInfoItemProps {
@@ -37,6 +38,7 @@ const InfoItem: React.FC<IInfoItemProps> = ({
               setIsEditing(true);
             }}
           >
+            <EditOutlined style={{ color: '#06f', margin: '0 3px 0 0' }} />
             {editLabel}
           </span>
         )}

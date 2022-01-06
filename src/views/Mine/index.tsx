@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Modal, message } from 'antd';
+import { SettingOutlined, StarOutlined } from '@ant-design/icons';
 import Request from '@/request';
 import logo from '@/assets/icons/logo.svg';
 import MineLayout from '@/layouts/MineLayout';
@@ -24,10 +25,12 @@ const Mine: React.FC = () => {
     {
       name: '设置',
       path: '/mine',
+      icon: SettingOutlined,
     },
     {
       name: '收藏',
       path: '/mine/collections',
+      icon: StarOutlined,
     },
   ];
 
@@ -95,6 +98,12 @@ const Mine: React.FC = () => {
                     key={index}
                     onClick={() => navigate(item.path)}
                   >
+                    <item.icon
+                      style={{
+                        color: path === item.path ? '#f25d8e' : 'rgb(0 0 0 / 70%)',
+                        margin: '0 20px 0 0',
+                      }}
+                    />
                     <span>{item.name}</span>
                   </div>
                 ))}
