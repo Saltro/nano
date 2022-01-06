@@ -1,0 +1,32 @@
+.info {
+  padding: 10px 22px 14px 0;
+
+  .info-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    span {
+      font-size: 16px;
+      color: #262626;
+    }
+
+    .edit {
+      color: #06f;
+      transition: opacity .2s ease;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        filter: brightness(.8);
+      }
+    }
+  }
+
+  .value {
+    margin: 0;
+    font-size: 16px;
+    color: #8c8c8c;
+  }
+}
