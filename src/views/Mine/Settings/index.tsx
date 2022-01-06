@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Tag } from 'antd';
+import { Tag, message } from 'antd';
 import { SmileOutlined, PoweroffOutlined, FormOutlined } from '@ant-design/icons';
+import Request from '@/request';
 import { useAuth } from '@/context/AuthContainer';
 import InfoItem, { IInfoItemProps } from './InfoItem';
 import style from './index.less';
@@ -12,6 +13,16 @@ const Settings: React.FC = () => {
 
   const infoItems: IInfoItemProps[] = [
     {
+      title: '头像',
+      value: auth?.userInfo?.avatar,
+      // eslint-disable-next-line react/no-unstable-nested-components
+      valueRender: (value) => <img src={value} className={style.avatar} />,
+      editable: true,
+      onEdit() {
+        message.info('编辑头像');
+      },
+    },
+    {
       title: '用户名',
       value: auth?.userInfo?.username,
     },
@@ -19,23 +30,44 @@ const Settings: React.FC = () => {
       title: '昵称',
       value: auth?.userInfo?.nickname,
       editable: true,
+      onSubmit(value) {
+        Request.changeNickname(value)
+          .then(() => {
+            message.success('修改昵称成功');
+            auth?.refreshInfo();
+          })
+          .catch(() => {
+            message.error('修改昵称失败');
+          });
+      },
     },
     {
       title: '绑定手机',
-      value: '+86 ' + auth?.userInfo?.mobile,
+      value: auth?.userInfo?.mobile,
+      valueRender: (value) => '+86 ' + value,
       editable: true,
       editLabel: '切换手机号',
+      onEdit() {
+        message.warn('请联系管理员');
+      },
     },
     {
       title: '绑定邮箱',
+      valueRender: (value) => (value.length === 0 ? '暂无' : value),
       editable: true,
       editLabel: '立刻绑定',
+      onEdit() {
+        message.warn('暂不支持绑定邮箱');
+      },
     },
     {
       title: '密码',
       value: '已设置',
       editable: true,
       editLabel: '修改密码',
+      onEdit() {
+        message.warn('暂不支持修改密码');
+      },
     },
   ];
 

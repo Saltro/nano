@@ -1,8 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Modal, message } from 'antd';
 import { SettingOutlined, StarOutlined } from '@ant-design/icons';
-import Request from '@/request';
 import logo from '@/assets/icons/logo.svg';
 import MineLayout from '@/layouts/MineLayout';
 import { useAuth } from '@/context/AuthContainer';
@@ -15,11 +13,6 @@ const Mine: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const path = useLocation().pathname;
-  const avatarInputRef = useRef<HTMLInputElement>(null);
-  const [nickname, setNickname] = useState(auth?.userInfo?.nickname);
-  const [isChangingAvatar, setIsChangingAvatar] = useState(false);
-  const [isChangingNickname, setIsChangingNickname] = useState(false);
-  const [isConfirmLoading, setIsConfirmLoading] = useState(false);
 
   const navItems = [
     {
@@ -33,40 +26,6 @@ const Mine: React.FC = () => {
       icon: StarOutlined,
     },
   ];
-
-  const onChangeAvatar = () => {
-    if (avatarInputRef.current?.files) {
-      setIsConfirmLoading(true);
-      Request.changeAvatar(avatarInputRef.current?.files[0])
-        .then(() => {
-          message.success('修改头像成功');
-          auth?.refreshInfo();
-          setIsConfirmLoading(false);
-          setIsChangingAvatar(false);
-        })
-        .catch(() => {
-          message.error('修改头像失败');
-          setIsConfirmLoading(false);
-        });
-    }
-  };
-
-  const onChangeNickname = () => {
-    if (nickname !== undefined && nickname.length !== 0) {
-      setIsConfirmLoading(true);
-      Request.changeNickname(nickname)
-        .then(() => {
-          message.success('修改昵称成功');
-          auth?.refreshInfo();
-          setIsConfirmLoading(false);
-          setIsChangingNickname(false);
-        })
-        .catch(() => {
-          message.error('修改昵称失败');
-          setIsConfirmLoading(false);
-        });
-    }
-  };
 
   return (
     <RequireAuth>
@@ -86,11 +45,9 @@ const Mine: React.FC = () => {
                 <p className={style.subtitle}>圣地巡礼地点全收录</p>
               </div>
               <div id={style.avatar}>
-                <img src={auth?.userInfo?.avatar} onClick={() => setIsChangingAvatar(true)} />
+                <img src={auth?.userInfo?.avatar} />
               </div>
-              <p id={style.nickname} onClick={() => setIsChangingNickname(true)}>
-                {auth?.userInfo?.nickname}
-              </p>
+              <p id={style.nickname}>{auth?.userInfo?.nickname}</p>
               <div id={style.navContainer}>
                 {navItems.map((item, index) => (
                   <div
@@ -108,28 +65,6 @@ const Mine: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <Modal
-                title="修改头像"
-                visible={isChangingAvatar}
-                onOk={onChangeAvatar}
-                onCancel={() => setIsChangingAvatar(false)}
-                confirmLoading={isConfirmLoading}
-                okText="确认"
-                cancelText="取消"
-              >
-                <input type="file" ref={avatarInputRef} />
-              </Modal>
-              <Modal
-                title="修改昵称"
-                visible={isChangingNickname}
-                onOk={onChangeNickname}
-                onCancel={() => setIsChangingNickname(false)}
-                okText="确认"
-                cancelText="取消"
-                confirmLoading={isConfirmLoading}
-              >
-                <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
-              </Modal>
             </>
           ),
           content: (
