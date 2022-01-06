@@ -81,8 +81,17 @@ const Detail: React.FC<IDetailProps> = (props) => {
   };
 
   return (
-    <div className="container">
-      <h1 className={style.title}>{titleCN + '  ' + title}</h1>
+    <div id={style.container}>
+      <h1 className={style.title}>
+        {titleCN + '  ' + title}
+        <span className={style.collect} onClick={toggleCollected}>
+          {collected ? (
+            <StarFilled style={{ color: '#f09199', fontSize: '25px' }} />
+          ) : (
+            <StarOutlined style={{ color: '#f09199', fontSize: '25px' }} />
+          )}
+        </span>
+      </h1>
       <div className={style.tags}>
         <span className={style.date}>动画电影</span>
         <span className={style.date}>{date}</span>
@@ -93,17 +102,10 @@ const Detail: React.FC<IDetailProps> = (props) => {
             </span>
           );
         })}
-        <button className={style.collect} onClick={toggleCollected}>
-          {collected ? (
-            <StarFilled style={{ color: '#f09199', fontSize: '25px' }} />
-          ) : (
-            <StarOutlined style={{ color: '#f09199', fontSize: '25px' }} />
-          )}
-        </button>
       </div>
       <div className={style.details} ref={refImages}>
         {!loadedImage && <Skeleton height="16.33vw" width="11.78vw" borderRadius="15px" />}
-        <img src={image} className={style.image} style={{ display: loadedImage ? 'block' : 'none' }}/>
+        <img src={image} className={style.image} style={{ display: loadedImage ? 'block' : 'none' }} />
         <div className={style.info}>
           {director.length > 0 && (
             <p>
