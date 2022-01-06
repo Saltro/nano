@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tag, message } from 'antd';
 import { SmileOutlined, PoweroffOutlined, FormOutlined } from '@ant-design/icons';
 import Request from '@/request';
 import { useAuth } from '@/context/AuthContainer';
 import InfoItem, { IInfoItemProps } from './InfoItem';
+import AvatarModal from './AvatarModal';
 import style from './index.less';
 
 const Settings: React.FC = () => {
@@ -19,7 +20,7 @@ const Settings: React.FC = () => {
       valueRender: (value) => <img src={value} className={style.avatar} />,
       editable: true,
       onEdit() {
-        message.info('编辑头像');
+        setIsAvatarEditing(true);
       },
     },
     {
@@ -90,6 +91,8 @@ const Settings: React.FC = () => {
     },
   ];
 
+  const [isAvatarEditing, setIsAvatarEditing] = useState(false);
+
   return (
     <div id={style.container}>
       <div id={style.infoContainer}>
@@ -129,6 +132,13 @@ const Settings: React.FC = () => {
           退出登录
         </button>
       </div>
+      <AvatarModal
+        visible={isAvatarEditing}
+        onModalClose={() => {
+          setIsAvatarEditing(false);
+          auth?.refreshInfo();
+        }}
+      />
     </div>
   );
 };
