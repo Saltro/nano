@@ -12,6 +12,40 @@
   flex-direction: column;
   gap: 30px;
   box-shadow: 0 6px 16px -8px rgb(0 0 0 / 8%), 0 12px 40px 14px rgb(0 0 0 / 3%);
+}
+
+.header {
+  position: relative;
+  margin: 0 0 20px;
+
+  .title {
+    position: relative;
+    margin-right: 12px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 31px;
+    user-select: none;
+    cursor: pointer;
+
+    &::before {
+      position: absolute;
+      right: 0;
+      bottom: -2px;
+      left: 0;
+      height: 4px;
+      background-color: #f8c8cc;
+      content: '';
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform .3s ease;
+    }
+
+    &:hover::before {
+      transform-origin: bottom left;
+      transform: scaleX(1);
+    }
+  }
 
   .arrow {
     margin: 0;
@@ -20,50 +54,6 @@
     line-height: 31px;
     color: #f09199;
     user-select: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
-
-  :hover + .arrow {
-    cursor: pointer;
-  }
-}
-
-.header {
-  position: relative;
-  display: inline;
-
-  .title {
-    display: inline-block;
-    padding: 0 7px 20px 0;
-    margin: 0;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 31px;
-    user-select: none;
-    transition: all .5s ease;
-  }
-
-  :hover {
-    margin-right: 5px;
-    cursor: pointer;
-    transform: scale(1.1, 1.1);
-    transition: all .5s ease;
-
-    &::before {
-      position: absolute;
-      bottom: 10px;
-      left: 0;
-      display: inline-block;
-      width: 95%;
-      height: 5px;
-      background-color: #f8c8cc;
-      transition: all .5s ease;
-      content: '';
-    }
   }
 }
 

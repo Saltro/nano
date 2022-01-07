@@ -1,39 +1,27 @@
 .container {
   position: relative;
+  transition: all .3s ease;
+  cursor: pointer;
 
-  :hover {
-    img {
-      cursor: pointer;
-      transform: scale(1.1, 1.1);
-      transition: all .5s ease;
-    }
-
-    .title {
-      cursor: pointer;
-      transform: scale(1.1, 1.1);
-      transition: all .5s ease;
-    }
+  img {
+    width: 100%;
+    border-radius: 15px;
+    object-fit: contain;
   }
 
-  .image {
-    img {
-      width: 100%;
-      border-radius: 15px;
-      object-fit: contain;
-      transition: all .5s ease;
-    }
+  .title {
+    position: absolute;
+    bottom: .625rem;
+    left: .625rem;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 20px;
+    color: white;
+    white-space: nowrap;
+    user-select: none;
+  }
 
-    .title {
-      position: absolute;
-      bottom: .625rem;
-      left: .625rem;
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 20px;
-      color: white;
-      white-space: nowrap;
-      user-select: none;
-      transition: all .5s ease;
-    }
+  &:hover {
+    transform: scale(1.05, 1.05);
   }
 }
