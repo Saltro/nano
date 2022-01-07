@@ -1,0 +1,52 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+
+  .title {
+    margin-bottom: 28px;
+    font-size: 22px;
+    font-weight: bold;
+    color: rgb(0 0 0 / 85%);
+
+    span {
+      margin: 0 8px 0 0;
+    }
+  }
+
+  .title:first-child {
+    margin-bottom: 18px;
+  }
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+}
+
+.tag {
+  color: #f09199;
+  border: 1px solid #f8c8cc;
+
+  svg {
+    fill: #f09199;
+  }
+}
+
+.warn-btn {
+  padding: 5px 16px;
+  color: rgb(240 145 153 / 100%);
+  background: #fff;
+  border: 1px solid rgb(247 188 194 / 50%);
+  border-radius: 2px;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 1.6%);
+  transition: all .3s ease;
+
+  &:hover {
+    color: #fff;
+    background: rgb(240 145 153 / 50%);
+    transform: translateY(-4px);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 6%);
+  }
+}

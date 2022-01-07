@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import style from './index.less';
@@ -24,9 +25,7 @@ const HomeLayout: React.FC = ({ children }) => {
         <div className={style.center}>{children}</div>
         <RecommendSidebar />
       </div>
-      <footer>
-        <p id={style.copyright}>Copy Right©2021, All Rights Reserved. </p>
-      </footer>
+      <Footer />
     </>
   );
 };
