@@ -62,7 +62,7 @@ const Places: React.FC<{}> = () => {
       <Loading isLoading={isLoading}>
         <Map
           places={place}
-          styles={{ height: '90vh', margin: 0 }}
+          styles={{ height: '100%', margin: 0 }}
           zoom={zoom}
           center={place.length === 0 ? [35.69, 135.69] : [place[centerIdx].latitude, place[centerIdx].longitude]}
         />

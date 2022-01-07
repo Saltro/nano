@@ -16,6 +16,8 @@ const HomeLayout: React.FC = ({ children }) => {
     navSelected = 'Work';
   } else if (/\/places.*/.test(location.pathname)) {
     navSelected = 'Place';
+  } else if (/\/mine.*/.test(location.pathname)) {
+    navSelected = 'Collect';
   }
 
   return (

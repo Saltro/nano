@@ -5,6 +5,8 @@ import animeNormal from '@/assets/icons/anime_normal.svg';
 import animeSelect from '@/assets/icons/anime_select.svg';
 import placeNormal from '@/assets/icons/place_normal.svg';
 import placeSelect from '@/assets/icons/place_select.svg';
+import collectNormal from '@/assets/icons/collect_normal.svg';
+import collectSelect from '@/assets/icons/collect_select.svg';
 import { useAuth } from '@/context/AuthContainer';
 import { UserOutlined } from '@ant-design/icons';
 import { useImagesLoaded } from 'use-images-loaded';
@@ -38,6 +40,15 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
       selected: placeSelect,
       onClick: () => {
         navigate('/places/0');
+      },
+    },
+    {
+      name: 'Collection',
+      text: '收藏',
+      default: collectNormal,
+      selected: collectSelect,
+      onClick: () => {
+        navigate('/mine/collections');
       },
     },
   ];
