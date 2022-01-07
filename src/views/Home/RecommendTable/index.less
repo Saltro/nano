@@ -1,6 +1,10 @@
+@columns: 2;
+@column-gap: 25px;
+@column-width: calc((100% - @column-gap * (@columns - 1)) / @columns);
+
 #container {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: normal;
-  justify-content: left;
+  display: grid;
+  grid-template-columns: repeat(@columns, @column-width);
+  gap: 15px @column-gap;
+  margin-bottom: 30px;
 }
