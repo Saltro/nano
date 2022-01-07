@@ -43,47 +43,45 @@ const NavigationSidebar: React.FC<INavigationSidebarProps> = ({ navSelected }) =
   ];
 
   return (
-    <div id={style.outer}>
-      <div id={style.container}>
-        <div id={style.logo}>
-          <svg onClick={() => navigate('/')} viewBox={logo.viewBox}>
-            <use xlinkHref={`#${logo.id}`} />
-          </svg>
-        </div>
-        <p className={style.title} onClick={() => navigate('/')}>
-          Nano
-        </p>
-        <p className={style.subtitle}>圣地巡礼地点全收录</p>
-        <div id={style.navContainer}>
-          {navItems.map((item, index) => (
-            <div
-              className={style.navItem + ' ' + (navSelected === item.name ? style.selected : '')}
-              key={index}
-              onClick={item.onClick}
-            >
-              <svg
-                className={style.logo}
-                viewBox={navSelected === item.name ? item.selected.viewBox : item.default.viewBox}
-              >
-                <use xlinkHref={`#${navSelected === item.name ? item.selected.id : item.default.id}`} />
-              </svg>
-              <span>{item.text}</span>
-            </div>
-          ))}
-        </div>
-        {auth?.userInfo ? (
-          <div id={style.userInfo} onClick={() => navigate('/mine')} ref={refImages}>
-            {!loadedImage && <Skeleton circle height="2.1vw" width="2.1vw" />}
-            <img src={auth?.userInfo?.avatar} style={{ display: loadedImage ? 'block' : 'none' }}/>
-            <p>{auth?.userInfo?.nickname}</p>
-          </div>
-        ) : (
-          <div id={style.userInfo} onClick={() => navigate('/login')}>
-            <UserOutlined style={{ fontSize: '2.19vw', margin: '0.2vw' }} />
-            <p style={{letterSpacing: '0.15em'}}>登录</p>
-          </div>
-        )}
+    <div id={style.container}>
+      <div id={style.logo}>
+        <svg onClick={() => navigate('/')} viewBox={logo.viewBox}>
+          <use xlinkHref={`#${logo.id}`} />
+        </svg>
       </div>
+      <p className={style.title} onClick={() => navigate('/')}>
+        Nano
+      </p>
+      <p className={style.subtitle}>圣地巡礼地点全收录</p>
+      <div id={style.navContainer}>
+        {navItems.map((item, index) => (
+          <div
+            className={style.navItem + ' ' + (navSelected === item.name ? style.selected : '')}
+            key={index}
+            onClick={item.onClick}
+          >
+            <svg
+              className={style.logo}
+              viewBox={navSelected === item.name ? item.selected.viewBox : item.default.viewBox}
+            >
+              <use xlinkHref={`#${navSelected === item.name ? item.selected.id : item.default.id}`} />
+            </svg>
+            <span>{item.text}</span>
+          </div>
+        ))}
+      </div>
+      {auth?.userInfo ? (
+        <div id={style.userInfo} onClick={() => navigate('/mine')} ref={refImages}>
+          {!loadedImage && <Skeleton circle height="2.1vw" width="2.1vw" />}
+          <img src={auth?.userInfo?.avatar} style={{ display: loadedImage ? 'block' : 'none' }} />
+          <p>{auth?.userInfo?.nickname}</p>
+        </div>
+      ) : (
+        <div id={style.userInfo} onClick={() => navigate('/login')}>
+          <UserOutlined style={{ fontSize: '2.19vw', margin: '0.2vw' }} />
+          <p style={{ letterSpacing: '0.15em' }}>登录</p>
+        </div>
+      )}
     </div>
   );
 };

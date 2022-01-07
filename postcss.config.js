@@ -9,7 +9,21 @@ module.exports = {
       minPixelValue: 4, // 小于或者等于4px 不转换
       mediaQuery: false, // 是否允许媒体查询中转换px
       unitPrecision: 2, // 转换后的精度，即小数点
-      propList: ['*', '!font*', '!border*'],
+      propList: [
+        '*',
+        '!font*',
+        '!border*',
+        '!max-*',
+        '!min-*',
+        '!height',
+        '!width',
+        '!margin',
+        '!margin-*',
+        '!padding',
+        '!padding-*',
+        '!line-height',
+        '!gap',
+      ],
     },
   },
 };
