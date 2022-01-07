@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tag, message } from 'antd';
 import { SmileOutlined, PoweroffOutlined, FormOutlined } from '@ant-design/icons';
 import Request from '@/request';
 import { useAuth } from '@/context/AuthContainer';
+import logo from '@/assets/icons/edit_avatar.svg';
 import InfoItem, { IInfoItemProps } from './InfoItem';
 import AvatarModal from './AvatarModal';
 import style from './index.less';
@@ -12,12 +13,26 @@ const Settings: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
+  const MemorizedAvatarComponent = useCallback(
+    (value) => (
+      <div className={style.avatar} onClick={() => setIsAvatarEditing(true)}>
+        <img src={value} alt="头像" />
+        <div>
+          <svg viewBox={logo.viewBox}>
+            <use xlinkHref={`#${logo.id}`} />
+          </svg>
+        </div>
+      </div>
+    ),
+    [],
+  );
+
   const infoItems: IInfoItemProps[] = [
     {
       title: '头像',
       value: auth?.userInfo?.avatar,
       // eslint-disable-next-line react/no-unstable-nested-components
-      valueRender: (value) => <img src={value} className={style.avatar} />,
+      valueRender: MemorizedAvatarComponent,
       editable: true,
       onEdit() {
         setIsAvatarEditing(true);

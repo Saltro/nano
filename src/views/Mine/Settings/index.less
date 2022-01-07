@@ -1,3 +1,12 @@
+.tag {
+  color: #f09199;
+  border: 1px solid #f8c8cc;
+
+  svg {
+    fill: #f09199;
+  }
+}
+
 #container {
   display: flex;
   flex-direction: column;
@@ -19,18 +28,43 @@
   }
 
   .avatar {
+    position: relative;
     width: 150px;
     height: 150px;
+    cursor: pointer;
     border-radius: 50%;
-  }
-}
 
-.tag {
-  color: #f09199;
-  border: 1px solid #f8c8cc;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
 
-  svg {
-    fill: #f09199;
+    div {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0 0 0 / 50%);
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity .3s ease;
+
+      svg {
+        width: 50%;
+        height: 50%;
+      }
+    }
+
+    &:hover div {
+      opacity: 1;
+    }
   }
 }
 
