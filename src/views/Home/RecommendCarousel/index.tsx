@@ -26,12 +26,21 @@ const RecommendCarousel: React.FC<{ recommendList: IRecommendInfo[] }> = ({ reco
   return (
     <div id={style.container}>
       {!loadedImage && <Skeleton height="19.75vw" borderRadius="15px" />}
-      <Carousel autoplay autoplaySpeed={5000} ref={ref} beforeChange={handleSlideChange} dots={false} style={{height: loadedImage ? 'auto' : '0'}}>
+      <Carousel
+        autoplay
+        autoplaySpeed={5000}
+        ref={ref}
+        beforeChange={handleSlideChange}
+        dots={false}
+        style={{ height: loadedImage ? 'auto' : '0' }}
+      >
         {recommendList.map((info, index) => {
           return (
             <div className={style.slide} key={index} ref={index === 0 ? refImages : refOther}>
               <Link to={`/detail/${info?.anime}`}>
-                <div className={style.description}>{info?.description}</div>
+                <div className={style.description}>
+                  <p>{info?.description}</p>
+                </div>
                 <div className={style.imgContainer}>
                   <img src={info?.image} alt={info?.title} style={{ display: loadedImage ? 'block' : 'none' }} />
                 </div>

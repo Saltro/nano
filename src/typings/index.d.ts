@@ -18,7 +18,7 @@ declare module '*.svg' {
   export default content;
 }
 
-declare type NavItemsName = '' | 'Work' | 'Place';
+declare type NavItemsName = '' | 'Work' | 'Place' | 'Collect';
 
 // 可排序字段
 declare type AnimeOrderingKey =
