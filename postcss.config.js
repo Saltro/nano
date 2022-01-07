@@ -23,6 +23,7 @@ module.exports = {
         '!padding-*',
         '!line-height',
         '!gap',
+        '!grid-*',
       ],
     },
   },

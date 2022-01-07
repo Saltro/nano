@@ -3,28 +3,34 @@
   top: 25px;
   display: flex;
   width: 11.8%;
-  gap: 40px;
   height: fit-content;
+  max-width: 170px;
   padding: 32px 0;
   color: white;
   background: #f09199;
   border-radius: 30px;
+  gap: 40px;
   flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   user-select: none;
+  box-sizing: border-box;
+}
 
+#header {
   .title {
     margin: 0 0 5px;
     font-size: 16px;
     font-weight: 700;
+    text-align: center;
     cursor: pointer;
   }
 
   .subtitle {
     font-size: 12px;
     font-weight: 300;
+    text-align: center;
   }
 }
 
@@ -34,7 +40,7 @@
   max-height: 72px;
   padding: 12px;
   box-sizing: border-box;
-  margin: 0 0 9px;
+  margin: 0 auto 9px;
   cursor: pointer;
   background: #fff;
   border-radius: 18px;

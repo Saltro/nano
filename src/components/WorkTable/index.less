@@ -1,7 +1,11 @@
+@columns: 4;
+@column-gap: 30px;
+@column-width: calc((100% - @column-gap * (@columns - 1)) / @columns);
+
 #container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px 30px;
+  grid-template-columns: repeat(@columns, @column-width);
+  gap: 40px @column-gap;
   margin: 10px 0;
 }
 
