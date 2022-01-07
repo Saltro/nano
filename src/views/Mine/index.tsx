@@ -56,9 +56,9 @@ const Mine: React.FC = () => {
                     onClick={() => navigate(item.path)}
                   >
                     <item.icon
+                      className={style.icon}
                       style={{
-                        color: path === item.path ? '#f25d8e' : 'rgb(0 0 0 / 70%)',
-                        margin: '0 20px 0 0',
+                        color: path === item.path ? '#f25d8e' : '',
                       }}
                     />
                     <span>{item.name}</span>
