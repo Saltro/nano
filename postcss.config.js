@@ -12,7 +12,7 @@ module.exports = {
       propList: [
         '*',
         '!font*',
-        '!border*',
+        '!border-width',
         '!max-*',
         '!min-*',
         '!height',
