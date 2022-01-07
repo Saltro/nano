@@ -56,7 +56,14 @@ module.exports = {
             loader: 'less-loader',
             options: {
               lessOptions: {
-                javascriptEnabled: true
+                javascriptEnabled: true,
+                modifyVars: {
+                  '@primary-color': '#F09199',
+                  '@link-color': '#F25D8E',
+                  '@border-radius-base': '4px',
+                  '@border-color-base': 'rgba(247, 188, 194, 0.5)',
+                  '@box-shadow-base': '0 2px 8px rgba(0, 0, 0, 0.15)',
+                },
               },
             },
           },

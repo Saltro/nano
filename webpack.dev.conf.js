@@ -44,7 +44,7 @@ module.exports = merge(base, {
             loader: 'less-loader',
           },
         ],
-        exclude: [/src\/assets/, /node_modules/],
+        exclude: [path.resolve(__dirname, 'src', 'assets'), /node_modules/],
       },
     ],
   },

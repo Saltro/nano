@@ -8,6 +8,7 @@ import AuthContainer from './context/AuthContainer';
 import PageLoading from './components/PageLoading';
 import './App.less';
 import './assets/iconfont/iconfont.css';
+import './assets/customStyle/antd.less';
 
 const Home = React.lazy(() => import(/* webpackChunkName: "home" */ './views/Home'));
 const Work = React.lazy(() => import(/* webpackChunkName: "work" */ './views/Work'));
