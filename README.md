@@ -17,7 +17,7 @@ _✨ Author: Saltro | NagisaCo | wzkMaster | kinokosi ✨_
   <img src="https://img.shields.io/github/workflow/status/Saltro/nano/Nano-frontend%20CI" alt="CI">
   <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/Saltro/nano">
   <a href="stargazers">
-    <img src="https://img.shields.io/github/stars/NagisaCo/nano_backend?color=yellow&label=Github%20Stars" alt="star">
+    <img src="https://img.shields.io/github/stars/Saltro/nano?color=yellow&label=Github%20Stars" alt="star">
   </a>
 </p>
 <!-- markdownlint-enable MD033 -->
