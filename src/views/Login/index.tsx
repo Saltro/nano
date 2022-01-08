@@ -20,7 +20,9 @@ const Login: React.FC = () => {
   return (
     <div id={style.container}>
       <div id={style.card}>
-        <img id={style.logo} src="https://media.nano.nagico.cn/group1/M00/00/78/CgAABGHQdweALxdEAAAv_vLMKcQ720.png" onClick={() => navigate('/')} />
+        <div style={{height: "50px"}}>
+          <img id={style.logo} src="https://media.nano.nagico.cn/group1/M00/00/78/CgAABGHQdweALxdEAAAv_vLMKcQ720.png" onClick={() => navigate('/')} />
+        </div>
         <p id={style.subtitle}>圣地巡礼地点全收录</p>
         <div id={style.tabBar}>
           <p
