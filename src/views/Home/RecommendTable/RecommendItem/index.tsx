@@ -14,7 +14,7 @@ const RecommendItem: React.FC<IRecommendInfo> = (props) => {
   return (
     <div id={style.container}>
       <Link to={`/detail/${anime}`}>
-        {!loaded && <Skeleton height="9.95vw" borderRadius="15px" />}
+        {!loaded && <Skeleton height="192.5px" borderRadius="15px" />}
         <div className={style.workCover}>
           <img src={image} alt={title} style={{ display: loaded ? 'block' : 'none' }} />
         </div>

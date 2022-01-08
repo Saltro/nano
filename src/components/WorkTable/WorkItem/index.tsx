@@ -9,7 +9,7 @@ const WorkItem: React.FC<IAnimeInfoBrief> = (props) => {
   return (
     <div id={style.container}>
       <Link to={`/detail/${id}`}>
-        {!loaded && <Skeleton height="11vw" borderRadius="15px" />}
+        {!loaded && <Skeleton height="210px" borderRadius="15px" />}
         <img src={cover_medium} alt={title_cn} style={{ display: loaded ? 'block' : 'none' }} />
         <div className={style.workName}>{title_cn}</div>
       </Link>

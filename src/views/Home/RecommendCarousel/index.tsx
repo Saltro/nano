@@ -25,7 +25,7 @@ const RecommendCarousel: React.FC<{ recommendList: IRecommendInfo[] }> = ({ reco
 
   return (
     <div id={style.container}>
-      {!loadedImage && <Skeleton height="19.75vw" borderRadius="15px" />}
+      {!loadedImage && <Skeleton height="406.5px" borderRadius="15px" />}
       <Carousel
         autoplay
         autoplaySpeed={5000}

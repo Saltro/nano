@@ -17,7 +17,7 @@ const RecommendSidebar: React.FC<{}> = () => {
           <span className={style.title}>热门路线推荐</span>
           <span className={style.arrow}>→</span>
         </div>
-        {!loadedHotSpot && <Skeleton height="12.08vw" borderRadius="15px" />}
+        {!loadedHotSpot && <Skeleton height="221.8px" borderRadius="15px" />}
         <div className={style.recommend}>
           <Image
             title="寺庙、神社与祭典"
@@ -33,7 +33,7 @@ const RecommendSidebar: React.FC<{}> = () => {
           <span className={style.title}>城市推荐</span>
           <span className={style.arrow}>→</span>
         </div>
-        {!loadedCityRec && <Skeleton height="4.60vw" borderRadius="15px" />}
+        {!loadedCityRec && <Skeleton height="83.01px" borderRadius="15px" />}
         <div className={style.cityImages}>
           <Image title="东京" src="https://qiniu-picgo.saltroping.com/city1.jpg" loaded={loadedCityRec} />
           <Image title="京都" src="https://qiniu-picgo.saltroping.com/city2.jpg" loaded={loadedCityRec} />
@@ -45,7 +45,7 @@ const RecommendSidebar: React.FC<{}> = () => {
           <span className={style.title}>圣地巡礼攻略</span>
           <span className={style.arrow}>→</span>
         </div>
-        {!loadedStrategy && <Skeleton height="8vw" borderRadius="15px" />}
+        {!loadedStrategy && <Skeleton height="135px" borderRadius="15px" />}
         <div className={style.images}>
           <Image src="https://qiniu-picgo.saltroping.com/路线.png" loaded={loadedStrategy} />
           <Image src="https://qiniu-picgo.saltroping.com/交通.png" loaded={loadedStrategy} />

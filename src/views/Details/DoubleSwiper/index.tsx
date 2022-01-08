@@ -32,7 +32,7 @@ const DoubleSwiper: React.FC<IDoubleSwiperProps> = ({ pictures }) => {
   }
   return (
     <div className={style.container}>
-      {!loadedImage && <Skeleton height="12.75vw" borderRadius="15px" />}
+      {!loadedImage && <Skeleton height="250px" borderRadius="15px" />}
       <Image.PreviewGroup>
         <Carousel autoplay dots={false} ref={ref} beforeChange={handleSlideChange}>
           {toGroup(pictures).map((group, index) => {

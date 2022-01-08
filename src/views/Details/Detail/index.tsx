@@ -104,7 +104,7 @@ const Detail: React.FC<IDetailProps> = (props) => {
         })}
       </div>
       <div className={style.details} ref={refImages}>
-        {!loadedImage && <Skeleton height="16.33vw" width="11.78vw" borderRadius="15px" />}
+        {!loadedImage && <Skeleton height="338px" width="240px" borderRadius="15px" />}
         <img src={image} className={style.image} style={{ display: loadedImage ? 'block' : 'none' }} />
         <div className={style.info}>
           {director.length > 0 && (
